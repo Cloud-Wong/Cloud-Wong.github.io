@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-05-29T13:12:22.000Z</updated>
+  <updated>2017-06-21T15:16:24.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,378 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>数据库复习大纲</title>
+    <link href="http://yoursite.com/2017/06/21/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A0%E5%A4%A7%E7%BA%B2/"/>
+    <id>http://yoursite.com/2017/06/21/数据库复习大纲/</id>
+    <published>2017-06-21T15:12:47.000Z</published>
+    <updated>2017-06-21T15:16:24.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><h3 id="1-什么是数据库？数据库数据有哪三个基本特点？"><a href="#1-什么是数据库？数据库数据有哪三个基本特点？" class="headerlink" title="1.什么是数据库？数据库数据有哪三个基本特点？"></a>1.什么是数据库？数据库数据有哪三个基本特点？</h3><p>数据库是长期储存在计算机内，有组织，可共享的大量数据集合。数据库中的数据按一定的数据模型组织、描述和储存，具有<strong>较小的冗余度</strong>、<strong>较高的数据独立性</strong>和<strong>易扩展性</strong>，并可为各种用户共享<br><a id="more"></a></p>
+<h3 id="2-数据库管理系统有哪些功能？"><a href="#2-数据库管理系统有哪些功能？" class="headerlink" title="2.数据库管理系统有哪些功能？"></a>2.数据库管理系统有哪些功能？</h3><ol>
+<li>数据定义功能</li>
+<li>数据组织、存储和管理功能</li>
+<li>数据操作功能</li>
+<li>数据库事务管理和运行管理</li>
+<li>数据库的建立和维护功能</li>
+<li>其他</li>
+</ol>
+<h3 id="3-数据库系统有几个特点？它与文件系统的本质区别是什么？"><a href="#3-数据库系统有几个特点？它与文件系统的本质区别是什么？" class="headerlink" title="3. 数据库系统有几个特点？它与文件系统的本质区别是什么？"></a>3. 数据库系统有几个特点？它与文件系统的本质区别是什么？</h3><h4 id="1-数据结构化"><a href="#1-数据结构化" class="headerlink" title="(1)数据结构化"></a>(1)数据结构化</h4><p>数据库系统实现整体数据结构化，这是数据库的主要功能之一，也是数据库系统与文件系统的本质区别。</p>
+<p>文件系统中，记录的结构和记录之间的联系被固化在程序中，需要由程序员加以维护，既加重了程序员负担，由不利于结构变动</p>
+<h4 id="2-数据的共享性高，冗余度低且易扩充"><a href="#2-数据的共享性高，冗余度低且易扩充" class="headerlink" title="(2)数据的共享性高，冗余度低且易扩充"></a>(2)数据的共享性高，冗余度低且易扩充</h4><p>数据共享可以大大减少数据冗余，介于存储空间。数据共享还能够避免数据之间的不相容性与不一致性。</p>
+<h4 id="3-数据独立度高"><a href="#3-数据独立度高" class="headerlink" title="(3)数据独立度高"></a>(3)数据独立度高</h4><p>物理独立性：用户的应用程序与数据库中数据的物理结构是相互独立的。</p>
+<p>逻辑独立性：用户的应用程序与数据库的逻辑结构是相互独立的。</p>
+<h4 id="4-数据由数据库管理系统统一管理和控制"><a href="#4-数据由数据库管理系统统一管理和控制" class="headerlink" title="(4)数据由数据库管理系统统一管理和控制"></a>(4)数据由数据库管理系统统一管理和控制</h4><p>数据库的共享将会带来数据库的安全隐患，为此数据库管理系统提供了<strong>数据库的安全性保护</strong>、<strong>数据库的完整性检查</strong>、<strong>并发控制</strong>和<strong>数据库恢复</strong>。</p>
+<h3 id="4-理解概念模型中的基本概念"><a href="#4-理解概念模型中的基本概念" class="headerlink" title="4.理解概念模型中的基本概念"></a>4.理解概念模型中的基本概念</h3><p>概念模型实际上是现实世界到机器世界到一个中间层次，它用于信息世界的建模，是现实世界到信息世界的第一层抽象，是数据库设计人员进行数据库设计的有力工具。</p>
+<p>信息世界中的主要概念：</p>
+<ol>
+<li>实体</li>
+</ol>
+<p>客观存在并可相互区别的事务称为实体</p>
+<ol>
+<li>属性</li>
+</ol>
+<p>实体所具有的某一特性称为属性，用椭圆形表示</p>
+<ol>
+<li>码（key）</li>
+</ol>
+<p>唯一标识实体属性集称为码</p>
+<ol>
+<li>实体型</li>
+</ol>
+<p>用实体名及属性名集合来抽象和刻画同类实体，称为实体型，矩形框表示</p>
+<ol>
+<li>实体集</li>
+</ol>
+<p>同一类型实体的集合，如全体学生</p>
+<ol>
+<li>联系</li>
+</ol>
+<p>不同实体集之间的联系，有1V1、1Vn、nVn等多种类型</p>
+<p><strong>概念模型的一种表示方式</strong>：实体联系方法（ER模型）</p>
+<h3 id="5-什么是数据模型的三要素？有几种常用的数据模型。"><a href="#5-什么是数据模型的三要素？有几种常用的数据模型。" class="headerlink" title="5.什么是数据模型的三要素？有几种常用的数据模型。"></a>5.什么是数据模型的三要素？有几种常用的数据模型。</h3><h4 id="数据模型三要素："><a href="#数据模型三要素：" class="headerlink" title="数据模型三要素："></a>数据模型三要素：</h4><p>数据模型是严格定义的一组概念的集合，数据模型的三要素是<strong>数据结构</strong>、<strong>数据操作</strong>和<strong>完整性约束</strong>三部分组成。</p>
+<ol>
+<li>数据结构：描述数据库的组成对象以及对象之间的联系。是对系统静态特征的描述。</li>
+<li>数据操作：数据库中各种对象的实例允许执行的操作的集合，包括操作及有关操作规则。数据操作是对系统动态特征的描述。</li>
+<li>数据库的完整性约束条件：是一组完整性规则。</li>
+</ol>
+<h4 id="常用的数据模型："><a href="#常用的数据模型：" class="headerlink" title="常用的数据模型："></a>常用的数据模型：</h4><h5 id="1-层次模型"><a href="#1-层次模型" class="headerlink" title="(1) 层次模型"></a>(1) 层次模型</h5><h6 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h6><ol>
+<li>层次模型的数据结构比较简单清晰</li>
+<li>层次数据库的查询效率较高</li>
+<li>提供了良好的完整性支持</li>
+</ol>
+<h6 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h6><ol>
+<li>现实世界很多联系是非层次的，如多对多</li>
+<li>如果一个结点具有多个双亲结点，引入冗余，使应用程序编写复杂</li>
+<li>查询子女结点必须通过双亲节点</li>
+<li>由于结构严密，层次命令趋于程序化</li>
+</ol>
+<h5 id="2-网状模型"><a href="#2-网状模型" class="headerlink" title="(2)网状模型"></a>(2)网状模型</h5><h6 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h6><ol>
+<li>能够更为直接的描述现实世界</li>
+<li>具有良好的性能，存取效率高</li>
+</ol>
+<h6 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h6><ol>
+<li>结构复杂，不利于最终用户掌握</li>
+<li>网状模型的DDL、DML复杂，用户不容易掌握和使用</li>
+<li>记录之间联系是通过存储路径实现的，因此用户必须掌握结构细节，加重编写应用程序的负担。</li>
+</ol>
+<h5 id="3-关系模型"><a href="#3-关系模型" class="headerlink" title="(3)关系模型"></a>(3)关系模型</h5><h6 id="优点-2"><a href="#优点-2" class="headerlink" title="优点"></a>优点</h6><ol>
+<li>关系模式与格式化模型不同，它建立在严格的数学概念的基础上</li>
+<li>关系模型的概念单一，数据结构简单、清晰，用户易懂易用</li>
+<li>关系模型的存取路径对用户透明，具有更高的数据独立性、更好的安全保密性，也简化了程序员工作和数据库开发建立的工作</li>
+</ol>
+<h3 id="6-数据库系统的三级模式结构和两层映像。特点是什么？"><a href="#6-数据库系统的三级模式结构和两层映像。特点是什么？" class="headerlink" title="6.数据库系统的三级模式结构和两层映像。特点是什么？"></a>6.数据库系统的三级模式结构和两层映像。特点是什么？</h3><p><img src="http://oq6qnksdu.bkt.clouddn.com/17-6-21/20409749.jpg" alt="数据库三级模式图"></p>
+<h4 id="三级模式"><a href="#三级模式" class="headerlink" title="三级模式"></a>三级模式</h4><h5 id="1-模式"><a href="#1-模式" class="headerlink" title="1.模式"></a>1.模式</h5><p><strong>模式也称逻辑模式，是数据库中全体数据的逻辑结构和特征的描述，是所有用户的公共数据视图。</strong>它是数据库系统模式结构的中间层。</p>
+<h5 id="2-外模式"><a href="#2-外模式" class="headerlink" title="2.外模式"></a>2.外模式</h5><p><strong>外模式也称子模式或用户模式，他是数据库用户能够看见和使用的局部数据的逻辑结构和特征描述，是数据库用户的数据视图，是与某一用户有关的数据的逻辑表示。</strong></p>
+<h5 id="3-内模式"><a href="#3-内模式" class="headerlink" title="3.内模式"></a>3.内模式</h5><p><strong>内模式也称存储模式，一个数据库只有一个内模式。他是数据物理结构和存储方式的描述，是数据在数据库内部的组织方式。</strong></p>
+<h4 id="两层映像"><a href="#两层映像" class="headerlink" title="两层映像"></a>两层映像</h4><h5 id="1-外模式／模式映像"><a href="#1-外模式／模式映像" class="headerlink" title="1.外模式／模式映像"></a>1.外模式／模式映像</h5><p>模式描述的是数据的全局逻辑结构，外模式描述的是数据的局部逻辑结构，对于同一个模式可以有任意多个外模式，对于每一个外模式，数据库系统都有一个外模式／模式映像，它定义了该外模式与模式的对应关系。</p>
+<p><strong>当模式改变时，由数据库管理员对各个外模式／模式的映像作相应改变，可以使外模式保持不变。应用程序是依据数据外模式编写的，从而应用程序不必修改，保证了数据与程序的逻辑独立性。</strong></p>
+<h5 id="2-模式／内模式映像"><a href="#2-模式／内模式映像" class="headerlink" title="2.模式／内模式映像"></a>2.模式／内模式映像</h5><p>数据库中只有一个模式，也只有一个内模式，所以模式／内模式映像是唯一的，它定义了数据全局逻辑与存储结构之间的对应关系。<strong>当数据库的存储结构改变时，由数据库管理员对模式／内模式映像作相应改变，可以使模式保持不变，从而应用程序也不必改变。保证了数据与程序的物理独立性。</strong></p>
+<h3 id="7-开发、管理和使用数据库的人员有哪几类？"><a href="#7-开发、管理和使用数据库的人员有哪几类？" class="headerlink" title="7.开发、管理和使用数据库的人员有哪几类？"></a>7.开发、管理和使用数据库的人员有哪几类？</h3><p><img src="http://oq6qnksdu.bkt.clouddn.com/17-6-21/57039615.jpg" alt=""></p>
+<h4 id="1-数据库管理员（DBA）"><a href="#1-数据库管理员（DBA）" class="headerlink" title="1.数据库管理员（DBA）"></a>1.数据库管理员（DBA）</h4><p>负责全面控制和管理数据库系统</p>
+<h4 id="2-系统分析员和数据库设计人员"><a href="#2-系统分析员和数据库设计人员" class="headerlink" title="2.系统分析员和数据库设计人员"></a>2.系统分析员和数据库设计人员</h4><p>分析员负责应用系统的需求分析和规范说明，参与数据库系统概要设计</p>
+<p>设计人员负责数据库中数据的确定及数据库各级模式的设计</p>
+<h4 id="3-应用程序员"><a href="#3-应用程序员" class="headerlink" title="3.应用程序员"></a>3.应用程序员</h4><p>负责设计和编写应用系统模块，并进行调试和安装</p>
+<h4 id="4-用户"><a href="#4-用户" class="headerlink" title="4.用户"></a>4.用户</h4><p>指最终用户，通过应用系统的用户接口使用数据库</p>
+<h2 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h2><h3 id="1-理解关系的有关术语并会判断"><a href="#1-理解关系的有关术语并会判断" class="headerlink" title="1.理解关系的有关术语并会判断"></a>1.理解关系的有关术语并会判断</h3><h4 id="1-域"><a href="#1-域" class="headerlink" title="(1)域"></a>(1)域</h4><p>一组具有相同数据类型的值的集合</p>
+<p>例如：自然数、整数、长度小于25字节的字符串集合、{0,1}、{男、女}等</p>
+<h4 id="2-笛卡尔积"><a href="#2-笛卡尔积" class="headerlink" title="(2)笛卡尔积"></a>(2)笛卡尔积</h4><p>笛卡尔积是域上的一种集合运算，就是把两个表相乘。</p>
+<p>一个域允许的不同取值个数称为这个域的<strong>基数</strong></p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">D1</span>×<span class="built_in">D2</span>×···×<span class="meta">Dn</span>=&#123;(<span class="built_in">d1</span>,<span class="built_in">d2</span>,···,<span class="meta">dn</span>) <span class="title">| di∈Di，i=1,2,···，n&#125;</span></div></pre></td></tr></table></figure>
+<p>例子，设有两个域：姓名集D1={李倩，王刚，张体宁} 和 性别集D2={男，女}。则：</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">设有两个域：姓名集<span class="built_in">D1</span>=&#123;李倩，王刚，张体宁&#125; 和 性别集<span class="built_in">D2</span>=&#123;男，女&#125;。</div></pre></td></tr></table></figure>
+<p>这六个<strong>元组</strong>可构成一张二维表，表中部分元组称作其子集。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">D1</th>
+<th style="text-align:center">D2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">李倩</td>
+<td style="text-align:center">女</td>
+</tr>
+<tr>
+<td style="text-align:center">王刚</td>
+<td style="text-align:center">女</td>
+</tr>
+<tr>
+<td style="text-align:center">张体宁</td>
+<td style="text-align:center">女</td>
+</tr>
+<tr>
+<td style="text-align:center">李倩</td>
+<td style="text-align:center">男</td>
+</tr>
+<tr>
+<td style="text-align:center">王刚</td>
+<td style="text-align:center">男</td>
+</tr>
+<tr>
+<td style="text-align:center">张体宁</td>
+<td style="text-align:center">男</td>
+</tr>
+</tbody>
+</table>
+<h4 id="3-关系"><a href="#3-关系" class="headerlink" title="(3)关系"></a>(3)关系</h4><p>D1xD2xD3…Dn的子集叫做在域D1，D2，…，Dn上的<strong>关系</strong></p>
+<p><strong>候选码的定义</strong>：如果关系中的某一属性组的值能唯一地标识一个元祖，则称该属性组为候选码；</p>
+<p><strong>主码的定义</strong>：如果一个关系有多个候选码，则选定其中一个为主码；</p>
+<p><strong>主属性定义</strong>：候选码的诸属性称为主属性；</p>
+<p><strong>非主属性定义</strong>：不包含在任何候选码中的属性称为非主属性；</p>
+<p><strong>全码</strong>：最极端的情况下，所有属性都为候选码，成为全码</p>
+<p><strong>关系的三种类型</strong>：基本关系（基本表）、查询表和视图表。基本表是实际存在的表，它是实际存储数据的逻辑表示；查询表是查询结果对应的表；视图表是由基本表或其他视图表导出的表，是虚表，不对应实际存储的数据。</p>
+<h3 id="2-理解基本关系的6条性质"><a href="#2-理解基本关系的6条性质" class="headerlink" title="2.理解基本关系的6条性质"></a>2.理解基本关系的6条性质</h3><ol>
+<li>列是同质的，即每一列中的分量是同一类型的数据，来自同一个域。</li>
+<li>不同的列可出自同一个域，称其中的每一列为一个属性，不同的属性要给予不同的属性名。</li>
+<li>列的顺序无所谓，即列的次序可以任意交换。</li>
+<li>任意两个元组的候选码不能取相同的值</li>
+<li>行的顺序无所谓，可以任意交换</li>
+<li>分量必须取原子值，即每一个分量是不可分的数据项<strong>（最基本的一条）</strong></li>
+</ol>
+<h3 id="3-理解实体完整性、参照完整性的规则并举例"><a href="#3-理解实体完整性、参照完整性的规则并举例" class="headerlink" title="3.理解实体完整性、参照完整性的规则并举例"></a>3.理解实体完整性、参照完整性的规则并举例</h3><p>关系模式中有三类完整性约束：<strong>实体完整性</strong>、<strong>参照完整性</strong>和<strong>用户定义的完整性</strong>。</p>
+<h4 id="1-实体完整性规则"><a href="#1-实体完整性规则" class="headerlink" title="(1)实体完整性规则"></a>(1)实体完整性规则</h4><p><strong>若一个属性A是基本关系R的主属性，则A不能取空值。</strong></p>
+<p>例如：学生（<u>学号</u>、姓名、性别、专业号、年龄）关系中学号为主码，则学号不能取空值。</p>
+<p><strong>如果主码由若干属性组成，则这些主属性都不能取空值</strong></p>
+<p>例如：选修（<u>学号、课程号</u>、成绩）关系中，“学号、课程号“为主码，则两个属性都不能取空值</p>
+<p>对于实体完整性规则如下：</p>
+<ol>
+<li>实体完整性规则是针对基本关系而言的。一个基本表通常对应现实世界的一个实体集。例如学生关系对应于学生的集合。</li>
+<li>现实世界中的实体是不可区分的，即他们具有某种唯一性标识。例如每个学生都是独立的个体。</li>
+<li>关系模型中的主码作为唯一性标识。</li>
+<li>主码的属性既主属性不能取空值。</li>
+</ol>
+<h4 id="2-参照完整性规则"><a href="#2-参照完整性规则" class="headerlink" title="(2)参照完整性规则"></a>(2)参照完整性规则</h4><p>若属性F是基本关系R的外码，它与基本关系S的主码Ks相对应，则对于R中的每个元组F上的值必须：</p>
+<ul>
+<li>或者取空值（F的每个属性值均为空值）</li>
+<li>或者等于S中某个元组的主码值</li>
+</ul>
+<p>例如：</p>
+<p>学生（<u>学号</u>，姓名，性别，专业号，年龄）</p>
+<p>专业（<u>专业号</u>，专业名）</p>
+<p>学生关系中的每个元组的“专业号”属性只能取下面两类值：</p>
+<ul>
+<li>空值，表示尚未给该学生分配专业</li>
+<li>非空值，该值必须对应专业关系中某个元组的“专业号”值</li>
+</ul>
+<h3 id="4-理解关系的外码、参照关系、被参照关系"><a href="#4-理解关系的外码、参照关系、被参照关系" class="headerlink" title="4.理解关系的外码、参照关系、被参照关系"></a>4.理解关系的外码、参照关系、被参照关系</h3><p>设F是基本关系R的一个或一组属性，但不是关系的码，Ks是基本关系S的主码。如果F和Ks相对应，则称F是R的<strong>外码</strong>，并称基本关系R为<strong>参照关系</strong>，基本关系S为<strong>被参照关系</strong>或目标关系</p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-6-21/2282416.jpg" alt=""></p>
+<h3 id="5-理解元组、分量、连接、象集等概念和记号表示及判断"><a href="#5-理解元组、分量、连接、象集等概念和记号表示及判断" class="headerlink" title="5.理解元组、分量、连接、象集等概念和记号表示及判断"></a>5.理解元组、分量、连接、象集等概念和记号表示及判断</h3><p>每一个元素{d1，d2，…，dn}叫做一个<strong>n元组</strong>，或简称<strong>元组</strong>。元素中的每一个值di叫做一个分量。</p>
+<p><strong>连接</strong>也称θ连接。他是从两个关系的笛卡尔积中选取属性间满足一定条件的元组。记作</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">R∞S=&#123;<span class="keyword">tr</span> <span class="keyword">ts</span>|(<span class="keyword">tr</span>∈R) ∧ (<span class="keyword">ts</span> ∈S) ∧ <span class="keyword">tr</span>[A] θ <span class="keyword">ts</span>[B] &#125;</div><div class="line">AθB</div></pre></td></tr></table></figure>
+<p>连接运算从R和S的笛卡尔积RxS中选取R关系在A属性组上的值与S关系在B属性组上的值满足比较关系θ的元组</p>
+<p><strong>象集</strong>的概念。<br>在关系R中属性A可以取四个值｛a1,a2,a3,a4}其中<br>a1的象集为｛(b1,c2),(b2,c3),(b2,c1)}<br>a2的象集为｛(b3,c7),(b2,c3)}<br>a3的象集为｛(b4,c6)}<br>a4的象集为｛(b6,c6)} </p>
+<p><strong>R:</strong></p>
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a1</td>
+<td>b1</td>
+<td>c2</td>
+</tr>
+<tr>
+<td>a2</td>
+<td>b3</td>
+<td>c7</td>
+</tr>
+<tr>
+<td>a3</td>
+<td>b4</td>
+<td>c6</td>
+</tr>
+<tr>
+<td>a1</td>
+<td>b2</td>
+<td>c3</td>
+</tr>
+<tr>
+<td>a4</td>
+<td>b6</td>
+<td>c6</td>
+</tr>
+<tr>
+<td>a2</td>
+<td>b2</td>
+<td>c3</td>
+</tr>
+<tr>
+<td>A1</td>
+<td>B2</td>
+<td>c1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="6-理解各种关系代数运算及特点。要求分析给定关系的运算结果；以及根据要求完成的操作结果给出相应的运算式"><a href="#6-理解各种关系代数运算及特点。要求分析给定关系的运算结果；以及根据要求完成的操作结果给出相应的运算式" class="headerlink" title="6.理解各种关系代数运算及特点。要求分析给定关系的运算结果；以及根据要求完成的操作结果给出相应的运算式"></a>6.理解各种关系代数运算及特点。要求分析给定关系的运算结果；以及根据要求完成的操作结果给出相应的运算式</h3><p>关系运算包括：选择、投影、连接、除等。</p>
+<p>设t为R的元组变量，R(U)=R(A1，A2，···，An)，则引入记号：</p>
+<blockquote>
+<p>t[A]：表示关系R在A属性（组）上的所有值。</p>
+</blockquote>
+<h4 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h4><p>选择是在<strong>关系行上进行的元组挑选</strong>，结果产生同类关系。运算表达式如下：</p>
+<blockquote>
+<p>σF(R)={t | t∈R ∧ F(t)=true }</p>
+</blockquote>
+<p>σF(R)表示从关系R中选出满足条件表达式F的那些元组所构成的关系。其中F由属性名（值）、比较符、逻辑运算符组成。</p>
+<p>看个例子</p>
+<p>R:</p>
+<table>
+<thead>
+<tr>
+<th>A1</th>
+<th>A2</th>
+<th>A3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>a</td>
+<td>3</td>
+<td>f</td>
+</tr>
+<tr>
+<td>b</td>
+<td>2</td>
+<td>d</td>
+</tr>
+<tr>
+<td>c</td>
+<td>2</td>
+<td>d</td>
+</tr>
+<tr>
+<td>e</td>
+<td>6</td>
+<td>f</td>
+</tr>
+<tr>
+<td>g</td>
+<td>6</td>
+<td>f</td>
+</tr>
+</tbody>
+</table>
+<p>则σA2&gt;5 (R)</p>
+<table>
+<thead>
+<tr>
+<th>A1</th>
+<th>A2</th>
+<th>A3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>e</td>
+<td>6</td>
+<td>f</td>
+</tr>
+<tr>
+<td>g</td>
+<td>6</td>
+<td>f</td>
+</tr>
+</tbody>
+</table>
+<h4 id="投影"><a href="#投影" class="headerlink" title="投影"></a>投影</h4><p>投影运算时在关系列上进行的选择，结果产生不同类关系。运算式表示如下：</p>
+<blockquote>
+<p>ΠA(R)={t[a] | (t∈R)}</p>
+</blockquote>
+<p>继续使用上面的例子，上面例子中对应的ΠA3,A2(R)为：</p>
+<table>
+<thead>
+<tr>
+<th>A3</th>
+<th>A2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>f</td>
+<td>3</td>
+</tr>
+<tr>
+<td>d</td>
+<td>2</td>
+</tr>
+<tr>
+<td>f</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<h4 id="除"><a href="#除" class="headerlink" title="除"></a>除</h4><p>设关系R(X,Y)和S(Y,Z)，X，Y，Z为属性组。X属性上的值为Xi。则：</p>
+<blockquote>
+<p>R÷S= {t[X] | t∈R ∧ ΠY(S)⊆YX}</p>
+</blockquote>
+<p>求 R÷S步骤如下：</p>
+<blockquote>
+<ol>
+<li>求ΠX(R)</li>
+<li>求ΠY(S)</li>
+<li>YX为Xi在R中的象集，他表示R中属性组X上值为xi的诸元素在Y上分量的集合</li>
+<li>R÷S运算结果为：象集YX包含了ΠY(S)的xi</li>
+</ol>
+</blockquote>
+<p>求象集YX的方法为：对于每个值xi，xi∈Πx(R),求ΠY(σX=xi(R))</p>
+<p>看个例子</p>
+<p>关系R中A可以取{a1,a2,a3,a4}</p>
+<p>a1的象集为a1的象集为｛(b1,c2),(b2,c3),(b2,c1)}<br>a2的象集为｛(b3,c7),(b2,c3)}<br>a3的象集为｛(b4,c6)}<br>a4的象集为｛(b6,c6)}<br>S在（B,C）上的投影为｛(b1,c2),(b2,c3),(b2,c1) }. </p>
+<p>因此只有a1的象集包含了S在（B，C）上的投影，所以</p>
+<p>R➗S={a1}</p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-6-21/78829772.jpg" alt=""></p>
+<h3 id="7-掌握等值连接与自然连接之间的区别"><a href="#7-掌握等值连接与自然连接之间的区别" class="headerlink" title="7.掌握等值连接与自然连接之间的区别"></a>7.掌握等值连接与自然连接之间的区别</h3><p>连接是在两个关系的笛卡尔积基础上再做选择运算得到的关系。如果连接条件相等，则称是等值连接，否则为不等值连接。在等值连接的基础上去除重复的列，则为自然连接。</p>
+<p>一张图说明</p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-6-21/22256984.jpg" alt=""></p>
+<h2 id="第三章"><a href="#第三章" class="headerlink" title="第三章"></a>第三章</h2><h3 id="1-SQL的特点和基本概念"><a href="#1-SQL的特点和基本概念" class="headerlink" title="1.SQL的特点和基本概念"></a>1.SQL的特点和基本概念</h3><h4 id="SQL的特点"><a href="#SQL的特点" class="headerlink" title="SQL的特点"></a>SQL的特点</h4><h5 id="1-综合统一"><a href="#1-综合统一" class="headerlink" title="(1)综合统一"></a>(1)综合统一</h5><p>数据库系统的主要功能是通过数据库支持的数据语言来实现的，SQL集数据定义语言、数据操纵语言、数据控制语言的功能于一体，语言风格统一，可以独立完成数据库生命周期中的全部活动</p>
+<h5 id="2-高度非过程化"><a href="#2-高度非过程化" class="headerlink" title="(2)高度非过程化"></a>(2)高度非过程化</h5><p>只要提出做什么，而无须指明怎么做，因此无需了解存储路径。</p>
+<h5 id="3-面向集合的操作方式"><a href="#3-面向集合的操作方式" class="headerlink" title="(3)面向集合的操作方式"></a>(3)面向集合的操作方式</h5><p>SQL采用集合操作方式，不仅操作对象、查找结果可以是元组的集合，而且一次插入、删除、更新操作的对象也可以是元组的集合</p>
+<h5 id="4-以一种语法结构提供多种使用方式"><a href="#4-以一种语法结构提供多种使用方式" class="headerlink" title="(4)以一种语法结构提供多种使用方式"></a>(4)以一种语法结构提供多种使用方式</h5><p>SQL既是独立的语言，又是嵌入式语言，能够嵌入到高级语言（java、c++等）程序中</p>
+<h5 id="5-语言简洁，易学易用"><a href="#5-语言简洁，易学易用" class="headerlink" title="(5)语言简洁，易学易用"></a>(5)语言简洁，易学易用</h5><p>设计巧妙，语言简洁，接近口语</p>
+<h4 id="SQL的基本概念"><a href="#SQL的基本概念" class="headerlink" title="SQL的基本概念"></a>SQL的基本概念</h4><p>支持SQL的关系数据库管理系统同样支持关系数据库的三级模式结构。其中外模式包括若干视图和部分基本表，数据库模式包括若干基本表，内模式包括若干存储文件。</p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-6-21/54502437.jpg" alt=""></p>
+<h3 id="2-掌握创建数据库、表、架构（模式）、完整性的SQL语句"><a href="#2-掌握创建数据库、表、架构（模式）、完整性的SQL语句" class="headerlink" title="2.掌握创建数据库、表、架构（模式）、完整性的SQL语句"></a>2.掌握创建数据库、表、架构（模式）、完整性的SQL语句</h3>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;第一章&quot;&gt;&lt;a href=&quot;#第一章&quot; class=&quot;headerlink&quot; title=&quot;第一章&quot;&gt;&lt;/a&gt;第一章&lt;/h2&gt;&lt;h3 id=&quot;1-什么是数据库？数据库数据有哪三个基本特点？&quot;&gt;&lt;a href=&quot;#1-什么是数据库？数据库数据有哪三个基本特点？&quot; class=&quot;headerlink&quot; title=&quot;1.什么是数据库？数据库数据有哪三个基本特点？&quot;&gt;&lt;/a&gt;1.什么是数据库？数据库数据有哪三个基本特点？&lt;/h3&gt;&lt;p&gt;数据库是长期储存在计算机内，有组织，可共享的大量数据集合。数据库中的数据按一定的数据模型组织、描述和储存，具有&lt;strong&gt;较小的冗余度&lt;/strong&gt;、&lt;strong&gt;较高的数据独立性&lt;/strong&gt;和&lt;strong&gt;易扩展性&lt;/strong&gt;，并可为各种用户共享&lt;br&gt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>连接池介绍--C3P0连接池</title>
@@ -54,7 +426,7 @@
 <p><img src="http://oq6qnksdu.bkt.clouddn.com/17-5-29/98108670.jpg" alt=""></p>
 </li>
 </ol>
-<h3 id="书写连接池配置"><a href="#书写连接池配置" class="headerlink" title="书写连接池配置"></a>书写连接池配置</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">c3p0-config</span>&gt;</span>  </div><div class="line">    <span class="comment">&lt;!-- This is default config! --&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">default-config</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClass"</span>&gt;</span>com.mysql.jdbc.Driver<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcUrl"</span>&gt;</span>jdbc:mysql://localhost:3306/contacts?characterEncoding=utf8<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"user"</span>&gt;</span>root<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span>&gt;</span>123456<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		</div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"acquireIncrement"</span>&gt;</span>5<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"initialPoolSize"</span>&gt;</span>10<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"minPoolSize"</span>&gt;</span>5<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxPoolSize"</span>&gt;</span>20<span class="tag">&lt;/<span class="name">property</span>&gt;</span> </div><div class="line"></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxStatements"</span>&gt;</span>0<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxStatementsPerConnection"</span>&gt;</span>5<span class="tag">&lt;/<span class="name">property</span>&gt;</span> </div><div class="line">    <span class="tag">&lt;/<span class="name">default-config</span>&gt;</span>  </div><div class="line">  </div><div class="line">    <span class="comment">&lt;!-- This is my config for mysql--&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">named-config</span> <span class="attr">name</span>=<span class="string">"mysql"</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClass"</span>&gt;</span>com.mysql.jdbc.Driver<span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcUrl"</span>&gt;</span>jdbc:mysql://localhost:3306/test<span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"user"</span>&gt;</span>root<span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span>&gt;</span>123456<span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"initialPoolSize"</span>&gt;</span>10<span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxIdleTime"</span>&gt;</span>30<span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxPoolSize"</span>&gt;</span>100<span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"minPoolSize"</span>&gt;</span>10<span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxStatements"</span>&gt;</span>200<span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;/<span class="name">named-config</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">c3p0-config</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="书写连接池配置"><a href="#书写连接池配置" class="headerlink" title="书写连接池配置"></a>书写连接池配置</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span><span class="meta">?&gt;</span></span></div><div class="line"><span class="tag">&lt;<span class="name">c3p0-config</span>&gt;</span>  </div><div class="line">    <span class="comment">&lt;!-- This is default config! --&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">default-config</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClass"</span>&gt;</span>com.mysql.jdbc.Driver<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcUrl"</span>&gt;</span>jdbc:mysql://localhost:3306/contacts?characterEncoding=utf8<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"user"</span>&gt;</span>root<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span>&gt;</span>123456<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		</div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"acquireIncrement"</span>&gt;</span>5<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"initialPoolSize"</span>&gt;</span>10<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"minPoolSize"</span>&gt;</span>5<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxPoolSize"</span>&gt;</span>20<span class="tag">&lt;/<span class="name">property</span>&gt;</span> </div><div class="line"></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxStatements"</span>&gt;</span>0<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxStatementsPerConnection"</span>&gt;</span>5<span class="tag">&lt;/<span class="name">property</span>&gt;</span> </div><div class="line">    <span class="tag">&lt;/<span class="name">default-config</span>&gt;</span>  </div><div class="line">  </div><div class="line">    <span class="comment">&lt;!-- This is my config for mysql--&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">named-config</span> <span class="attr">name</span>=<span class="string">"mysql"</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClass"</span>&gt;</span>com.mysql.jdbc.Driver<span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcUrl"</span>&gt;</span>jdbc:mysql://localhost:3306/test<span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"user"</span>&gt;</span>root<span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span>&gt;</span>123456<span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"initialPoolSize"</span>&gt;</span>10<span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxIdleTime"</span>&gt;</span>30<span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxPoolSize"</span>&gt;</span>100<span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"minPoolSize"</span>&gt;</span>10<span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxStatements"</span>&gt;</span>200<span class="tag">&lt;/<span class="name">property</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;/<span class="name">named-config</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">c3p0-config</span>&gt;</span></div></pre></td></tr></table></figure>
 <p>配置信息主要是填写数据库驱动、数据库名称、数据库用户名、密码等等，一般修改这些信息，其他的按默认的就可以了。</p>
 <h3 id="启动C3P0连接池"><a href="#启动C3P0连接池" class="headerlink" title="启动C3P0连接池"></a>启动C3P0连接池</h3><p>完成了前面的准备工作和信息配置，下面就正式进入连接池的操作了。</p>
 <p>建立一个C3P0Demo测试类</p>
