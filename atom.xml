@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-06-22T08:25:05.000Z</updated>
+  <updated>2017-06-23T08:53:13.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,17 +16,240 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>数据库复习大纲（二）</title>
-    <link href="http://yoursite.com/2017/06/22/database-review-outline-2/"/>
-    <id>http://yoursite.com/2017/06/22/database-review-outline-2/</id>
-    <published>2017-06-22T08:23:55.000Z</published>
-    <updated>2017-06-22T08:25:05.000Z</updated>
+    <title>数据库复习大纲（3）</title>
+    <link href="http://yoursite.com/2017/06/23/database-rebiew-outline-(3)/"/>
+    <id>http://yoursite.com/2017/06/23/database-rebiew-outline-(3)/</id>
+    <published>2017-06-23T08:51:15.000Z</published>
+    <updated>2017-06-23T08:53:13.000Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="第六章"><a href="#第六章" class="headerlink" title="第六章"></a>第六章</h2><h3 id="1-要求掌握规范化理论的相关概念和方法"><a href="#1-要求掌握规范化理论的相关概念和方法" class="headerlink" title="1.要求掌握规范化理论的相关概念和方法"></a>1.要求掌握规范化理论的相关概念和方法</h3>]]></content>
+    <content type="html"><![CDATA[<h2 id="第七章"><a href="#第七章" class="headerlink" title="第七章"></a>第七章</h2><h3 id="1-数据库设计的特点是什么，可分为哪6个阶段"><a href="#1-数据库设计的特点是什么，可分为哪6个阶段" class="headerlink" title="1.数据库设计的特点是什么，可分为哪6个阶段"></a>1.数据库设计的特点是什么，可分为哪6个阶段</h3>]]></content>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;第六章&quot;&gt;&lt;a href=&quot;#第六章&quot; class=&quot;headerlink&quot; title=&quot;第六章&quot;&gt;&lt;/a&gt;第六章&lt;/h2&gt;&lt;h3 id=&quot;1-要求掌握规范化理论的相关概念和方法&quot;&gt;&lt;a href=&quot;#1-要求掌握规范化理论的相关概念和方法&quot; class=&quot;he
+      &lt;h2 id=&quot;第七章&quot;&gt;&lt;a href=&quot;#第七章&quot; class=&quot;headerlink&quot; title=&quot;第七章&quot;&gt;&lt;/a&gt;第七章&lt;/h2&gt;&lt;h3 id=&quot;1-数据库设计的特点是什么，可分为哪6个阶段&quot;&gt;&lt;a href=&quot;#1-数据库设计的特点是什么，可分为哪6个阶段&quot; cla
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>数据库复习大纲（二）</title>
+    <link href="http://yoursite.com/2017/06/22/database-review-outline-(2)/"/>
+    <id>http://yoursite.com/2017/06/22/database-review-outline-(2)/</id>
+    <published>2017-06-22T08:23:55.000Z</published>
+    <updated>2017-06-23T08:49:32.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="第六章"><a href="#第六章" class="headerlink" title="第六章"></a>第六章</h2><h3 id="1-一个不好关系模式通常存在哪四种问题"><a href="#1-一个不好关系模式通常存在哪四种问题" class="headerlink" title="1.一个不好关系模式通常存在哪四种问题"></a>1.一个不好关系模式通常存在哪四种问题</h3><ol>
+<li>数据冗余</li>
+<li>更新异常</li>
+<li>插入异常</li>
+<li>删除异常</li>
+</ol>
+<h3 id="2-理解并会判断属性的函数依赖关系，平凡、部分、传递函数依赖关系、候选码、主码、主属性、非主属性、全码"><a href="#2-理解并会判断属性的函数依赖关系，平凡、部分、传递函数依赖关系、候选码、主码、主属性、非主属性、全码" class="headerlink" title="2.理解并会判断属性的函数依赖关系，平凡、部分、传递函数依赖关系、候选码、主码、主属性、非主属性、全码"></a>2.理解并会判断属性的函数依赖关系，平凡、部分、传递函数依赖关系、候选码、主码、主属性、非主属性、全码</h3><a id="more"></a>
+<h4 id="函数依赖"><a href="#函数依赖" class="headerlink" title="函数依赖"></a>函数依赖</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>设关系模式R（U），属性集合U={A1，A2，…，An}，X，Y为属性集合U的子集，如果对于关系模式R(U)的任一可能的关系r，r中的任意两个元组u、v，若有u[X]=v[X]，就有u[Y]=v[Y]，则称X函数决定Y，或称Y函数依赖于X。用符号X→Y表示。其中X为决定因素，Y为被决定因素。若对于R（U）的任意一个可能的关系r，r中不可能存在两个元组在X上的属性值性等，而在Y上的属性值不等。</p>
+<ul>
+<li>函数依赖是语义范畴的概念，只能根据语义来确定一个函数依赖关系。</li>
+<li>函数依赖X→Y的定义要求关系模式R的任何可能的关系r中的元组都满足函数依赖条件。</li>
+</ul>
+<h5 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h5><ol>
+<li>若X→Y，则X称作决定因素（Determinant）</li>
+<li>若X→Y，Y→X，称作X&lt;–&gt;Y。</li>
+<li>若Y不函数依赖于X，称作X -/-&gt; Y。</li>
+<li>X→Y，若Y不是X的子集，则称X→Y为<strong>非平凡的函数依赖</strong>。正常讨论的都是非平凡的函数依赖。</li>
+<li>X→Y，若Y是X的子集，则称X→Y为<strong>平凡的函数依赖</strong>。</li>
+<li><strong>完全函数依赖</strong>(full functional dependency)：在R(U)中，设X、Y是关系模式R（U）中不同的属性子集，若存在 X→Y，且<strong>不存在</strong> X的任何真子集X’，使得 X’→Y，则称Y完全函数依赖 ( full functional dependency ) 于X。记作            X-F-&gt;Y。</li>
+</ol>
+<blockquote>
+<p>例如：（学号、课程）→成绩就是完全依赖函数，因为（学号、课程）的真子集不论是学号还是课程，都无法推出成绩。</p>
+</blockquote>
+<ol>
+<li><strong>部分函数依赖</strong>：在关系模式R（U）中，X、Y是关系模式R（U）中不同的属性子集，若X→Y成立，如果X中存在任何真子集X’，而且有X’→Y也成立，则称Y对X是部分函数依赖，记作：X-P-&gt;Y。</li>
+</ol>
+<blockquote>
+<p>例如，（学号、课程）→所在系就是部分依赖函数，因为学号→所在系，而学号是（学号、课程）的真子集。</p>
+</blockquote>
+<h4 id="码"><a href="#码" class="headerlink" title="码"></a>码</h4><p>超码：设X为关系R的属性或属性组，U为R的元组.若X→U，则称X为R的超码。</p>
+<p>候选码：设X为R的超码，若X中不含多余属性，则称X为R的候选码。</p>
+<p>主码：若关系R有多个候选码，则可以从中选定一个作为R的主码。</p>
+<p>主属性：包含在任何一个候选码中的属性，称作主属性，不包含在任何码中的属性称为非主属性。</p>
+<p>全码(all-key)：关系模式的码由整个属性组构成。</p>
+<h3 id="3-理解1NF、2NF、3NF、BCNF、4NF的特点并判断"><a href="#3-理解1NF、2NF、3NF、BCNF、4NF的特点并判断" class="headerlink" title="3.理解1NF、2NF、3NF、BCNF、4NF的特点并判断"></a>3.理解1NF、2NF、3NF、BCNF、4NF的特点并判断</h3><h4 id="第一范式（1NF）"><a href="#第一范式（1NF）" class="headerlink" title="第一范式（1NF）"></a>第一范式（1NF）</h4><p>关系模式R的所有的<strong>属性值域都是不可再分的</strong>。即不能以集合、序列等作为属性值。</p>
+<h4 id="第二范式（2NF）"><a href="#第二范式（2NF）" class="headerlink" title="第二范式（2NF）"></a>第二范式（2NF）</h4><p>对于关系模式R，若R∈1NF，且R中的<strong>每一个非主属性完全函数依赖于R的某个候选键</strong>，则R∈2NF（<strong>消除非主属性对键的部分依赖</strong>）</p>
+<blockquote>
+<p>sc(<u>sno</u>,sname,<u>cno</u>,grade)</p>
+<p>sno→sname 非主属性部分依赖主键</p>
+<p>可以划分为</p>
+<p>sc(<u>sno,cn</u>o,grade)</p>
+<p>s(<u>sno</u>,sname)</p>
+</blockquote>
+<h4 id="第三范式（3NF）"><a href="#第三范式（3NF）" class="headerlink" title="第三范式（3NF）"></a>第三范式（3NF）</h4><p>如果关系模式R是第二范式，且每个非主属性都不传递依赖于R的候选码，则称R是第三范式(3NF)的模式。则称R∈3NF（<strong>消除非主属性对码的传递依赖</strong>）。</p>
+<blockquote>
+<p>s(sno,sname,sdept,dept_manager)</p>
+<p>sno→sname,sdept    sdept→dept_manager</p>
+<p>存在传递依赖：sno→dept_manager</p>
+<p>可以划分为</p>
+<p>s (sno,sname,sdept)</p>
+<p>d(sdept,dept_manager)</p>
+</blockquote>
+<h4 id="BCNF"><a href="#BCNF" class="headerlink" title="BCNF"></a>BCNF</h4><p>如果关系模式R是第一范式，且每个属性都不传递依赖于R的候选键，那么称R是BCNF的模式。</p>
+<blockquote>
+<p>sct(s,c,t)    //学生，课程，教师</p>
+<p>（S，t），（S，C）为候选键。</p>
+<p>t→c           //每位教师只上一门课</p>
+<p>s,c→t        //某学生选定一门课，就对应一位老师</p>
+<p>s,t→c         //每门课有若干位教师；但某学生选定</p>
+<p>​                  一位老师，就对应一门课</p>
+<p>sct属于3NF 但不属于BCNF</p>
+</blockquote>
+<p>简单的判断方法：</p>
+<ol>
+<li>找出候选码，如上例（S，t），（S，C）为候选码</li>
+<li>找出依赖关系</li>
+<li>每一个决定属性集是否都包含候选码（箭头左边是不是候选码）</li>
+</ol>
+<h4 id="第四范式（4NF）"><a href="#第四范式（4NF）" class="headerlink" title="第四范式（4NF）"></a>第四范式（4NF）</h4><p>4NF就是限制关系模式的属性之间不允许有非平凡且非函数依赖的多值依赖。</p>
+<h3 id="4-理解多值依赖关系、平凡多值依赖关系的含义"><a href="#4-理解多值依赖关系、平凡多值依赖关系的含义" class="headerlink" title="4.理解多值依赖关系、平凡多值依赖关系的含义"></a>4.理解多值依赖关系、平凡多值依赖关系的含义</h3><p>设R(U)是属性集U上的一个关系模式。X，Y，Z是U的子集,并且Z=U-X-Y。关系模式R(U)中多值依赖X→→Y成立，当且仅当对R(U)的任一关系r,给定的一对(x，z)值有一<strong>组</strong>Y的值，这组值仅仅决定于x值而与z值无关。</p>
+<p>若X→→Y，而Z＝Ø，则称X→→Y为<strong>平凡的多值依赖</strong>。否则称X→→Y为<strong>非平凡的多值依赖</strong>。</p>
+<blockquote>
+<p>关系模式WSC(W,S,C)中，W表示仓库，S表示保管员，C表示商品。假设每个仓库有若干个保管员，有若干种商品。每个保管员保管所在仓库的所有商品，每种商品被所有保管员保管。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">W</th>
+<th style="text-align:left">S</th>
+<th style="text-align:left">C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">W1</td>
+<td style="text-align:left">S1</td>
+<td style="text-align:left">C1</td>
+</tr>
+<tr>
+<td style="text-align:left">W1</td>
+<td style="text-align:left">S1</td>
+<td style="text-align:left">C2</td>
+</tr>
+<tr>
+<td style="text-align:left">W1</td>
+<td style="text-align:left">S1</td>
+<td style="text-align:left">C3</td>
+</tr>
+<tr>
+<td style="text-align:left">W1</td>
+<td style="text-align:left">S2</td>
+<td style="text-align:left">C1</td>
+</tr>
+<tr>
+<td style="text-align:left">W1</td>
+<td style="text-align:left">S2</td>
+<td style="text-align:left">C2</td>
+</tr>
+<tr>
+<td style="text-align:left">W1</td>
+<td style="text-align:left">S2</td>
+<td style="text-align:left">C3</td>
+</tr>
+<tr>
+<td style="text-align:left">W2</td>
+<td style="text-align:left">S3</td>
+<td style="text-align:left">C4</td>
+</tr>
+<tr>
+<td style="text-align:left">W2</td>
+<td style="text-align:left">S3</td>
+<td style="text-align:left">C5</td>
+</tr>
+<tr>
+<td style="text-align:left">W2</td>
+<td style="text-align:left">S4</td>
+<td style="text-align:left">C4</td>
+</tr>
+<tr>
+<td style="text-align:left">W2</td>
+<td style="text-align:left">S4</td>
+<td style="text-align:left">C5</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>对于W的每一个值，不论C取什么值，S有一个完整的集与它对应所以W→→ S</p>
+<p>由于C和S完全对称，所以必然W→→ C成立</p>
+<h3 id="5-多值依赖与函数依赖的区别是什么"><a href="#5-多值依赖与函数依赖的区别是什么" class="headerlink" title="5.多值依赖与函数依赖的区别是什么"></a>5.多值依赖与函数依赖的区别是什么</h3><h4 id="1"><a href="#1" class="headerlink" title="(1)"></a>(1)</h4><ul>
+<li>X→Y的有效性仅决定于X、Y属性集上的值，它在任何属性集W（XY ∈W ∈ U）上都成立。若X→Y在R(U)上成立，则对于任何Y′∈Y，均有X→Y ′成立。</li>
+<li>X→→Y在属性集W（XY ∈W  ∈ U）上成立，但在U上不一定成立。因为多值依赖的定义中不仅涉及属性组X和Y，而且涉及U中其余属性Z。</li>
+</ul>
+<h4 id="2"><a href="#2" class="headerlink" title="(2)"></a>(2)</h4><ul>
+<li>若X→→Y在R(U)上成立，则不能断言对于Y′ ∈  Y，是否有X→→Y ′成立。</li>
+<li>若X→Y在R(U)上成立，则对于Y′ ∈  Y，有X→Y ′成立。</li>
+</ul>
+<h3 id="6-运用关系运算律完成关系模式的规范化"><a href="#6-运用关系运算律完成关系模式的规范化" class="headerlink" title="6.运用关系运算律完成关系模式的规范化"></a>6.运用关系运算律完成关系模式的规范化</h3><p><img src="http://oq6qnksdu.bkt.clouddn.com/17-6-23/39400146.jpg" alt=""></p>
+<h3 id="7-如何计算闭包"><a href="#7-如何计算闭包" class="headerlink" title="7.如何计算闭包"></a>7.如何计算闭包</h3><p>F为关系模式R(U)的函数依赖集，我们把F以及所有被F逻辑蕴涵的函数依赖的集合称为F的闭包，记为F+。</p>
+<p>示例1:</p>
+<blockquote>
+<p>对关系R（A,B,C,D,E,F）,给定函数依赖AB→C,BC→AD,D→B,CF→B,求 {A，B}+</p>
+<p>{AB}+=AB</p>
+<p>{AB}+=ABC  //AB→C</p>
+<p>{AB}+=ABCD  //BC→AD</p>
+<p>{AB}+=ABCD  //D→B</p>
+</blockquote>
+<p>示例2:</p>
+<blockquote>
+<p>R (A, B, C, G, H, I), F = {A→B, A→C, CG→H, CG→I, B→H},计算(AG)F+ </p>
+<table>
+<thead>
+<tr>
+<th>所用依赖</th>
+<th>(AG)F+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A→B</td>
+<td>AGB</td>
+</tr>
+<tr>
+<td>A→C</td>
+<td>AGBC</td>
+</tr>
+<tr>
+<td>CG→H</td>
+<td>AGBCH</td>
+</tr>
+<tr>
+<td>CG→I</td>
+<td>AGBCHI</td>
+</tr>
+</tbody>
+</table>
+<p>(AG)F+  = AGBCHI</p>
+</blockquote>
+<h3 id="8-理解无损连接性和保持函数依赖的概念并判断"><a href="#8-理解无损连接性和保持函数依赖的概念并判断" class="headerlink" title="8.理解无损连接性和保持函数依赖的概念并判断"></a>8.理解无损连接性和保持函数依赖的概念并判断</h3><h4 id="无损连接的判断"><a href="#无损连接的判断" class="headerlink" title="无损连接的判断"></a>无损连接的判断</h4><p><img src="http://oq6qnksdu.bkt.clouddn.com/17-6-23/97773069.jpg" alt=""></p>
+<ol>
+<li>建立一张n列k行的表，每一列对应一个属性，每一行对应分解中的一个关系模式。若属性Aj属于Ui，则在j列i行上真上aj，否则填上bij；</li>
+<li>依次考察每一个依赖关系FDi（Xi→Ai），找到Xi所对应的列，并且列中元素为ai的行，所对应的Ai中的元素是否有ai，如果有，则全部改成ai，反之则全部改成bmj，m为这些行号最小值。</li>
+<li>直到表格中出现一行为a1, a2 , … , an 的一行。说明是无损连接。反之则为有损。</li>
+</ol>
+<h4 id="保持函数依赖的判断"><a href="#保持函数依赖的判断" class="headerlink" title="保持函数依赖的判断"></a>保持函数依赖的判断</h4><p>看懂就行。</p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-6-23/83584879.jpg" alt=""></p>
+<h3 id="9-如何计算关系的最小依赖集。掌握无损连接的BCNF分解算法，掌握无损连接、保持依赖的3NF分解算法。"><a href="#9-如何计算关系的最小依赖集。掌握无损连接的BCNF分解算法，掌握无损连接、保持依赖的3NF分解算法。" class="headerlink" title="9.如何计算关系的最小依赖集。掌握无损连接的BCNF分解算法，掌握无损连接、保持依赖的3NF分解算法。"></a>9.如何计算关系的最小依赖集。掌握无损连接的BCNF分解算法，掌握无损连接、保持依赖的3NF分解算法。</h3><h4 id="最小依赖集"><a href="#最小依赖集" class="headerlink" title="最小依赖集"></a>最小依赖集</h4><p>每个函数依赖集F都可以被一个右部只有单属性的函数依赖集G所覆盖。</p>
+<p>满足下列条件的函数依赖集F称为最小函数依赖集合，记作Fmin：</p>
+<p><strong>右边单属性化</strong>：F中任一函数依赖X→ A，A必是单属性。</p>
+<p><strong>无冗余依赖</strong>：F中不存在这样的函数依赖X → A，使得F与F - {X →A}等价。</p>
+<p><strong>无冗余决定属性</strong>：F中不存在这样的函数依赖X → A，在X中有真子集Z，使得F与（F - {X → A}） È {Z → A}等价。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;第六章&quot;&gt;&lt;a href=&quot;#第六章&quot; class=&quot;headerlink&quot; title=&quot;第六章&quot;&gt;&lt;/a&gt;第六章&lt;/h2&gt;&lt;h3 id=&quot;1-一个不好关系模式通常存在哪四种问题&quot;&gt;&lt;a href=&quot;#1-一个不好关系模式通常存在哪四种问题&quot; class=&quot;headerlink&quot; title=&quot;1.一个不好关系模式通常存在哪四种问题&quot;&gt;&lt;/a&gt;1.一个不好关系模式通常存在哪四种问题&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;数据冗余&lt;/li&gt;
+&lt;li&gt;更新异常&lt;/li&gt;
+&lt;li&gt;插入异常&lt;/li&gt;
+&lt;li&gt;删除异常&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;2-理解并会判断属性的函数依赖关系，平凡、部分、传递函数依赖关系、候选码、主码、主属性、非主属性、全码&quot;&gt;&lt;a href=&quot;#2-理解并会判断属性的函数依赖关系，平凡、部分、传递函数依赖关系、候选码、主码、主属性、非主属性、全码&quot; class=&quot;headerlink&quot; title=&quot;2.理解并会判断属性的函数依赖关系，平凡、部分、传递函数依赖关系、候选码、主码、主属性、非主属性、全码&quot;&gt;&lt;/a&gt;2.理解并会判断属性的函数依赖关系，平凡、部分、传递函数依赖关系、候选码、主码、主属性、非主属性、全码&lt;/h3&gt;
     
     </summary>
     
