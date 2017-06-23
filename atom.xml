@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-06-23T13:02:44.000Z</updated>
+  <updated>2017-06-23T13:06:11.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/06/23/database-rebiew-outline-(3)/"/>
     <id>http://yoursite.com/2017/06/23/database-rebiew-outline-(3)/</id>
     <published>2017-06-23T08:51:15.000Z</published>
-    <updated>2017-06-23T13:02:44.000Z</updated>
+    <updated>2017-06-23T13:06:11.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="第七章"><a href="#第七章" class="headerlink" title="第七章"></a>第七章</h2><h3 id="1-数据库设计的特点是什么，可分为哪6个阶段"><a href="#1-数据库设计的特点是什么，可分为哪6个阶段" class="headerlink" title="1.数据库设计的特点是什么，可分为哪6个阶段"></a>1.数据库设计的特点是什么，可分为哪6个阶段</h3><h4 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h4><ol>
 <li>“三分技术、七分管理、十二分基础数据”是数据库设计的特点之一。</li>
@@ -65,9 +65,7 @@
 <li>修改和重构。消除不必要的冗余，生成基本ER图</li>
 </ul>
 <h4 id="消除冲突"><a href="#消除冲突" class="headerlink" title="消除冲突"></a>消除冲突</h4><p>因为局部应用不同,设计人员不同,所面向的问题不同，从而造成的各局部ER图的不一致。冲突包括<strong>属性冲突</strong>、<strong>命名冲突</strong>和<strong>结构冲突</strong>。</p>
-<ol>
-<li>属性冲突</li>
-</ol>
+<p><strong>属性冲突</strong></p>
 <p>属性域冲突，即属性值的类型、取值范围或取值集合不同。</p>
 <blockquote>
 <p>例如零件号，有的部门把它定义为整数，有的部门把它定义为字符型。</p>
@@ -76,14 +74,10 @@
 <blockquote>
 <p>例如，零件的重量以公斤、斤、克为单位。</p>
 </blockquote>
-<ol>
-<li>命名冲突</li>
-</ol>
+<p><strong>命名冲突</strong></p>
 <p>同名异义，即不同意义的对象在不同的局部应用中具有相同的名字。</p>
 <p>异名同义（一义多名），即同一意义的对象在不同的局部应用中具有不同的名字。</p>
-<ol>
-<li>结构冲突</li>
-</ol>
+<p><strong>结构冲突</strong></p>
 <p>同一对象在不同应用中具有不同的抽象。</p>
 <blockquote>
 <p>例如，职工在某一局部应用中被当作实体，而在另一局部应用中则被当作属性。</p>
@@ -350,7 +344,7 @@
     <link href="http://yoursite.com/2017/06/22/Database-review-outline(1)/"/>
     <id>http://yoursite.com/2017/06/22/Database-review-outline(1)/</id>
     <published>2017-06-22T06:48:41.000Z</published>
-    <updated>2017-06-22T08:14:00.000Z</updated>
+    <updated>2017-06-23T13:09:12.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><h3 id="1-什么是数据库？数据库数据有哪三个基本特点？"><a href="#1-什么是数据库？数据库数据有哪三个基本特点？" class="headerlink" title="1.什么是数据库？数据库数据有哪三个基本特点？"></a>1.什么是数据库？数据库数据有哪三个基本特点？</h3><p>数据库是长期储存在计算机内，有组织，可共享的大量数据集合。数据库中的数据按一定的数据模型组织、描述和储存，具有<strong>较小的冗余度</strong>、<strong>较高的数据独立性</strong>和<strong>易扩展性</strong>，并可为各种用户共享<br><a id="more"></a></p>
 <h3 id="2-数据库管理系统有哪些功能？"><a href="#2-数据库管理系统有哪些功能？" class="headerlink" title="2.数据库管理系统有哪些功能？"></a>2.数据库管理系统有哪些功能？</h3><ol>
@@ -369,29 +363,17 @@
 <h4 id="4-数据由数据库管理系统统一管理和控制"><a href="#4-数据由数据库管理系统统一管理和控制" class="headerlink" title="(4)数据由数据库管理系统统一管理和控制"></a>(4)数据由数据库管理系统统一管理和控制</h4><p>数据库的共享将会带来数据库的安全隐患，为此数据库管理系统提供了<strong>数据库的安全性保护</strong>、<strong>数据库的完整性检查</strong>、<strong>并发控制</strong>和<strong>数据库恢复</strong>。</p>
 <h3 id="4-理解概念模型中的基本概念"><a href="#4-理解概念模型中的基本概念" class="headerlink" title="4.理解概念模型中的基本概念"></a>4.理解概念模型中的基本概念</h3><p>概念模型实际上是现实世界到机器世界到一个中间层次，它用于信息世界的建模，是现实世界到信息世界的第一层抽象，是数据库设计人员进行数据库设计的有力工具。</p>
 <p>信息世界中的主要概念：</p>
-<ol>
-<li>实体</li>
-</ol>
+<p><strong>实体</strong></p>
 <p>客观存在并可相互区别的事务称为实体</p>
-<ol>
-<li>属性</li>
-</ol>
+<p><strong>属性</strong></p>
 <p>实体所具有的某一特性称为属性，用椭圆形表示</p>
-<ol>
-<li>码（key）</li>
-</ol>
+<p><strong>码（key）</strong></p>
 <p>唯一标识实体属性集称为码</p>
-<ol>
-<li>实体型</li>
-</ol>
+<p><strong>实体型</strong></p>
 <p>用实体名及属性名集合来抽象和刻画同类实体，称为实体型，矩形框表示</p>
-<ol>
-<li>实体集</li>
-</ol>
+<p><strong>实体集</strong></p>
 <p>同一类型实体的集合，如全体学生</p>
-<ol>
-<li>联系</li>
-</ol>
+<p><strong>联系</strong></p>
 <p>不同实体集之间的联系，有1V1、1Vn、nVn等多种类型</p>
 <p><strong>概念模型的一种表示方式</strong>：实体联系方法（ER模型）</p>
 <h3 id="5-什么是数据模型的三要素？有几种常用的数据模型。"><a href="#5-什么是数据模型的三要素？有几种常用的数据模型。" class="headerlink" title="5.什么是数据模型的三要素？有几种常用的数据模型。"></a>5.什么是数据模型的三要素？有几种常用的数据模型。</h3><h4 id="数据模型三要素："><a href="#数据模型三要素：" class="headerlink" title="数据模型三要素："></a>数据模型三要素：</h4><p>数据模型是严格定义的一组概念的集合，数据模型的三要素是<strong>数据结构</strong>、<strong>数据操作</strong>和<strong>完整性约束</strong>三部分组成。</p>
