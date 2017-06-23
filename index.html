@@ -343,76 +343,18 @@
 
       
         
-          
-            <h2 id="第七章"><a href="#第七章" class="headerlink" title="第七章"></a>第七章</h2><h3 id="1-数据库设计的特点是什么，可分为哪6个阶段"><a href="#1-数据库设计的特点是什么，可分为哪6个阶段" class="headerlink" title="1.数据库设计的特点是什么，可分为哪6个阶段"></a>1.数据库设计的特点是什么，可分为哪6个阶段</h3><h4 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h4><ol>
+          <h2 id="第七章"><a href="#第七章" class="headerlink" title="第七章"></a>第七章</h2><h3 id="1-数据库设计的特点是什么，可分为哪6个阶段"><a href="#1-数据库设计的特点是什么，可分为哪6个阶段" class="headerlink" title="1.数据库设计的特点是什么，可分为哪6个阶段"></a>1.数据库设计的特点是什么，可分为哪6个阶段</h3><h4 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h4><ol>
 <li>“三分技术、七分管理、十二分基础数据”是数据库设计的特点之一。</li>
 <li>数据库设计过程中把数据库结构设计和对数据的处理设计密切结合起来，</li>
 </ol>
-<h4 id="六个阶段："><a href="#六个阶段：" class="headerlink" title="六个阶段："></a>六个阶段：</h4><p><img src="http://oq6qnksdu.bkt.clouddn.com/17-6-23/34165605.jpg" alt=""></p>
-<p>分别为<strong>需求分析</strong>、<strong>概念结构设计</strong>、<strong>逻辑结构设计</strong>、<strong>物理结构设计</strong>、<strong>数据库实施</strong>和<strong>数据库维护和运行</strong>。</p>
-<h3 id="2-掌握概念设计和逻辑设计方法-E-R图，转化成关系模式等-，要会对给定的实例进行分析"><a href="#2-掌握概念设计和逻辑设计方法-E-R图，转化成关系模式等-，要会对给定的实例进行分析" class="headerlink" title="2.掌握概念设计和逻辑设计方法(E-R图，转化成关系模式等)，要会对给定的实例进行分析"></a>2.掌握概念设计和逻辑设计方法(E-R图，转化成关系模式等)，要会对给定的实例进行分析</h3><h4 id="1-ER图转关系模式方法"><a href="#1-ER图转关系模式方法" class="headerlink" title="(1)ER图转关系模式方法"></a>(1)ER图转关系模式方法</h4><p>ER模型中的主要成分是实体和联系。</p>
-<p>对于实体，可以这样转换：将每个实体转换成一个关系模式，实体的属性即为关系模式的属性，实体的关键字即为关系模式的主码。</p>
-<p>实体  →   关系   属性  →  关系的属性</p>
-<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-6-23/78392692.jpg" alt=""></p>
-<h4 id="2-联系为M：N的转换方法"><a href="#2-联系为M：N的转换方法" class="headerlink" title="(2)联系为M：N的转换方法"></a>(2)联系为M：N的转换方法</h4><p>若实体间联系是M:N，则将联系也转换成关系模式，其属性为两端实实体的主码加上联系的属性，其主码为两端实体主码的组合。</p>
-<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-6-23/19963765.jpg" alt=""></p>
-<blockquote>
-<p>S(<u>S#,</u> SNAME ,AGE,SEX )</p>
-<p>C(<u>C#</u>, CNAME ,TEACHER)</p>
-<p>SC(<u>S#,C#,</u>GRADE)</p>
-</blockquote>
-<h4 id="3-联系为1：N的转换方法"><a href="#3-联系为1：N的转换方法" class="headerlink" title="(3)联系为1：N的转换方法"></a>(3)联系为1：N的转换方法</h4><p>若实体间的联系是1:N的，则<strong>在N端</strong>实体转换成的关系模式中加入1端实体转换成的关系模式的主码和联系的属性。</p>
-<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-6-23/37146179.jpg" alt=""></p>
-<blockquote>
-<p>车间模式（<u>车间编号</u>，车间名，电话）</p>
-<p>职工模式（<u>工号</u>，姓名，性别，年龄，<em>车间编号</em>，聘期）</p>
-</blockquote>
-<h4 id="4-联系为1：1的转换方法"><a href="#4-联系为1：1的转换方法" class="headerlink" title="(4)联系为1：1的转换方法"></a>(4)联系为1：1的转换方法</h4><p>若实体间的联系是1:1的，可以在两个实体转换成的两个关系模式中<strong>任意一个</strong>关系模式的属性中加入另一个关系模式的主码和联系类型的属性。</p>
-<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-6-23/93804548.jpg" alt=""></p>
-<blockquote>
-<p>学校模式（校名，地址，电话，校长名，任职年月）</p>
-<p>校长模式（姓名，年龄，性别，职称）</p>
-</blockquote>
-<h4 id="5-实例"><a href="#5-实例" class="headerlink" title="(5)实例"></a>(5)实例</h4><p><img src="http://oq6qnksdu.bkt.clouddn.com/17-6-23/49275922.jpg" alt=""></p>
-<blockquote>
-<p>商店（<u>商店编号</u>，商店名，地址）</p>
-<p>职工（<u>职工编号</u>，姓名，性别，业绩，<strong>商店编号</strong>，聘期，月薪）</p>
-<p>商品（<u>商品号</u>，商品名，规格，单价）</p>
-<p>销售（<u>商店编号</u>，<u>商品号</u>，月销售量）</p>
-</blockquote>
-<h3 id="3-掌握ER图的集成方法。要解决哪三类冲突？"><a href="#3-掌握ER图的集成方法。要解决哪三类冲突？" class="headerlink" title="3.掌握ER图的集成方法。要解决哪三类冲突？"></a>3.掌握ER图的集成方法。要解决哪三类冲突？</h3><p>ER图集成分两步走：</p>
-<ul>
-<li>合并E-R图，生成初步E-R图</li>
-<li>修改和重构。消除不必要的冗余，生成基本ER图</li>
-</ul>
-<h4 id="消除冲突"><a href="#消除冲突" class="headerlink" title="消除冲突"></a>消除冲突</h4><p>因为局部应用不同,设计人员不同,所面向的问题不同，从而造成的各局部ER图的不一致。冲突包括<strong>属性冲突</strong>、<strong>命名冲突</strong>和<strong>结构冲突</strong>。</p>
-<ol>
-<li>属性冲突</li>
-</ol>
-<p>属性域冲突，即属性值的类型、取值范围或取值集合不同。</p>
-<blockquote>
-<p>例如零件号，有的部门把它定义为整数，有的部门把它定义为字符型。</p>
-</blockquote>
-<p>属性取值单位冲突</p>
-<blockquote>
-<p>例如，零件的重量以公斤、斤、克为单位。</p>
-</blockquote>
-<ol>
-<li>命名冲突</li>
-</ol>
-<p>同名异义，即不同意义的对象在不同的局部应用中具有相同的名字。</p>
-<p>异名同义（一义多名），即同一意义的对象在不同的局部应用中具有不同的名字。</p>
-<ol>
-<li>结构冲突</li>
-</ol>
-<p>同一对象在不同应用中具有不同的抽象。</p>
-<blockquote>
-<p>例如，职工在某一局部应用中被当作实体，而在另一局部应用中则被当作属性。</p>
-</blockquote>
-<p>同一实体在不同子系统的E-R图中所包含的属性个数和属性排列次序不完全相同。</p>
-<p>实体间的联系在不同的E-R图中为不同的类型。</p>
-<h3 id="4-数据库实施包含哪些工作"><a href="#4-数据库实施包含哪些工作" class="headerlink" title="4.数据库实施包含哪些工作"></a>4.数据库实施包含哪些工作</h3>
-          
+<h4 id="六个阶段："><a href="#六个阶段：" class="headerlink" title="六个阶段："></a>六个阶段：</h4>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/23/database-rebiew-outline-(3)/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

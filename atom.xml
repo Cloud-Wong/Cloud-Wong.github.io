@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-06-23T12:34:25.000Z</updated>
+  <updated>2017-06-23T13:02:44.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,13 +20,14 @@
     <link href="http://yoursite.com/2017/06/23/database-rebiew-outline-(3)/"/>
     <id>http://yoursite.com/2017/06/23/database-rebiew-outline-(3)/</id>
     <published>2017-06-23T08:51:15.000Z</published>
-    <updated>2017-06-23T12:34:25.000Z</updated>
+    <updated>2017-06-23T13:02:44.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="第七章"><a href="#第七章" class="headerlink" title="第七章"></a>第七章</h2><h3 id="1-数据库设计的特点是什么，可分为哪6个阶段"><a href="#1-数据库设计的特点是什么，可分为哪6个阶段" class="headerlink" title="1.数据库设计的特点是什么，可分为哪6个阶段"></a>1.数据库设计的特点是什么，可分为哪6个阶段</h3><h4 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h4><ol>
 <li>“三分技术、七分管理、十二分基础数据”是数据库设计的特点之一。</li>
 <li>数据库设计过程中把数据库结构设计和对数据的处理设计密切结合起来，</li>
 </ol>
-<h4 id="六个阶段："><a href="#六个阶段：" class="headerlink" title="六个阶段："></a>六个阶段：</h4><p><img src="http://oq6qnksdu.bkt.clouddn.com/17-6-23/34165605.jpg" alt=""></p>
+<h4 id="六个阶段："><a href="#六个阶段：" class="headerlink" title="六个阶段："></a>六个阶段：</h4><a id="more"></a>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-6-23/34165605.jpg" alt=""></p>
 <p>分别为<strong>需求分析</strong>、<strong>概念结构设计</strong>、<strong>逻辑结构设计</strong>、<strong>物理结构设计</strong>、<strong>数据库实施</strong>和<strong>数据库维护和运行</strong>。</p>
 <h3 id="2-掌握概念设计和逻辑设计方法-E-R图，转化成关系模式等-，要会对给定的实例进行分析"><a href="#2-掌握概念设计和逻辑设计方法-E-R图，转化成关系模式等-，要会对给定的实例进行分析" class="headerlink" title="2.掌握概念设计和逻辑设计方法(E-R图，转化成关系模式等)，要会对给定的实例进行分析"></a>2.掌握概念设计和逻辑设计方法(E-R图，转化成关系模式等)，要会对给定的实例进行分析</h3><h4 id="1-ER图转关系模式方法"><a href="#1-ER图转关系模式方法" class="headerlink" title="(1)ER图转关系模式方法"></a>(1)ER图转关系模式方法</h4><p>ER模型中的主要成分是实体和联系。</p>
 <p>对于实体，可以这样转换：将每个实体转换成一个关系模式，实体的属性即为关系模式的属性，实体的关键字即为关系模式的主码。</p>
@@ -89,11 +90,32 @@
 </blockquote>
 <p>同一实体在不同子系统的E-R图中所包含的属性个数和属性排列次序不完全相同。</p>
 <p>实体间的联系在不同的E-R图中为不同的类型。</p>
-<h3 id="4-数据库实施包含哪些工作"><a href="#4-数据库实施包含哪些工作" class="headerlink" title="4.数据库实施包含哪些工作"></a>4.数据库实施包含哪些工作</h3>]]></content>
+<h3 id="4-数据库实施包含哪些工作"><a href="#4-数据库实施包含哪些工作" class="headerlink" title="4.数据库实施包含哪些工作"></a>4.数据库实施包含哪些工作</h3><p>数据库实施包含两项重要的工作，一项是<strong>数据的载入</strong>，另一项是<strong>应用程序的编码</strong>。</p>
+<h2 id="第八章"><a href="#第八章" class="headerlink" title="第八章"></a>第八章</h2><h3 id="1-游标定义和使用的SQL命令动词"><a href="#1-游标定义和使用的SQL命令动词" class="headerlink" title="1.游标定义和使用的SQL命令动词"></a>1.游标定义和使用的SQL命令动词</h3><p>定义游标：定义一个游标，使之对应一个select语句。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EXEC_SQL DECLARE &lt;游标名&gt; CURSORFOR &lt;SELECT语句&gt;</div></pre></td></tr></table></figure>
+<p>打开游标：打开一个游标，执行游标对应的查询，结果集合为该游标的活动集。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EXECSQL OPEN &lt;游标名&gt;   <span class="comment">//定位于查询结果第一行的前一行</span></div></pre></td></tr></table></figure>
+<p>游标推进语句：在活动集中将游标移到特定的行，并取出该行数据放到相应的宿主变量中</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EXECSQL FETCH &lt;游标名&gt; INTO &lt;主变量名&gt;</div></pre></td></tr></table></figure>
+<p>游标关闭语句：关闭游标，释放活动集及其所占资源，使它不再和查询结果相联系。需要再使用该游标时，执行open语句。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EXEC SQL CLOSE &lt;游标名&gt;</div></pre></td></tr></table></figure>
+<h3 id="2-创建和执行存储过程的SQL语句"><a href="#2-创建和执行存储过程的SQL语句" class="headerlink" title="2.创建和执行存储过程的SQL语句"></a>2.创建和执行存储过程的SQL语句</h3><h4 id="创建存储过程"><a href="#创建存储过程" class="headerlink" title="创建存储过程"></a>创建存储过程</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">格式：</div><div class="line">CREATE Procedure 过程名（［参数1，参数2，...］） AS</div><div class="line">&lt;PL/SQL块&gt;；</div></pre></td></tr></table></figure>
+<p>过程名：数据库服务器合法的对象标识。</p>
+<p>参数列表：用名字来标识调用时给出的参数值，必须指定值的数据类型。参数也可以定义输入参数、输出参数或输入/输出参数。默认为输入参数。</p>
+<p>过程体：是一个<pl sql块="">。包括声明部分和可执行语句部分。</pl></p>
+<h4 id="执行存储过程"><a href="#执行存储过程" class="headerlink" title="执行存储过程"></a>执行存储过程</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">格式： </div><div class="line">CALL/PERFORM  Procedure 过程名(［参数<span class="number">1</span>，参数<span class="number">2</span>，...］)；</div></pre></td></tr></table></figure>
+<p>使用CALL或者PERFORM等方式激活存储过程的执行。</p>
+<p>在PL/SQL中，数据库服务器支持在过程体中调用其他存储过程</p>
+<h3 id="3-ODBC应用系统包含哪4个部分"><a href="#3-ODBC应用系统包含哪4个部分" class="headerlink" title="3.ODBC应用系统包含哪4个部分"></a>3.ODBC应用系统包含哪4个部分</h3><p>ODBC应用系统由四部分构成：<strong>用户应用程序</strong>、<strong>ODBC驱动程序管理器</strong>、<strong>数据库驱动程序</strong>、<strong>数据源</strong>（关系数据库系统和数据库）。</p>
+]]></content>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;第七章&quot;&gt;&lt;a href=&quot;#第七章&quot; class=&quot;headerlink&quot; title=&quot;第七章&quot;&gt;&lt;/a&gt;第七章&lt;/h2&gt;&lt;h3 id=&quot;1-数据库设计的特点是什么，可分为哪6个阶段&quot;&gt;&lt;a href=&quot;#1-数据库设计的特点是什么，可分为哪6个阶段&quot; cla
+      &lt;h2 id=&quot;第七章&quot;&gt;&lt;a href=&quot;#第七章&quot; class=&quot;headerlink&quot; title=&quot;第七章&quot;&gt;&lt;/a&gt;第七章&lt;/h2&gt;&lt;h3 id=&quot;1-数据库设计的特点是什么，可分为哪6个阶段&quot;&gt;&lt;a href=&quot;#1-数据库设计的特点是什么，可分为哪6个阶段&quot; class=&quot;headerlink&quot; title=&quot;1.数据库设计的特点是什么，可分为哪6个阶段&quot;&gt;&lt;/a&gt;1.数据库设计的特点是什么，可分为哪6个阶段&lt;/h3&gt;&lt;h4 id=&quot;特点：&quot;&gt;&lt;a href=&quot;#特点：&quot; class=&quot;headerlink&quot; title=&quot;特点：&quot;&gt;&lt;/a&gt;特点：&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;“三分技术、七分管理、十二分基础数据”是数据库设计的特点之一。&lt;/li&gt;
+&lt;li&gt;数据库设计过程中把数据库结构设计和对数据的处理设计密切结合起来，&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&quot;六个阶段：&quot;&gt;&lt;a href=&quot;#六个阶段：&quot; class=&quot;headerlink&quot; title=&quot;六个阶段：&quot;&gt;&lt;/a&gt;六个阶段：&lt;/h4&gt;
     
     </summary>
     
