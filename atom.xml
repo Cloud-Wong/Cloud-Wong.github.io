@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-06-23T13:06:11.000Z</updated>
+  <updated>2017-06-24T13:11:48.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,102 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>数据库复习大纲（四）</title>
+    <link href="http://yoursite.com/2017/06/24/database-review-outline-4/"/>
+    <id>http://yoursite.com/2017/06/24/database-review-outline-4/</id>
+    <published>2017-06-24T05:40:58.000Z</published>
+    <updated>2017-06-24T13:11:48.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="第九章"><a href="#第九章" class="headerlink" title="第九章"></a>第九章</h2><h3 id="1-查询优化一般分为哪两种"><a href="#1-查询优化一般分为哪两种" class="headerlink" title="1.查询优化一般分为哪两种"></a>1.查询优化一般分为哪两种</h3><p>查询优化一般可分为<strong>代数优化</strong>（也称<strong>逻辑优化</strong>）和<strong>物理优化</strong>（也称<strong>非代数优化</strong>）。代数优化是指关系代数表达式的优化，即按照一定规则，通过对关系代数表达式进行等价变换，改变代数表达式中操作的次序和组合，使查询执行更加高效；物理优化则是指通过存取路径和底层操作算法的选择进行的优化。<br><a id="more"></a></p>
+<h3 id="2-实现选择操作的两种算法、连接操作的四种算法分别是什么"><a href="#2-实现选择操作的两种算法、连接操作的四种算法分别是什么" class="headerlink" title="2.实现选择操作的两种算法、连接操作的四种算法分别是什么"></a>2.实现选择操作的两种算法、连接操作的四种算法分别是什么</h3><h4 id="选择操作的两种实现"><a href="#选择操作的两种实现" class="headerlink" title="选择操作的两种实现"></a>选择操作的两种实现</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span>* <span class="keyword">FROM</span> Student <span class="keyword">WHERE</span> &lt;条件表达式&gt;</div></pre></td></tr></table></figure>
+<h5 id="1-简单的全表扫描"><a href="#1-简单的全表扫描" class="headerlink" title="(1). 简单的全表扫描"></a>(1). 简单的全表扫描</h5><p>假设可以使用的内存为M块，全表扫描算法思想如下：</p>
+<ol>
+<li>按照物理次序读Student的M块到内存</li>
+<li>检查内存的每个元组t，如果t满足选择条件则输出t</li>
+<li>如果Student还有其他块未被处理，重复1和2 。</li>
+</ol>
+<p>对于规模较小的表，这种算法简单有效。但对于规模较大的表进行顺序扫描，当选择率较低时，这个算法效率很低。</p>
+<h5 id="2-索引扫描算法"><a href="#2-索引扫描算法" class="headerlink" title="(2)索引扫描算法"></a>(2)索引扫描算法</h5><p>如果选择条件中的属性上有索引，可以使用索引扫描方法，通过索引先找到满足条件的元组指针，再通过元组指针在查询的基本表中找到元组。</p>
+<p>例如查找条件表达式为<code>Sno=&#39;201701</code>的学生，并且Sno上有索引，就可以使用索引得到Sno为201701的学生，再通过元组指针在Student表上找到该学生。</p>
+<p>一般情况下，当选择了较低时，基于索引的选择算法要优于全表扫描算法。但当选择率较高，要查找的元组均匀分布在查找的表中，这时基于索引的选择算法性能不如全表扫描算法。</p>
+<h4 id="连接操作的四种实现"><a href="#连接操作的四种实现" class="headerlink" title="连接操作的四种实现"></a>连接操作的四种实现</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span>* <span class="keyword">FROM</span> Student,SC <span class="keyword">WHERE</span> Student.Sno = SC.Sno</div></pre></td></tr></table></figure>
+<h5 id="1-嵌套循环算法"><a href="#1-嵌套循环算法" class="headerlink" title="(1)嵌套循环算法"></a>(1)嵌套循环算法</h5><p>这时最<strong>简单可行</strong>的算法。对外层循环的每一个元组，检索内层循环中的每一个元组，并检查这两个元组在连接属性(Sno)上是否相等。</p>
+<h5 id="2-排序—合并算法"><a href="#2-排序—合并算法" class="headerlink" title="(2)排序—合并算法"></a>(2)排序—合并算法</h5><p>这时<strong>等值连接常用的算法</strong>，尤其适合参与连接的诸表<strong>已经排序好</strong>的情况。</p>
+<ol>
+<li>如果参与排序的表没有排序，首先对Student表和SC表按属性Sno进行排序。</li>
+<li>取Student表中的第一个Sno，依次扫描SC表中具有相同Sno的元组并连接。</li>
+<li>当扫描到Sno不相等的第一个SC元组时，返回Student表扫描它的下一个元组，再扫描SC表中具有相同Sno的元组并连接。</li>
+</ol>
+<p>重复上述步骤直至Student表扫描完毕。</p>
+<h5 id="3-索引连接算法"><a href="#3-索引连接算法" class="headerlink" title="(3)索引连接算法"></a>(3)索引连接算法</h5><ol>
+<li>在SC表上已经建立了属性Sno的索引</li>
+<li>对Student中的每一个元组，由Sno值通过SC索引查找相应的SC元组</li>
+<li>把这些SC元组和Student元组连接起来</li>
+</ol>
+<h4 id="4-hash-join-算法"><a href="#4-hash-join-算法" class="headerlink" title="(4)hash join 算法"></a>(4)hash join 算法</h4><p>hash join算法也是处理等值连接的算法。它把属性作为hash码，用同一个函数把Student表和SC表中的元组散列到hash表中。</p>
+<ol>
+<li>划分阶段，也称创建阶段，即创建hash表。对包含较少元组的表进行一遍处理，把它的元组按hash函数分散到hash表的桶中；</li>
+<li>试探阶段，也称连接阶段，对另一个进行一遍处理，把SC表的元组也按同一个hash函数进行散列，找到适当的桶，并且把SC元组与桶中来自Student表并与之相匹配的表连接起来。</li>
+</ol>
+<h3 id="3-掌握将查询语句转化成语法树的表示方法。"><a href="#3-掌握将查询语句转化成语法树的表示方法。" class="headerlink" title="3.掌握将查询语句转化成语法树的表示方法。"></a>3.掌握将查询语句转化成语法树的表示方法。</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span>  Student.Sname</div><div class="line">     <span class="keyword">FROM</span> Student，SC</div><div class="line">     <span class="keyword">WHERE</span> Student.Sno=SC.Sno <span class="keyword">AND</span> SC.Cno=‘<span class="number">2</span>’；</div></pre></td></tr></table></figure>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-6-24/68542588.jpg" alt="关系代数语法树"></p>
+<h3 id="4-在查询优化中，选择运算应尽可能先做"><a href="#4-在查询优化中，选择运算应尽可能先做" class="headerlink" title="4.在查询优化中，选择运算应尽可能先做"></a>4.在查询优化中，选择运算应尽可能先做</h3><h2 id="第十章"><a href="#第十章" class="headerlink" title="第十章"></a>第十章</h2><h3 id="1-事务的概念和特性"><a href="#1-事务的概念和特性" class="headerlink" title="1.事务的概念和特性"></a>1.事务的概念和特性</h3><p>所谓事务是用户定义的一个数据库操作序列，这些操作要嘛全做，要么全不做，是一个不可分割的工作单位。</p>
+<p>事务具有四个特性：<strong>原子性</strong>、<strong>一致性</strong>、<strong>隔离性</strong>和<strong>持续性</strong>。</p>
+<ol>
+<li>原子性：事务是数据库的逻辑工作单位，事务中包括的诸操作要嘛都做要嘛都不做。</li>
+<li>一致性：事务的执行结果必须是使数据库从一个一致性状态变到另一个一致性状态。因此当数据库只包含成功事务提交结果时，就说数据库处于一致性状态。</li>
+<li>隔离性：一个事务执行不能被其它事务干扰。</li>
+<li>持续性：一个事务一但提交，数据库中的数据的改变就是永久性的。</li>
+</ol>
+<h3 id="2-在SQL-Server中有哪些定义事务的语句"><a href="#2-在SQL-Server中有哪些定义事务的语句" class="headerlink" title="2.在SQL Server中有哪些定义事务的语句"></a>2.在SQL Server中有哪些定义事务的语句</h3><p><code>BEGIN TRANSACTION</code> ：开始一个显式事务。</p>
+<p><code>COMMIT TRANSACTION</code> ：标识一个显式事务或隐式事务正常结束而提交。</p>
+<p><code>SAVE TRANSACTION</code> ：在事务内定义一个检查点标记。</p>
+<p><code>ROLLBACK TRANSACTION</code> ：回滚当前事务。</p>
+<h3 id="3-数据库系统有几类故障，恢复的实现技术是什么"><a href="#3-数据库系统有几类故障，恢复的实现技术是什么" class="headerlink" title="3.数据库系统有几类故障，恢复的实现技术是什么"></a>3.数据库系统有几类故障，恢复的实现技术是什么</h3><h4 id="故障类型"><a href="#故障类型" class="headerlink" title="故障类型"></a>故障类型</h4><h5 id="1-事务故障"><a href="#1-事务故障" class="headerlink" title="(1)事务故障"></a>(1)事务故障</h5><p>更多的是非预期的事务故障</p>
+<p>事务由于某些内部条件无法继续正常执行</p>
+<blockquote>
+<p>如：非法输入、找不到数据、溢出等</p>
+</blockquote>
+<h5 id="2-系统故障"><a href="#2-系统故障" class="headerlink" title="(2)系统故障"></a>(2)系统故障</h5><p>系统故障是指造成系统停止运转的任何事件，使得系统要重新启动。</p>
+<blockquote>
+<p>如：CPU故障、操作系统故障、系统断电等</p>
+</blockquote>
+<h5 id="3-介质故障"><a href="#3-介质故障" class="headerlink" title="(3)介质故障"></a>(3)介质故障</h5><p>系统故障称为软故障，介质故障称为硬故障，指外存故障。</p>
+<blockquote>
+<p>如：磁盘损坏、瞬间强磁场干扰等</p>
+</blockquote>
+<h5 id="5-计算机病毒"><a href="#5-计算机病毒" class="headerlink" title="(5)计算机病毒"></a>(5)计算机病毒</h5><h4 id="恢复实现技术"><a href="#恢复实现技术" class="headerlink" title="恢复实现技术"></a>恢复实现技术</h4><p>建立冗余数据，利用冗余数据实施数据库恢复。建立数据冗余最常用的技术是<strong>数据转储</strong>和<strong>登记日志文件</strong>。</p>
+<h5 id="1-数据转储"><a href="#1-数据转储" class="headerlink" title="(1)数据转储"></a>(1)数据转储</h5><p>数据库管理员定期将整个磁带、磁盘复制到其他存储介质保存起来的过程。</p>
+<h5 id="2-登记日志文件"><a href="#2-登记日志文件" class="headerlink" title="(2)登记日志文件"></a>(2)登记日志文件</h5><p>日志文件是用来记录事务对数据库的更新操作文件。</p>
+<h3 id="4-根据日志记录，判断系统故障发生时刻事务该采取的操作"><a href="#4-根据日志记录，判断系统故障发生时刻事务该采取的操作" class="headerlink" title="4.根据日志记录，判断系统故障发生时刻事务该采取的操作"></a>4.根据日志记录，判断系统故障发生时刻事务该采取的操作</h3><p>（参考课后习题4，5）</p>
+<p>以系统故障点为分界线。若故障前事务已完成则执行重做，若故障后事务仍为完成则回滚。</p>
+<h2 id="第十一章"><a href="#第十一章" class="headerlink" title="第十一章"></a>第十一章</h2><h3 id="1-并发操作带来哪三种数据不一致性"><a href="#1-并发操作带来哪三种数据不一致性" class="headerlink" title="1.并发操作带来哪三种数据不一致性"></a>1.并发操作带来哪三种数据不一致性</h3><h4 id="1-丢失修改"><a href="#1-丢失修改" class="headerlink" title="(1)丢失修改"></a>(1)丢失修改</h4><p>两个事务T1、T2同时读入一数据，T2提交的结果破坏了T1提交的结果，导致T1数据丢失。</p>
+<h4 id="2-不可重复读"><a href="#2-不可重复读" class="headerlink" title="(2)不可重复读"></a>(2)不可重复读</h4><p>事务T1读取数据后，事务T2执行更新操作，使T1无法再现前一次读取结果。</p>
+<h4 id="3-读脏数据"><a href="#3-读脏数据" class="headerlink" title="(3)读脏数据"></a>(3)读脏数据</h4><p>事务T1修改某一数据并将其写回磁盘，事务T2读取同一数据后，T1由于某种原因被撤销，T1修改后的数据恢复原值，T2读到的数据就与数据库中的数据不一致，T2读到的数据就称为“脏数据”。</p>
+<h3 id="2-封锁的类型、相容矩阵、封锁粒度"><a href="#2-封锁的类型、相容矩阵、封锁粒度" class="headerlink" title="2.封锁的类型、相容矩阵、封锁粒度"></a>2.封锁的类型、相容矩阵、封锁粒度</h3><h4 id="封锁类型"><a href="#封锁类型" class="headerlink" title="封锁类型"></a>封锁类型</h4><hr>
+<p>封锁的基本类型有两种：<strong>排他锁</strong>（简称X锁）和<strong>共享锁</strong>（简称S锁）。</p>
+<p><strong>排他锁又称写锁</strong>。若事务T对数据对象A加上X锁，则只允许T读取和修改A，任何其他食物都不能再对A加任何锁，直至T释放A上的锁为止。这就保证了其他事务在T释放A上的锁之前不能再读取和修改A。</p>
+<p><strong>共享锁又称读锁</strong>。若事务T对A加上S锁，则事务T可以读A但不能修改A，其他事务只能再对A加S锁，而不能加X锁，直至T释放A上的S锁为止，这就保证了其他事务可以读A，但是在T释放A上的S锁之前不能对A进行任何修改。</p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-6-24/4521639.jpg" alt="封锁类型的相容矩阵"></p>
+<h4 id="封锁粒度"><a href="#封锁粒度" class="headerlink" title="封锁粒度"></a>封锁粒度</h4><hr>
+<p>封锁对象的大小称为<strong>封锁粒度</strong>。封锁对象可以是逻辑单元，也可以是物理单元。以关系数据库为例，封锁对象可以是这样一些逻辑单元：属性值、属性值的集合、元组、关系、索引项直至整个数据库；也可以是这样一些物理单元：页、物理记录等。</p>
+<p><strong>封锁粒度与系统的并发度和并发控制的开销密切相关</strong>。封锁粒度越大，数据库所能封锁的数据单元就越少，并发度越小，系统开销也越小；反之。并发度越高，系统开销也越大。</p>
+<h3 id="3-什么是死锁"><a href="#3-什么是死锁" class="headerlink" title="3.什么是死锁"></a>3.什么是死锁</h3><p>事务T1封锁了数据R1，事务T2封锁了数据R2.然后T1又请求R2，因为T2已经封锁了R2，于是T1等待T2释放R2上的锁；接着T2又申请封锁R1，因为T1也已经封锁了R1，T2也只能等待T1释放R1上的锁。这样就形成了<strong>T1在等待T2，而T2又在等待T1的局面，T1和T2两个事务永远不能结束，形成死锁</strong>。</p>
+<h3 id="4-什么是可串行化调度"><a href="#4-什么是可串行化调度" class="headerlink" title="4.什么是可串行化调度"></a>4.什么是可串行化调度</h3><p>多个事务的并发执行是正确的，当且仅当其结果与按某一次序串行地执行这些事务时的结果相同，这种调度策略为<strong>可串行化调度</strong>。</p>
+<p><strong>可串行性</strong>是并发事务正确调度的准则</p>
+<h3 id="5-根据给定的事务设计调度策略"><a href="#5-根据给定的事务设计调度策略" class="headerlink" title="5.根据给定的事务设计调度策略"></a>5.根据给定的事务设计调度策略</h3><p>（参考课后习题9）</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;第九章&quot;&gt;&lt;a href=&quot;#第九章&quot; class=&quot;headerlink&quot; title=&quot;第九章&quot;&gt;&lt;/a&gt;第九章&lt;/h2&gt;&lt;h3 id=&quot;1-查询优化一般分为哪两种&quot;&gt;&lt;a href=&quot;#1-查询优化一般分为哪两种&quot; class=&quot;headerlink&quot; title=&quot;1.查询优化一般分为哪两种&quot;&gt;&lt;/a&gt;1.查询优化一般分为哪两种&lt;/h3&gt;&lt;p&gt;查询优化一般可分为&lt;strong&gt;代数优化&lt;/strong&gt;（也称&lt;strong&gt;逻辑优化&lt;/strong&gt;）和&lt;strong&gt;物理优化&lt;/strong&gt;（也称&lt;strong&gt;非代数优化&lt;/strong&gt;）。代数优化是指关系代数表达式的优化，即按照一定规则，通过对关系代数表达式进行等价变换，改变代数表达式中操作的次序和组合，使查询执行更加高效；物理优化则是指通过存取路径和底层操作算法的选择进行的优化。&lt;br&gt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>数据库复习大纲（三）</title>

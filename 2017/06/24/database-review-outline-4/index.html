@@ -1,0 +1,811 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Cloud-Wong" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="第九章1.查询优化一般分为哪两种查询优化一般可分为代数优化（也称逻辑优化）和物理优化（也称非代数优化）。代数优化是指关系代数表达式的优化，即按照一定规则，通过对关系代数表达式进行等价变换，改变代数表达式中操作的次序和组合，使查询执行更加高效；物理优化则是指通过存取路径和底层操作算法的选择进行的优化。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库复习大纲（四）">
+<meta property="og:url" content="http://yoursite.com/2017/06/24/database-review-outline-4/index.html">
+<meta property="og:site_name" content="Cloud-Wong">
+<meta property="og:description" content="第九章1.查询优化一般分为哪两种查询优化一般可分为代数优化（也称逻辑优化）和物理优化（也称非代数优化）。代数优化是指关系代数表达式的优化，即按照一定规则，通过对关系代数表达式进行等价变换，改变代数表达式中操作的次序和组合，使查询执行更加高效；物理优化则是指通过存取路径和底层操作算法的选择进行的优化。">
+<meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-6-24/68542588.jpg">
+<meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-6-24/4521639.jpg">
+<meta property="og:updated_time" content="2017-06-24T13:11:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据库复习大纲（四）">
+<meta name="twitter:description" content="第九章1.查询优化一般分为哪两种查询优化一般可分为代数优化（也称逻辑优化）和物理优化（也称非代数优化）。代数优化是指关系代数表达式的优化，即按照一定规则，通过对关系代数表达式进行等价变换，改变代数表达式中操作的次序和组合，使查询执行更加高效；物理优化则是指通过存取路径和底层操作算法的选择进行的优化。">
+<meta name="twitter:image" content="http://oq6qnksdu.bkt.clouddn.com/17-6-24/68542588.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/24/database-review-outline-4/"/>
+
+
+
+
+
+  <title>数据库复习大纲（四） | Cloud-Wong</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cloud-Wong</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">那就开始扯吧</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/24/database-review-outline-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="黄耘">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cloud-Wong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据库复习大纲（四）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-24T13:40:58+08:00">
+                2017-06-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="第九章"><a href="#第九章" class="headerlink" title="第九章"></a>第九章</h2><h3 id="1-查询优化一般分为哪两种"><a href="#1-查询优化一般分为哪两种" class="headerlink" title="1.查询优化一般分为哪两种"></a>1.查询优化一般分为哪两种</h3><p>查询优化一般可分为<strong>代数优化</strong>（也称<strong>逻辑优化</strong>）和<strong>物理优化</strong>（也称<strong>非代数优化</strong>）。代数优化是指关系代数表达式的优化，即按照一定规则，通过对关系代数表达式进行等价变换，改变代数表达式中操作的次序和组合，使查询执行更加高效；物理优化则是指通过存取路径和底层操作算法的选择进行的优化。<br><a id="more"></a></p>
+<h3 id="2-实现选择操作的两种算法、连接操作的四种算法分别是什么"><a href="#2-实现选择操作的两种算法、连接操作的四种算法分别是什么" class="headerlink" title="2.实现选择操作的两种算法、连接操作的四种算法分别是什么"></a>2.实现选择操作的两种算法、连接操作的四种算法分别是什么</h3><h4 id="选择操作的两种实现"><a href="#选择操作的两种实现" class="headerlink" title="选择操作的两种实现"></a>选择操作的两种实现</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span>* <span class="keyword">FROM</span> Student <span class="keyword">WHERE</span> &lt;条件表达式&gt;</div></pre></td></tr></table></figure>
+<h5 id="1-简单的全表扫描"><a href="#1-简单的全表扫描" class="headerlink" title="(1). 简单的全表扫描"></a>(1). 简单的全表扫描</h5><p>假设可以使用的内存为M块，全表扫描算法思想如下：</p>
+<ol>
+<li>按照物理次序读Student的M块到内存</li>
+<li>检查内存的每个元组t，如果t满足选择条件则输出t</li>
+<li>如果Student还有其他块未被处理，重复1和2 。</li>
+</ol>
+<p>对于规模较小的表，这种算法简单有效。但对于规模较大的表进行顺序扫描，当选择率较低时，这个算法效率很低。</p>
+<h5 id="2-索引扫描算法"><a href="#2-索引扫描算法" class="headerlink" title="(2)索引扫描算法"></a>(2)索引扫描算法</h5><p>如果选择条件中的属性上有索引，可以使用索引扫描方法，通过索引先找到满足条件的元组指针，再通过元组指针在查询的基本表中找到元组。</p>
+<p>例如查找条件表达式为<code>Sno=&#39;201701</code>的学生，并且Sno上有索引，就可以使用索引得到Sno为201701的学生，再通过元组指针在Student表上找到该学生。</p>
+<p>一般情况下，当选择了较低时，基于索引的选择算法要优于全表扫描算法。但当选择率较高，要查找的元组均匀分布在查找的表中，这时基于索引的选择算法性能不如全表扫描算法。</p>
+<h4 id="连接操作的四种实现"><a href="#连接操作的四种实现" class="headerlink" title="连接操作的四种实现"></a>连接操作的四种实现</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span>* <span class="keyword">FROM</span> Student,SC <span class="keyword">WHERE</span> Student.Sno = SC.Sno</div></pre></td></tr></table></figure>
+<h5 id="1-嵌套循环算法"><a href="#1-嵌套循环算法" class="headerlink" title="(1)嵌套循环算法"></a>(1)嵌套循环算法</h5><p>这时最<strong>简单可行</strong>的算法。对外层循环的每一个元组，检索内层循环中的每一个元组，并检查这两个元组在连接属性(Sno)上是否相等。</p>
+<h5 id="2-排序—合并算法"><a href="#2-排序—合并算法" class="headerlink" title="(2)排序—合并算法"></a>(2)排序—合并算法</h5><p>这时<strong>等值连接常用的算法</strong>，尤其适合参与连接的诸表<strong>已经排序好</strong>的情况。</p>
+<ol>
+<li>如果参与排序的表没有排序，首先对Student表和SC表按属性Sno进行排序。</li>
+<li>取Student表中的第一个Sno，依次扫描SC表中具有相同Sno的元组并连接。</li>
+<li>当扫描到Sno不相等的第一个SC元组时，返回Student表扫描它的下一个元组，再扫描SC表中具有相同Sno的元组并连接。</li>
+</ol>
+<p>重复上述步骤直至Student表扫描完毕。</p>
+<h5 id="3-索引连接算法"><a href="#3-索引连接算法" class="headerlink" title="(3)索引连接算法"></a>(3)索引连接算法</h5><ol>
+<li>在SC表上已经建立了属性Sno的索引</li>
+<li>对Student中的每一个元组，由Sno值通过SC索引查找相应的SC元组</li>
+<li>把这些SC元组和Student元组连接起来</li>
+</ol>
+<h4 id="4-hash-join-算法"><a href="#4-hash-join-算法" class="headerlink" title="(4)hash join 算法"></a>(4)hash join 算法</h4><p>hash join算法也是处理等值连接的算法。它把属性作为hash码，用同一个函数把Student表和SC表中的元组散列到hash表中。</p>
+<ol>
+<li>划分阶段，也称创建阶段，即创建hash表。对包含较少元组的表进行一遍处理，把它的元组按hash函数分散到hash表的桶中；</li>
+<li>试探阶段，也称连接阶段，对另一个进行一遍处理，把SC表的元组也按同一个hash函数进行散列，找到适当的桶，并且把SC元组与桶中来自Student表并与之相匹配的表连接起来。</li>
+</ol>
+<h3 id="3-掌握将查询语句转化成语法树的表示方法。"><a href="#3-掌握将查询语句转化成语法树的表示方法。" class="headerlink" title="3.掌握将查询语句转化成语法树的表示方法。"></a>3.掌握将查询语句转化成语法树的表示方法。</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span>  Student.Sname</div><div class="line">     <span class="keyword">FROM</span> Student，SC</div><div class="line">     <span class="keyword">WHERE</span> Student.Sno=SC.Sno <span class="keyword">AND</span> SC.Cno=‘<span class="number">2</span>’；</div></pre></td></tr></table></figure>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-6-24/68542588.jpg" alt="关系代数语法树"></p>
+<h3 id="4-在查询优化中，选择运算应尽可能先做"><a href="#4-在查询优化中，选择运算应尽可能先做" class="headerlink" title="4.在查询优化中，选择运算应尽可能先做"></a>4.在查询优化中，选择运算应尽可能先做</h3><h2 id="第十章"><a href="#第十章" class="headerlink" title="第十章"></a>第十章</h2><h3 id="1-事务的概念和特性"><a href="#1-事务的概念和特性" class="headerlink" title="1.事务的概念和特性"></a>1.事务的概念和特性</h3><p>所谓事务是用户定义的一个数据库操作序列，这些操作要嘛全做，要么全不做，是一个不可分割的工作单位。</p>
+<p>事务具有四个特性：<strong>原子性</strong>、<strong>一致性</strong>、<strong>隔离性</strong>和<strong>持续性</strong>。</p>
+<ol>
+<li>原子性：事务是数据库的逻辑工作单位，事务中包括的诸操作要嘛都做要嘛都不做。</li>
+<li>一致性：事务的执行结果必须是使数据库从一个一致性状态变到另一个一致性状态。因此当数据库只包含成功事务提交结果时，就说数据库处于一致性状态。</li>
+<li>隔离性：一个事务执行不能被其它事务干扰。</li>
+<li>持续性：一个事务一但提交，数据库中的数据的改变就是永久性的。</li>
+</ol>
+<h3 id="2-在SQL-Server中有哪些定义事务的语句"><a href="#2-在SQL-Server中有哪些定义事务的语句" class="headerlink" title="2.在SQL Server中有哪些定义事务的语句"></a>2.在SQL Server中有哪些定义事务的语句</h3><p><code>BEGIN TRANSACTION</code> ：开始一个显式事务。</p>
+<p><code>COMMIT TRANSACTION</code> ：标识一个显式事务或隐式事务正常结束而提交。</p>
+<p><code>SAVE TRANSACTION</code> ：在事务内定义一个检查点标记。</p>
+<p><code>ROLLBACK TRANSACTION</code> ：回滚当前事务。</p>
+<h3 id="3-数据库系统有几类故障，恢复的实现技术是什么"><a href="#3-数据库系统有几类故障，恢复的实现技术是什么" class="headerlink" title="3.数据库系统有几类故障，恢复的实现技术是什么"></a>3.数据库系统有几类故障，恢复的实现技术是什么</h3><h4 id="故障类型"><a href="#故障类型" class="headerlink" title="故障类型"></a>故障类型</h4><h5 id="1-事务故障"><a href="#1-事务故障" class="headerlink" title="(1)事务故障"></a>(1)事务故障</h5><p>更多的是非预期的事务故障</p>
+<p>事务由于某些内部条件无法继续正常执行</p>
+<blockquote>
+<p>如：非法输入、找不到数据、溢出等</p>
+</blockquote>
+<h5 id="2-系统故障"><a href="#2-系统故障" class="headerlink" title="(2)系统故障"></a>(2)系统故障</h5><p>系统故障是指造成系统停止运转的任何事件，使得系统要重新启动。</p>
+<blockquote>
+<p>如：CPU故障、操作系统故障、系统断电等</p>
+</blockquote>
+<h5 id="3-介质故障"><a href="#3-介质故障" class="headerlink" title="(3)介质故障"></a>(3)介质故障</h5><p>系统故障称为软故障，介质故障称为硬故障，指外存故障。</p>
+<blockquote>
+<p>如：磁盘损坏、瞬间强磁场干扰等</p>
+</blockquote>
+<h5 id="5-计算机病毒"><a href="#5-计算机病毒" class="headerlink" title="(5)计算机病毒"></a>(5)计算机病毒</h5><h4 id="恢复实现技术"><a href="#恢复实现技术" class="headerlink" title="恢复实现技术"></a>恢复实现技术</h4><p>建立冗余数据，利用冗余数据实施数据库恢复。建立数据冗余最常用的技术是<strong>数据转储</strong>和<strong>登记日志文件</strong>。</p>
+<h5 id="1-数据转储"><a href="#1-数据转储" class="headerlink" title="(1)数据转储"></a>(1)数据转储</h5><p>数据库管理员定期将整个磁带、磁盘复制到其他存储介质保存起来的过程。</p>
+<h5 id="2-登记日志文件"><a href="#2-登记日志文件" class="headerlink" title="(2)登记日志文件"></a>(2)登记日志文件</h5><p>日志文件是用来记录事务对数据库的更新操作文件。</p>
+<h3 id="4-根据日志记录，判断系统故障发生时刻事务该采取的操作"><a href="#4-根据日志记录，判断系统故障发生时刻事务该采取的操作" class="headerlink" title="4.根据日志记录，判断系统故障发生时刻事务该采取的操作"></a>4.根据日志记录，判断系统故障发生时刻事务该采取的操作</h3><p>（参考课后习题4，5）</p>
+<p>以系统故障点为分界线。若故障前事务已完成则执行重做，若故障后事务仍为完成则回滚。</p>
+<h2 id="第十一章"><a href="#第十一章" class="headerlink" title="第十一章"></a>第十一章</h2><h3 id="1-并发操作带来哪三种数据不一致性"><a href="#1-并发操作带来哪三种数据不一致性" class="headerlink" title="1.并发操作带来哪三种数据不一致性"></a>1.并发操作带来哪三种数据不一致性</h3><h4 id="1-丢失修改"><a href="#1-丢失修改" class="headerlink" title="(1)丢失修改"></a>(1)丢失修改</h4><p>两个事务T1、T2同时读入一数据，T2提交的结果破坏了T1提交的结果，导致T1数据丢失。</p>
+<h4 id="2-不可重复读"><a href="#2-不可重复读" class="headerlink" title="(2)不可重复读"></a>(2)不可重复读</h4><p>事务T1读取数据后，事务T2执行更新操作，使T1无法再现前一次读取结果。</p>
+<h4 id="3-读脏数据"><a href="#3-读脏数据" class="headerlink" title="(3)读脏数据"></a>(3)读脏数据</h4><p>事务T1修改某一数据并将其写回磁盘，事务T2读取同一数据后，T1由于某种原因被撤销，T1修改后的数据恢复原值，T2读到的数据就与数据库中的数据不一致，T2读到的数据就称为“脏数据”。</p>
+<h3 id="2-封锁的类型、相容矩阵、封锁粒度"><a href="#2-封锁的类型、相容矩阵、封锁粒度" class="headerlink" title="2.封锁的类型、相容矩阵、封锁粒度"></a>2.封锁的类型、相容矩阵、封锁粒度</h3><h4 id="封锁类型"><a href="#封锁类型" class="headerlink" title="封锁类型"></a>封锁类型</h4><hr>
+<p>封锁的基本类型有两种：<strong>排他锁</strong>（简称X锁）和<strong>共享锁</strong>（简称S锁）。</p>
+<p><strong>排他锁又称写锁</strong>。若事务T对数据对象A加上X锁，则只允许T读取和修改A，任何其他食物都不能再对A加任何锁，直至T释放A上的锁为止。这就保证了其他事务在T释放A上的锁之前不能再读取和修改A。</p>
+<p><strong>共享锁又称读锁</strong>。若事务T对A加上S锁，则事务T可以读A但不能修改A，其他事务只能再对A加S锁，而不能加X锁，直至T释放A上的S锁为止，这就保证了其他事务可以读A，但是在T释放A上的S锁之前不能对A进行任何修改。</p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-6-24/4521639.jpg" alt="封锁类型的相容矩阵"></p>
+<h4 id="封锁粒度"><a href="#封锁粒度" class="headerlink" title="封锁粒度"></a>封锁粒度</h4><hr>
+<p>封锁对象的大小称为<strong>封锁粒度</strong>。封锁对象可以是逻辑单元，也可以是物理单元。以关系数据库为例，封锁对象可以是这样一些逻辑单元：属性值、属性值的集合、元组、关系、索引项直至整个数据库；也可以是这样一些物理单元：页、物理记录等。</p>
+<p><strong>封锁粒度与系统的并发度和并发控制的开销密切相关</strong>。封锁粒度越大，数据库所能封锁的数据单元就越少，并发度越小，系统开销也越小；反之。并发度越高，系统开销也越大。</p>
+<h3 id="3-什么是死锁"><a href="#3-什么是死锁" class="headerlink" title="3.什么是死锁"></a>3.什么是死锁</h3><p>事务T1封锁了数据R1，事务T2封锁了数据R2.然后T1又请求R2，因为T2已经封锁了R2，于是T1等待T2释放R2上的锁；接着T2又申请封锁R1，因为T1也已经封锁了R1，T2也只能等待T1释放R1上的锁。这样就形成了<strong>T1在等待T2，而T2又在等待T1的局面，T1和T2两个事务永远不能结束，形成死锁</strong>。</p>
+<h3 id="4-什么是可串行化调度"><a href="#4-什么是可串行化调度" class="headerlink" title="4.什么是可串行化调度"></a>4.什么是可串行化调度</h3><p>多个事务的并发执行是正确的，当且仅当其结果与按某一次序串行地执行这些事务时的结果相同，这种调度策略为<strong>可串行化调度</strong>。</p>
+<p><strong>可串行性</strong>是并发事务正确调度的准则</p>
+<h3 id="5-根据给定的事务设计调度策略"><a href="#5-根据给定的事务设计调度策略" class="headerlink" title="5.根据给定的事务设计调度策略"></a>5.根据给定的事务设计调度策略</h3><p>（参考课后习题9）</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/23/database-rebiew-outline-3/" rel="next" title="数据库复习大纲（三）">
+                <i class="fa fa-chevron-left"></i> 数据库复习大纲（三）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="黄耘" />
+          <p class="site-author-name" itemprop="name">黄耘</p>
+           
+              <p class="site-description motion-element" itemprop="description">记录学习笔记和遇到的问题</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Cloud-Wong/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2677463703/profile?topnav=1&wvr=6" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第九章"><span class="nav-number">1.</span> <span class="nav-text">第九章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-查询优化一般分为哪两种"><span class="nav-number">1.1.</span> <span class="nav-text">1.查询优化一般分为哪两种</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-实现选择操作的两种算法、连接操作的四种算法分别是什么"><span class="nav-number">1.2.</span> <span class="nav-text">2.实现选择操作的两种算法、连接操作的四种算法分别是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#选择操作的两种实现"><span class="nav-number">1.2.1.</span> <span class="nav-text">选择操作的两种实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-简单的全表扫描"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">(1). 简单的全表扫描</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-索引扫描算法"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">(2)索引扫描算法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#连接操作的四种实现"><span class="nav-number">1.2.2.</span> <span class="nav-text">连接操作的四种实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-嵌套循环算法"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">(1)嵌套循环算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-排序—合并算法"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">(2)排序—合并算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-索引连接算法"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">(3)索引连接算法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-hash-join-算法"><span class="nav-number">1.2.3.</span> <span class="nav-text">(4)hash join 算法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-掌握将查询语句转化成语法树的表示方法。"><span class="nav-number">1.3.</span> <span class="nav-text">3.掌握将查询语句转化成语法树的表示方法。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-在查询优化中，选择运算应尽可能先做"><span class="nav-number">1.4.</span> <span class="nav-text">4.在查询优化中，选择运算应尽可能先做</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十章"><span class="nav-number">2.</span> <span class="nav-text">第十章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-事务的概念和特性"><span class="nav-number">2.1.</span> <span class="nav-text">1.事务的概念和特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-在SQL-Server中有哪些定义事务的语句"><span class="nav-number">2.2.</span> <span class="nav-text">2.在SQL Server中有哪些定义事务的语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-数据库系统有几类故障，恢复的实现技术是什么"><span class="nav-number">2.3.</span> <span class="nav-text">3.数据库系统有几类故障，恢复的实现技术是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#故障类型"><span class="nav-number">2.3.1.</span> <span class="nav-text">故障类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-事务故障"><span class="nav-number">2.3.1.1.</span> <span class="nav-text">(1)事务故障</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-系统故障"><span class="nav-number">2.3.1.2.</span> <span class="nav-text">(2)系统故障</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-介质故障"><span class="nav-number">2.3.1.3.</span> <span class="nav-text">(3)介质故障</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-计算机病毒"><span class="nav-number">2.3.1.4.</span> <span class="nav-text">(5)计算机病毒</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#恢复实现技术"><span class="nav-number">2.3.2.</span> <span class="nav-text">恢复实现技术</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-数据转储"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">(1)数据转储</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-登记日志文件"><span class="nav-number">2.3.2.2.</span> <span class="nav-text">(2)登记日志文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-根据日志记录，判断系统故障发生时刻事务该采取的操作"><span class="nav-number">2.4.</span> <span class="nav-text">4.根据日志记录，判断系统故障发生时刻事务该采取的操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第十一章"><span class="nav-number">3.</span> <span class="nav-text">第十一章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-并发操作带来哪三种数据不一致性"><span class="nav-number">3.1.</span> <span class="nav-text">1.并发操作带来哪三种数据不一致性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-丢失修改"><span class="nav-number">3.1.1.</span> <span class="nav-text">(1)丢失修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-不可重复读"><span class="nav-number">3.1.2.</span> <span class="nav-text">(2)不可重复读</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-读脏数据"><span class="nav-number">3.1.3.</span> <span class="nav-text">(3)读脏数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-封锁的类型、相容矩阵、封锁粒度"><span class="nav-number">3.2.</span> <span class="nav-text">2.封锁的类型、相容矩阵、封锁粒度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#封锁类型"><span class="nav-number">3.2.1.</span> <span class="nav-text">封锁类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#封锁粒度"><span class="nav-number">3.2.2.</span> <span class="nav-text">封锁粒度</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-什么是死锁"><span class="nav-number">3.3.</span> <span class="nav-text">3.什么是死锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-什么是可串行化调度"><span class="nav-number">3.4.</span> <span class="nav-text">4.什么是可串行化调度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-根据给定的事务设计调度策略"><span class="nav-number">3.5.</span> <span class="nav-text">5.根据给定的事务设计调度策略</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">黄耘</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
