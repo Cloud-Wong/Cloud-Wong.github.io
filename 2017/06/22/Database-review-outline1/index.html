@@ -94,7 +94,7 @@
 
 <meta name="description" content="第一章1.什么是数据库？数据库数据有哪三个基本特点？数据库是长期储存在计算机内，有组织，可共享的大量数据集合。数据库中的数据按一定的数据模型组织、描述和储存，具有较小的冗余度、较高的数据独立性和易扩展性，并可为各种用户共享">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据库复习大纲(一)">
+<meta property="og:title" content="数据库复习大纲（一）">
 <meta property="og:url" content="http://yoursite.com/2017/06/22/Database-review-outline1/index.html">
 <meta property="og:site_name" content="Cloud-Wong">
 <meta property="og:description" content="第一章1.什么是数据库？数据库数据有哪三个基本特点？数据库是长期储存在计算机内，有组织，可共享的大量数据集合。数据库中的数据按一定的数据模型组织、描述和储存，具有较小的冗余度、较高的数据独立性和易扩展性，并可为各种用户共享">
@@ -104,9 +104,9 @@
 <meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-6-21/78829772.jpg">
 <meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-6-21/22256984.jpg">
 <meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-6-21/54502437.jpg">
-<meta property="og:updated_time" content="2017-06-26T09:37:02.000Z">
+<meta property="og:updated_time" content="2017-06-26T09:54:48.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据库复习大纲(一)">
+<meta name="twitter:title" content="数据库复习大纲（一）">
 <meta name="twitter:description" content="第一章1.什么是数据库？数据库数据有哪三个基本特点？数据库是长期储存在计算机内，有组织，可共享的大量数据集合。数据库中的数据按一定的数据模型组织、描述和储存，具有较小的冗余度、较高的数据独立性和易扩展性，并可为各种用户共享">
 <meta name="twitter:image" content="http://oq6qnksdu.bkt.clouddn.com/17-6-21/20409749.jpg">
 
@@ -142,7 +142,7 @@
 
 
 
-  <title>数据库复习大纲(一) | Cloud-Wong</title>
+  <title>数据库复习大纲（一） | Cloud-Wong</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -299,7 +299,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">数据库复习大纲(一)</h1>
+          <h1 class="post-title" itemprop="name headline">数据库复习大纲（一）</h1>
         
 
         <div class="post-meta">
@@ -379,10 +379,8 @@
 <h3 id="5-什么是数据模型的三要素？有几种常用的数据模型。"><a href="#5-什么是数据模型的三要素？有几种常用的数据模型。" class="headerlink" title="5.什么是数据模型的三要素？有几种常用的数据模型。"></a>5.什么是数据模型的三要素？有几种常用的数据模型。</h3><h4 id="数据模型三要素："><a href="#数据模型三要素：" class="headerlink" title="数据模型三要素："></a>数据模型三要素：</h4><p>数据模型是严格定义的一组概念的集合，数据模型的三要素是<strong>数据结构</strong>、<strong>数据操作</strong>和<strong>完整性约束</strong>三部分组成。</p>
 <ol>
 <li>数据结构：描述数据库的组成对象以及对象之间的联系。是对系统静态特征的描述。</li>
-<li>数据操作：数据库中各种对象的实例允许执行的操作的集合，包括操作及有关操作规则。数据操作是对系统动态特征的描述。<ol>
+<li>数据操作：数据库中各种对象的实例允许执行的操作的集合，包括操作及有关操作规则。数据操作是对系统动态特征的描述。</li>
 <li>数据库的完整性约束条件：是一组完整性规则。</li>
-</ol>
-</li>
 </ol>
 <h4 id="常用的数据模型："><a href="#常用的数据模型：" class="headerlink" title="常用的数据模型："></a>常用的数据模型：</h4><h5 id="1-层次模型"><a href="#1-层次模型" class="headerlink" title="(1) 层次模型"></a>(1) 层次模型</h5><h6 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h6><ol>
 <li>层次模型的数据结构比较简单清晰</li>
@@ -879,8 +877,8 @@
 <p>示例：把用户U1查询Student表的权限收回</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">REVOKE</span> <span class="keyword">SELECT</span></div><div class="line"><span class="keyword">ON</span> <span class="keyword">TABLE</span> Student</div><div class="line"><span class="keyword">FROM</span> U1 <span class="keyword">CASCADE</span></div></pre></td></tr></table></figure>
 <p>将用户U1权限收回的同时，由于U1将权限赋给了U2，因此级联<code>CASCADE</code>收回了U2的权限。</p>
-<h3 id="4-有哪两种存取控制方法，主体和客体指的是什么"><a href="#4-有哪两种存取控制方法，主体和客体指的是什么" class="headerlink" title="4.有哪两种存取控制方法，主体和客体指的是什么"></a>4.有哪两种存取控制方法，主体和客体指的是什么</h3><p> 存取控制方法分为<strong>自主存取控制</strong>和<strong>强制存取控制</strong></p>
-<p>在强制存取控制中，数据库管理系统所管理的全部实体被分为实体和客体两大类。</p>
+<h3 id="4-有哪两种存取控制方法，主体和客体指的是什么"><a href="#4-有哪两种存取控制方法，主体和客体指的是什么" class="headerlink" title="4.有哪两种存取控制方法，主体和客体指的是什么"></a>4.有哪两种存取控制方法，主体和客体指的是什么</h3><p>存取控制方法分为<strong>自主存取控制</strong>和<strong>强制存取控制</strong></p>
+<p>在强制存取控制中，数据库管理系统所管理的全部实体被分为主体和客体两大类。</p>
 <p><strong>主体</strong>是系统中的活动实体，既包括数据库管理系统所包括的实际用户，也包括代表用户的各种进程。<strong>客体</strong>是系统中的被动实体，是受主体操作的，包括文件、基本表、索引、视图等。</p>
 <h2 id="第五章"><a href="#第五章" class="headerlink" title="第五章"></a>第五章</h2><h3 id="1-什么是数据库的完整性"><a href="#1-什么是数据库的完整性" class="headerlink" title="1.什么是数据库的完整性"></a>1.什么是数据库的完整性</h3><p>数据库的完整性是指数据的<strong>正确性</strong>和<strong>相容性</strong>。正确性是指数据是符合现实世界语义、反应当前实际状况的；数据的相容性是指数据库同一对象在不同关系表中的数据是符合逻辑的。</p>
 <h3 id="2-为维护数据库的完整性，数据库管理系统必须能实现哪三种功能"><a href="#2-为维护数据库的完整性，数据库管理系统必须能实现哪三种功能" class="headerlink" title="2.为维护数据库的完整性，数据库管理系统必须能实现哪三种功能"></a>2.为维护数据库的完整性，数据库管理系统必须能实现哪三种功能</h3><ol>
