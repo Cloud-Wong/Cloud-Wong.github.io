@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Cloud-Wong</title>
-  <subtitle>那就开始扯吧</subtitle>
+  <subtitle>FROM ZERO TO HERO</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-06-24T13:11:48.000Z</updated>
+  <updated>2017-08-12T14:35:15.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,103 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>KMP算法详解</title>
+    <link href="http://yoursite.com/2017/08/12/KMPAlgorithm/"/>
+    <id>http://yoursite.com/2017/08/12/KMPAlgorithm/</id>
+    <published>2017-08-12T14:33:37.000Z</published>
+    <updated>2017-08-12T14:35:15.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="传统的字符串匹配模式（暴力循环）"><a href="#传统的字符串匹配模式（暴力循环）" class="headerlink" title="传统的字符串匹配模式（暴力循环）"></a>传统的字符串匹配模式（暴力循环）</h1><p>子串的定位操作通常称作串的<strong>串的匹配模式</strong>，也就是在主串S中查找模式串（子串）T第一次出现的位置。如比较以下两个串：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">主串S：ABCDABX</div><div class="line">子串T：ABX</div></pre></td></tr></table></figure>
+<p>我们可以通过暴力循环的方式依次的比较S[i]和T[j]，若匹配失败，则子串向前移位1步，重新开始匹配，直至匹配完成。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">主串S：ABCDABX</div><div class="line">子串T：    ABX（匹配成功）</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>传统的暴力循环代码如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">index</span><span class="params">(String S,String T)</span></span>&#123;</div><div class="line">  <span class="keyword">int</span> i,j;</div><div class="line">  i =  j = <span class="number">0</span>;</div><div class="line">  <span class="keyword">while</span>(i&lt;StrLength(S) &amp;&amp; j&lt;StrLength(T))&#123;</div><div class="line">    <span class="keyword">if</span>(S[i] = T[i])&#123;</div><div class="line">      i++;</div><div class="line">      j++;</div><div class="line">    &#125;           <span class="comment">//继续比较后续字符</span></div><div class="line">    <span class="keyword">else</span>&#123;</div><div class="line">      i = i - j + <span class="number">1</span>;</div><div class="line">      j = <span class="number">0</span>;</div><div class="line">    &#125;           <span class="comment">//指针后退重新开始匹配</span></div><div class="line">  &#125;</div><div class="line">  <span class="keyword">if</span>(j &gt; StrLength(T)) <span class="keyword">return</span> i - StrLength(T) + <span class="number">1</span>; <span class="comment">//返回定位</span></div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;       <span class="comment">//匹配失败</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这种传统的模式匹配方式最坏的情况下需要循环mxn次，时间复杂度为O(mxn)，因为主串中可能存在多个和模式串“部分匹配”的子串，因此指针多次回溯，效率极低。</p>
+<h1 id="KMP算法的匹配过程"><a href="#KMP算法的匹配过程" class="headerlink" title="KMP算法的匹配过程"></a>KMP算法的匹配过程</h1><p>KMP算法是一种改进的<a href="https://baike.baidu.com/item/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D" target="_blank" rel="external">字符串匹配</a>算法，由D.E.Knuth，J.H.Morris和V.R.Pratt同时发现，因此人们称它为<a href="https://baike.baidu.com/item/%E5%85%8B%E5%8A%AA%E7%89%B9" target="_blank" rel="external">克努特</a>——<a href="https://baike.baidu.com/item/%E8%8E%AB%E9%87%8C%E6%96%AF" target="_blank" rel="external">莫里斯</a>——<a href="https://baike.baidu.com/item/%E6%99%AE%E6%8B%89%E7%89%B9" target="_blank" rel="external">普拉特</a>操作（简称KMP算法）。KMP算法的关键是利用匹配失败后的信息，尽量减少模式串与主串的匹配次数以达到快速匹配的目的。用以下例子说明：</p>
+<ul>
+<li>主串：abcababca…（假设主串很长，我们就先看前9位）</li>
+<li>子串：abcabx</li>
+</ul>
+<p>按照传统的匹配模式的过程就应该如下：</p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-8-12/84639514.jpg" alt=""></p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-8-12/22615603.jpg" alt=""></p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-8-12/82378342.jpg" alt=""></p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-8-12/2925391.jpg" alt=""></p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-8-12/69329853.jpg" alt=""></p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-8-12/22950730.jpg" alt=""></p>
+<p>传统的匹配模式，就应该是按照上面的方式一步一步的匹配下来，一旦匹配失败，主串指针i就要回溯，效率非常低！而<strong>KMP算法的匹配过程只需要两步</strong>：</p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-8-12/84639514.jpg" alt=""></p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-8-12/43605050.jpg" alt=""></p>
+<p>为什么一下次就可以跳过中间的比较来到这一步呢，下面就来探究KMP算法的匹配方式。</p>
+<p>先来对比一下传统的匹配模式，可以发现主串的指针i值的变化：</p>
+<p>第一次遍历到了i=6，匹配失败；</p>
+<p>第二次遍历到了i=2，匹配失败；</p>
+<p>第三次遍历到了i=3，匹配失败；</p>
+<p>第四次遍历到了i=4，匹配失败；</p>
+<p>第五次遍历到了i=5，匹配失败；</p>
+<p>直到第五次i值终于又回到了i=6。</p>
+<p>i值的变化情况：6-&gt;1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;6</p>
+<p>在传统的匹配算法中，可以发现i值是不断回溯的。</p>
+<p>反观KMP算法，只需对主串一次遍历，i值不会回溯，即遍历过程中i值是不会变小的。</p>
+<p>那么既然KMP算法的i值遍历只需一次，那么就要考虑j是如何变化的了，为什么第一次匹配失败后j可以从j=3开始匹配，而不像传统遍历算法那样每当匹配失败就要从j=1重新开始匹配。</p>
+<p>再看看一开始对KMP算法的定义：KMP算法的关键是<strong><u>利用匹配失败后的信息</u></strong>，尽量减少模式串与主串的匹配次数以达到快速匹配的目的。</p>
+<p>划重点：<strong><u>利用匹配失败后的信息</u></strong>。什么是匹配失败后得到的信息呢？</p>
+<p>于是回到刚刚的第一次匹配，看看能从这次失败的匹配中得到什么信息。</p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-8-12/7029800.jpg" alt=""></p>
+<p>因为S[1…5] = T[1…5] 所以有 S[1,2] = T[1,2] S[4,5] = T[4,5]</p>
+<p>又因为子串T有 T[1,2] = T[4,5]，所以S[4,5] = T[1,2]</p>
+<p>那下一次滑动到直接让S[4,5] = T[1,2]，然后继续比较下一个元素就行啦。</p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-8-12/4589023.jpg" alt=""></p>
+<p>这是简化模型第一次匹配的情况，根据传统的匹配算法，当匹配失败时模式串T移动一格，和S串比较。但是由于绿色部分在第一次匹配的时候发现了额外的信息：</p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-8-12/25855700.jpg" alt=""></p>
+<p>就像刚刚那个例子，T[1,2] = S[4,5]，都这样了，难道T还需要一格格的移动吗，直接滑过去就行啦。</p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-8-12/20550157.jpg" alt=""></p>
+<p>这就是KMP算法的匹配过程。</p>
+<h1 id="如何确定模式串的滑动区间"><a href="#如何确定模式串的滑动区间" class="headerlink" title="如何确定模式串的滑动区间"></a>如何确定模式串的滑动区间</h1><p> 知道了KMP算法的匹配过程，接下来就要考虑计算机是如何知道匹配失败时，指针j下一次指向的位置。由于KMP算法中指针i是不减的，因此j的指向位置只与模式串本身的结构有关。j的滑动位置的信息存放在next数组中。当匹配失败，就可以通过查询next数组的值得到下一次j滑动的位置。</p>
+<p>next数组存放的是模式串的移位信息，具体就是模式串的部分匹配值，next数组大小与模式串T等长。</p>
+<p>部分匹配值”就是”前缀”和”后缀”的<strong>最长的共有元素</strong>的长度。以”ABCDABD”为例，</p>
+<p>　　－　“A”的前缀和后缀都为空集，共有元素的长度为0；</p>
+<p>　　－　“AB”的前缀为[A]，后缀为[B]，共有元素的长度为0；</p>
+<p>　　－　“ABC”的前缀为[A, AB]，后缀为[BC, C]，共有元素的长度0；</p>
+<p>　　－　“ABCD”的前缀为[A, AB, ABC]，后缀为[BCD, CD, D]，共有元素的长度为0；</p>
+<p>　　－　“ABCDA”的前缀为[A, AB, ABC, ABCD]，后缀为[BCDA, CDA, DA, A]，共有元素为”A”，长度为1；</p>
+<p>　　－　“ABCDAB”的前缀为[A, AB, ABC, ABCD, ABCDA]，后缀为[BCDAB, CDAB, DAB, AB, B]，共有元素为”AB”，长度为2；</p>
+<p>　　－　“ABCDABD”的前缀为[A, AB, ABC, ABCD, ABCDA, ABCDAB]，后缀为[BCDABD, CDABD, DABD, ABD, BD, D]，共有元素的长度为0。</p>
+<p><strong>下面是模式串T：a b c d a b c a | next数组的推导过程</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">     j i</div><div class="line">模式串：a b c d a b c a</div><div class="line">串下标：<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span></div><div class="line">next ：<span class="number">0</span> <span class="number">0</span></div><div class="line">T[j]≠T[j] i++ next[i] = <span class="number">0</span></div><div class="line">         </div><div class="line">       j   i </div><div class="line">模式串：a b c d a b c a</div><div class="line">串下标：<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span></div><div class="line">next ：<span class="number">0</span> <span class="number">0</span> <span class="number">0</span></div><div class="line">T[j]≠T[j] i++ next[i] = <span class="number">0</span></div><div class="line">         </div><div class="line">       j     i </div><div class="line">模式串：a b c d a b c a</div><div class="line">串下标：<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span></div><div class="line">next ：<span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span></div><div class="line">T[j]≠T[j] i++ next[i] = <span class="number">0</span></div><div class="line">         </div><div class="line">       j       i </div><div class="line">模式串：a b c d a b c a</div><div class="line">串下标：<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span></div><div class="line">next ：<span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span></div><div class="line">T[j]=T[j] i++  j++ next[i] = j+<span class="number">1</span></div><div class="line">        </div><div class="line">         j       i </div><div class="line">模式串：a b c d a b c a</div><div class="line">串下标：<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span></div><div class="line">next ：<span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">2</span></div><div class="line">T[j]=T[j] i++  j++ next[i] = j+<span class="number">1</span> </div><div class="line">         </div><div class="line">           j       i </div><div class="line">模式串：a b c d a b c a</div><div class="line">串下标：<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span></div><div class="line">next ：<span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span></div><div class="line">T[j]=T[j] i++  j++ next[i] = j+<span class="number">1</span> </div><div class="line">         </div><div class="line">             j       i </div><div class="line">模式串：a b c d a b c a</div><div class="line">串下标：<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span></div><div class="line">next ：<span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span></div><div class="line">T[j]≠T[j] j = next[j<span class="number">-1</span>] </div><div class="line">         </div><div class="line">       j             i </div><div class="line">模式串：a b c d a b c a</div><div class="line">   j ：<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span></div><div class="line">next ：<span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">1</span></div><div class="line">T[j]=T[j] next[i] = j+<span class="number">1</span></div><div class="line">  </div><div class="line">最后得到 next[] = &#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>&#125;</div></pre></td></tr></table></figure>
+<p>C语言的next数组实现如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">get_next</span><span class="params">(String T,<span class="keyword">int</span> next[])</span></span>&#123;</div><div class="line">  <span class="keyword">int</span> j = <span class="number">0</span>;    </div><div class="line">  <span class="keyword">int</span> i = <span class="number">1</span>;</div><div class="line">  next[<span class="number">0</span>] = <span class="number">0</span>;</div><div class="line">  <span class="keyword">while</span>(i&lt;StrLength(T))&#123;</div><div class="line">    <span class="keyword">if</span>(T[i] == T[j])&#123;</div><div class="line">      next[i] = j + <span class="number">1</span>;</div><div class="line">      ++j;</div><div class="line">      ++i;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span>&#123;</div><div class="line">      <span class="keyword">if</span>(j!=<span class="number">0</span>)&#123;</div><div class="line">        j = next[j<span class="number">-1</span>];</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">else</span>&#123;</div><div class="line">        next[i] = <span class="number">0</span>;</div><div class="line">        ++i;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>有了next数组，我们就可以知道每当KMP匹配过程中，一旦匹配失败，我们就令指针  <strong>j = next[j-1]</strong> ，然后继续与S[i]比较。</p>
+<p>KMP完整算法如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">KMP</span><span class="params">(String S,String T)</span></span>&#123;</div><div class="line">  <span class="keyword">int</span> length_S = StrLength(S);</div><div class="line">  <span class="keyword">int</span> length_T = StrLength(T);</div><div class="line">  <span class="keyword">int</span> next[length_T];</div><div class="line">  get_next(T,next);</div><div class="line">  <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">  <span class="keyword">int</span> j = <span class="number">0</span>;</div><div class="line">  <span class="keyword">while</span>(j&lt;length_T &amp;&amp; i&lt;length_S)&#123;</div><div class="line">    <span class="keyword">if</span>(T[j] == S[i])&#123;</div><div class="line">      ++i;</div><div class="line">      ++j;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span>&#123;</div><div class="line">      <span class="keyword">if</span>(j!=<span class="number">0</span>)</div><div class="line">        j = next[j<span class="number">-1</span>];</div><div class="line">      <span class="keyword">else</span></div><div class="line">        ++i;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">if</span>(j==length_T) <span class="keyword">return</span> i - length_T +<span class="number">1</span>;</div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;传统的字符串匹配模式（暴力循环）&quot;&gt;&lt;a href=&quot;#传统的字符串匹配模式（暴力循环）&quot; class=&quot;headerlink&quot; title=&quot;传统的字符串匹配模式（暴力循环）&quot;&gt;&lt;/a&gt;传统的字符串匹配模式（暴力循环）&lt;/h1&gt;&lt;p&gt;子串的定位操作通常称作串的&lt;strong&gt;串的匹配模式&lt;/strong&gt;，也就是在主串S中查找模式串（子串）T第一次出现的位置。如比较以下两个串：&lt;/p&gt;
+&lt;figure class=&quot;highlight c&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;主串S：ABCDABX&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;子串T：ABX&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;我们可以通过暴力循环的方式依次的比较S[i]和T[j]，若匹配失败，则子串向前移位1步，重新开始匹配，直至匹配完成。&lt;/p&gt;
+&lt;figure class=&quot;highlight c&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;主串S：ABCDABX&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;子串T：    ABX（匹配成功）&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="算法" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="KMP" scheme="http://yoursite.com/tags/KMP/"/>
+    
+      <category term="字符串" scheme="http://yoursite.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+  </entry>
+  
+  <entry>
     <title>数据库复习大纲（四）</title>
     <link href="http://yoursite.com/2017/06/24/database-review-outline-4/"/>
     <id>http://yoursite.com/2017/06/24/database-review-outline-4/</id>
     <published>2017-06-24T05:40:58.000Z</published>
-    <updated>2017-06-24T13:11:48.000Z</updated>
+    <updated>2017-06-28T02:46:38.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="第九章"><a href="#第九章" class="headerlink" title="第九章"></a>第九章</h2><h3 id="1-查询优化一般分为哪两种"><a href="#1-查询优化一般分为哪两种" class="headerlink" title="1.查询优化一般分为哪两种"></a>1.查询优化一般分为哪两种</h3><p>查询优化一般可分为<strong>代数优化</strong>（也称<strong>逻辑优化</strong>）和<strong>物理优化</strong>（也称<strong>非代数优化</strong>）。代数优化是指关系代数表达式的优化，即按照一定规则，通过对关系代数表达式进行等价变换，改变代数表达式中操作的次序和组合，使查询执行更加高效；物理优化则是指通过存取路径和底层操作算法的选择进行的优化。<br><a id="more"></a></p>
 <h3 id="2-实现选择操作的两种算法、连接操作的四种算法分别是什么"><a href="#2-实现选择操作的两种算法、连接操作的四种算法分别是什么" class="headerlink" title="2.实现选择操作的两种算法、连接操作的四种算法分别是什么"></a>2.实现选择操作的两种算法、连接操作的四种算法分别是什么</h3><h4 id="选择操作的两种实现"><a href="#选择操作的两种实现" class="headerlink" title="选择操作的两种实现"></a>选择操作的两种实现</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span>* <span class="keyword">FROM</span> Student <span class="keyword">WHERE</span> &lt;条件表达式&gt;</div></pre></td></tr></table></figure>
@@ -48,7 +140,7 @@
 <li>对Student中的每一个元组，由Sno值通过SC索引查找相应的SC元组</li>
 <li>把这些SC元组和Student元组连接起来</li>
 </ol>
-<h4 id="4-hash-join-算法"><a href="#4-hash-join-算法" class="headerlink" title="(4)hash join 算法"></a>(4)hash join 算法</h4><p>hash join算法也是处理等值连接的算法。它把属性作为hash码，用同一个函数把Student表和SC表中的元组散列到hash表中。</p>
+<h5 id="4-hash-join-算法"><a href="#4-hash-join-算法" class="headerlink" title="(4)hash join 算法"></a>(4)hash join 算法</h5><p>hash join算法也是处理等值连接的算法。它把属性作为hash码，用同一个函数把Student表和SC表中的元组散列到hash表中。</p>
 <ol>
 <li>划分阶段，也称创建阶段，即创建hash表。对包含较少元组的表进行一遍处理，把它的元组按hash函数分散到hash表的桶中；</li>
 <li>试探阶段，也称连接阶段，对另一个进行一遍处理，把SC表的元组也按同一个hash函数进行散列，找到适当的桶，并且把SC元组与桶中来自Student表并与之相匹配的表连接起来。</li>
@@ -80,7 +172,7 @@
 <blockquote>
 <p>如：磁盘损坏、瞬间强磁场干扰等</p>
 </blockquote>
-<h5 id="5-计算机病毒"><a href="#5-计算机病毒" class="headerlink" title="(5)计算机病毒"></a>(5)计算机病毒</h5><h4 id="恢复实现技术"><a href="#恢复实现技术" class="headerlink" title="恢复实现技术"></a>恢复实现技术</h4><p>建立冗余数据，利用冗余数据实施数据库恢复。建立数据冗余最常用的技术是<strong>数据转储</strong>和<strong>登记日志文件</strong>。</p>
+<h5 id="4-计算机病毒"><a href="#4-计算机病毒" class="headerlink" title="(4)计算机病毒"></a>(4)计算机病毒</h5><h4 id="恢复实现技术"><a href="#恢复实现技术" class="headerlink" title="恢复实现技术"></a>恢复实现技术</h4><p>建立冗余数据，利用冗余数据实施数据库恢复。建立数据冗余最常用的技术是<strong>数据转储</strong>和<strong>登记日志文件</strong>。</p>
 <h5 id="1-数据转储"><a href="#1-数据转储" class="headerlink" title="(1)数据转储"></a>(1)数据转储</h5><p>数据库管理员定期将整个磁带、磁盘复制到其他存储介质保存起来的过程。</p>
 <h5 id="2-登记日志文件"><a href="#2-登记日志文件" class="headerlink" title="(2)登记日志文件"></a>(2)登记日志文件</h5><p>日志文件是用来记录事务对数据库的更新操作文件。</p>
 <h3 id="4-根据日志记录，判断系统故障发生时刻事务该采取的操作"><a href="#4-根据日志记录，判断系统故障发生时刻事务该采取的操作" class="headerlink" title="4.根据日志记录，判断系统故障发生时刻事务该采取的操作"></a>4.根据日志记录，判断系统故障发生时刻事务该采取的操作</h3><p>（参考课后习题4，5）</p>
@@ -116,7 +208,7 @@
     <link href="http://yoursite.com/2017/06/23/database-rebiew-outline-3/"/>
     <id>http://yoursite.com/2017/06/23/database-rebiew-outline-3/</id>
     <published>2017-06-23T08:51:15.000Z</published>
-    <updated>2017-06-23T13:06:11.000Z</updated>
+    <updated>2017-06-28T02:24:20.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="第七章"><a href="#第七章" class="headerlink" title="第七章"></a>第七章</h2><h3 id="1-数据库设计的特点是什么，可分为哪6个阶段"><a href="#1-数据库设计的特点是什么，可分为哪6个阶段" class="headerlink" title="1.数据库设计的特点是什么，可分为哪6个阶段"></a>1.数据库设计的特点是什么，可分为哪6个阶段</h3><h4 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h4><ol>
 <li>“三分技术、七分管理、十二分基础数据”是数据库设计的特点之一。</li>
@@ -182,11 +274,11 @@
 <p>实体间的联系在不同的E-R图中为不同的类型。</p>
 <h3 id="4-数据库实施包含哪些工作"><a href="#4-数据库实施包含哪些工作" class="headerlink" title="4.数据库实施包含哪些工作"></a>4.数据库实施包含哪些工作</h3><p>数据库实施包含两项重要的工作，一项是<strong>数据的载入</strong>，另一项是<strong>应用程序的编码</strong>。</p>
 <h2 id="第八章"><a href="#第八章" class="headerlink" title="第八章"></a>第八章</h2><h3 id="1-游标定义和使用的SQL命令动词"><a href="#1-游标定义和使用的SQL命令动词" class="headerlink" title="1.游标定义和使用的SQL命令动词"></a>1.游标定义和使用的SQL命令动词</h3><p>定义游标：定义一个游标，使之对应一个select语句。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EXEC_SQL DECLARE &lt;游标名&gt; CURSORFOR &lt;SELECT语句&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EXEC SQL DECLARE &lt;游标名&gt; CURSOR FOR &lt;SELECT语句&gt;</div></pre></td></tr></table></figure>
 <p>打开游标：打开一个游标，执行游标对应的查询，结果集合为该游标的活动集。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EXECSQL OPEN &lt;游标名&gt;   <span class="comment">//定位于查询结果第一行的前一行</span></div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EXEC SQL OPEN &lt;游标名&gt;   <span class="comment">//定位于查询结果第一行的前一行</span></div></pre></td></tr></table></figure>
 <p>游标推进语句：在活动集中将游标移到特定的行，并取出该行数据放到相应的宿主变量中</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EXECSQL FETCH &lt;游标名&gt; INTO &lt;主变量名&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EXEC SQL FETCH &lt;游标名&gt; INTO &lt;主变量名&gt;</div></pre></td></tr></table></figure>
 <p>游标关闭语句：关闭游标，释放活动集及其所占资源，使它不再和查询结果相联系。需要再使用该游标时，执行open语句。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EXEC SQL CLOSE &lt;游标名&gt;</div></pre></td></tr></table></figure>
 <h3 id="2-创建和执行存储过程的SQL语句"><a href="#2-创建和执行存储过程的SQL语句" class="headerlink" title="2.创建和执行存储过程的SQL语句"></a>2.创建和执行存储过程的SQL语句</h3><h4 id="创建存储过程"><a href="#创建存储过程" class="headerlink" title="创建存储过程"></a>创建存储过程</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">格式：</div><div class="line">CREATE Procedure 过程名（［参数1，参数2，...］） AS</div><div class="line">&lt;PL/SQL块&gt;；</div></pre></td></tr></table></figure>
@@ -217,7 +309,7 @@
     <link href="http://yoursite.com/2017/06/22/database-review-outline-2/"/>
     <id>http://yoursite.com/2017/06/22/database-review-outline-2/</id>
     <published>2017-06-22T08:23:55.000Z</published>
-    <updated>2017-06-23T08:49:32.000Z</updated>
+    <updated>2017-06-27T13:54:57.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="第六章"><a href="#第六章" class="headerlink" title="第六章"></a>第六章</h2><h3 id="1-一个不好关系模式通常存在哪四种问题"><a href="#1-一个不好关系模式通常存在哪四种问题" class="headerlink" title="1.一个不好关系模式通常存在哪四种问题"></a>1.一个不好关系模式通常存在哪四种问题</h3><ol>
 <li>数据冗余</li>
@@ -231,6 +323,10 @@
 <li>函数依赖是语义范畴的概念，只能根据语义来确定一个函数依赖关系。</li>
 <li>函数依赖X→Y的定义要求关系模式R的任何可能的关系r中的元组都满足函数依赖条件。</li>
 </ul>
+<h5 id="函数依赖与属性间的联系类型的关系"><a href="#函数依赖与属性间的联系类型的关系" class="headerlink" title="函数依赖与属性间的联系类型的关系"></a>函数依赖与属性间的联系类型的关系</h5><p>•若属性X和Y之间有“一对一”的联系,则X→  Y,Y →  X,X &lt;–&gt;  Y.（如不存在同名的学号和姓名）</p>
+<p>•若属性X和Y之间有“多对一”的联系,则X → Y,但Y  -/-&gt; X. </p>
+<p>•若属性X和Y之间有“多对多”的联系,则X与Y之间不存在任何函数依赖.</p>
+<p><em>当确定函数依赖关系时,可从属性间的联系入手</em></p>
 <h5 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h5><ol>
 <li>若X→Y，则X称作决定因素（Determinant）</li>
 <li>若X→Y，Y→X，称作X&lt;–&gt;Y。</li>
@@ -262,19 +358,19 @@
 <p>sc(<u>sno,cn</u>o,grade)</p>
 <p>s(<u>sno</u>,sname)</p>
 </blockquote>
-<h4 id="第三范式（3NF）"><a href="#第三范式（3NF）" class="headerlink" title="第三范式（3NF）"></a>第三范式（3NF）</h4><p>如果关系模式R是第二范式，且每个非主属性都不传递依赖于R的候选码，则称R是第三范式(3NF)的模式。则称R∈3NF（<strong>消除非主属性对码的传递依赖</strong>）。</p>
+<h4 id="第三范式（3NF）"><a href="#第三范式（3NF）" class="headerlink" title="第三范式（3NF）"></a>第三范式（3NF）</h4><p>如果关系模式R是第二范式，且每个非主属性都不传递依赖于R的候选码，则称R是第三范式(3NF)的模式。则称R∈3NF（<strong>消除非主属性对键的传递依赖</strong>）</p>
 <blockquote>
-<p>s(sno,sname,sdept,dept_manager)</p>
+<p>s(<u>sno</u>,sname,sdept,dept_manager)</p>
 <p>sno→sname,sdept    sdept→dept_manager</p>
 <p>存在传递依赖：sno→dept_manager</p>
 <p>可以划分为</p>
-<p>s (sno,sname,sdept)</p>
-<p>d(sdept,dept_manager)</p>
+<p>s (<u>sno</u>,sname,sdept)</p>
+<p>d(<u>sdept</u>,dept_manager)</p>
 </blockquote>
 <h4 id="BCNF"><a href="#BCNF" class="headerlink" title="BCNF"></a>BCNF</h4><p>如果关系模式R是第一范式，且每个属性都不传递依赖于R的候选键，那么称R是BCNF的模式。</p>
 <blockquote>
 <p>sct(s,c,t)    //学生，课程，教师</p>
-<p>（S，t），（S，C）为候选键。</p>
+<p>（s，t），（s，c）为候选键。</p>
 <p>t→c           //每位教师只上一门课</p>
 <p>s,c→t        //某学生选定一门课，就对应一位老师</p>
 <p>s,t→c         //每门课有若干位教师；但某学生选定</p>
@@ -357,7 +453,7 @@
 <p>对于W的每一个值，不论C取什么值，S有一个完整的集与它对应所以W→→ S</p>
 <p>由于C和S完全对称，所以必然W→→ C成立</p>
 <h3 id="5-多值依赖与函数依赖的区别是什么"><a href="#5-多值依赖与函数依赖的区别是什么" class="headerlink" title="5.多值依赖与函数依赖的区别是什么"></a>5.多值依赖与函数依赖的区别是什么</h3><h4 id="1"><a href="#1" class="headerlink" title="(1)"></a>(1)</h4><ul>
-<li>X→Y的有效性仅决定于X、Y属性集上的值，它在任何属性集W（XY ∈W ∈ U）上都成立。若X→Y在R(U)上成立，则对于任何Y′∈Y，均有X→Y ′成立。</li>
+<li>X→Y的有效性仅决定于X、Y属性集上的值，它在任何属性集W（W ∈ U）上都成立。</li>
 <li>X→→Y在属性集W（XY ∈W  ∈ U）上成立，但在U上不一定成立。因为多值依赖的定义中不仅涉及属性组X和Y，而且涉及U中其余属性Z。</li>
 </ul>
 <h4 id="2"><a href="#2" class="headerlink" title="(2)"></a>(2)</h4><ul>
@@ -418,6 +514,23 @@
 <p><strong>右边单属性化</strong>：F中任一函数依赖X→ A，A必是单属性。</p>
 <p><strong>无冗余依赖</strong>：F中不存在这样的函数依赖X → A，使得F与F - {X →A}等价。</p>
 <p><strong>无冗余决定属性</strong>：F中不存在这样的函数依赖X → A，在X中有真子集Z，使得F与（F - {X → A}） È {Z → A}等价。</p>
+<h4 id="无损连接、保持依赖的3NF分解算法"><a href="#无损连接、保持依赖的3NF分解算法" class="headerlink" title="无损连接、保持依赖的3NF分解算法"></a>无损连接、保持依赖的3NF分解算法</h4><p>输入：关系模式R（A、B、C、D    … ）及依赖关系F</p>
+<p>输出：R的一个分解{R1,R2,R3}</p>
+<ol>
+<li>求出最小依赖集Fmin</li>
+<li>对Fmin中左边相同的进行合并（反右边单属性化）</li>
+<li>对Fmin中的每一个依赖关系构成一个关系模式</li>
+<li>到此完成保持依赖的3NF关系模式R`</li>
+<li>找到原关系模式R中的候选码</li>
+<li>若R`中的任一关系都不包含候选码，则候选码单独构造一个关系模式。</li>
+<li>分解结束，输出。</li>
+</ol>
+<h4 id="无损连接的BCNF分解算法"><a href="#无损连接的BCNF分解算法" class="headerlink" title="无损连接的BCNF分解算法"></a>无损连接的BCNF分解算法</h4><p>⒈置r = {R}</p>
+<p>⒉检查r中各关系模式是否为BCNF，若是，则转4算法终止。 </p>
+<p>⒊设r 中一个关系模式R不是BCNF，</p>
+<p>  则S中存在函数依赖X→A，A不属于X ，且X不是S的键，</p>
+<p>  设S1=XA,S2=S-A,用分解{S1，S2}代替S ，返回到⒉</p>
+<p>4.分解结束，输出r。</p>
 ]]></content>
     
     <summary type="html">
@@ -440,7 +553,7 @@
     <link href="http://yoursite.com/2017/06/22/Database-review-outline1/"/>
     <id>http://yoursite.com/2017/06/22/Database-review-outline1/</id>
     <published>2017-06-22T06:48:41.000Z</published>
-    <updated>2017-06-26T09:54:48.000Z</updated>
+    <updated>2017-06-27T13:06:10.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><h3 id="1-什么是数据库？数据库数据有哪三个基本特点？"><a href="#1-什么是数据库？数据库数据有哪三个基本特点？" class="headerlink" title="1.什么是数据库？数据库数据有哪三个基本特点？"></a>1.什么是数据库？数据库数据有哪三个基本特点？</h3><p>数据库是长期储存在计算机内，有组织，可共享的大量数据集合。数据库中的数据按一定的数据模型组织、描述和储存，具有<strong>较小的冗余度</strong>、<strong>较高的数据独立性</strong>和<strong>易扩展性</strong>，并可为各种用户共享<br><a id="more"></a></p>
 <h3 id="2-数据库管理系统有哪些功能？"><a href="#2-数据库管理系统有哪些功能？" class="headerlink" title="2.数据库管理系统有哪些功能？"></a>2.数据库管理系统有哪些功能？</h3><ol>
@@ -896,7 +1009,7 @@
 <p>示例：查询姓“张”的学生及年龄不大于19岁的学生(按年龄排序)</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">Select</span> sno,sname <span class="keyword">as</span> <span class="keyword">Name</span> ,age</div><div class="line">    <span class="keyword">From</span> S</div><div class="line">    <span class="keyword">Where</span> sname    <span class="keyword">like</span>     <span class="string">'张%'</span></div><div class="line"> <span class="keyword">Union</span></div><div class="line">    <span class="keyword">Select</span> sno,sname,age</div><div class="line">    <span class="keyword">From</span> S</div><div class="line">    <span class="keyword">Where</span> age &lt;=<span class="number">19</span></div><div class="line">    <span class="keyword">Order</span> <span class="keyword">By</span> age;</div></pre></td></tr></table></figure>
 <p>示例：求选修了001或002号而没有选003号课程的学生号</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">（<span class="keyword">select</span>     SNO</div><div class="line">         <span class="keyword">from</span>       SC</div><div class="line">             <span class="keyword">where</span>     CNO = ‘C1’  <span class="keyword">or</span>  CNO = ‘C2’ ）</div><div class="line">    <span class="keyword">except</span></div><div class="line">（<span class="keyword">select</span>     SNO</div><div class="line">       <span class="keyword">from</span>       SC</div><div class="line">             <span class="keyword">where</span>     CNO = ‘C3’）</div></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">（<span class="keyword">select</span>     SNO</div><div class="line"> <span class="keyword">from</span>       SC</div><div class="line"> <span class="keyword">where</span>     CNO = ‘C1’  <span class="keyword">or</span>  CNO = ‘C2’ ）</div><div class="line">    <span class="keyword">except</span></div><div class="line">（<span class="keyword">select</span>     SNO</div><div class="line"> <span class="keyword">from</span>       SC</div><div class="line"> <span class="keyword">where</span>     CNO = ‘C3’）</div></pre></td></tr></table></figure>
 <h4 id="5-INSERT"><a href="#5-INSERT" class="headerlink" title="(5)INSERT"></a>(5)INSERT</h4><p>插入单个元组的INSERT语句的格式为：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">INSERT</span></div><div class="line"><span class="keyword">INTO</span> &lt;表名&gt; [(&lt;属性列<span class="number">1</span>&gt;[,&lt;属性列<span class="number">2</span>&gt;...)]</div><div class="line"><span class="keyword">VALUES</span> (&lt;常量<span class="number">1</span>&gt; [,&lt;常量<span class="number">2</span>&gt;]...)</div></pre></td></tr></table></figure>
 <p>示例：插入一条数据</p>

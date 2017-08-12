@@ -104,7 +104,7 @@
 <meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-6-23/37146179.jpg">
 <meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-6-23/93804548.jpg">
 <meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-6-23/49275922.jpg">
-<meta property="og:updated_time" content="2017-06-23T13:06:11.000Z">
+<meta property="og:updated_time" content="2017-06-28T02:24:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库复习大纲（三）">
 <meta name="twitter:description" content="第七章1.数据库设计的特点是什么，可分为哪6个阶段特点： “三分技术、七分管理、十二分基础数据”是数据库设计的特点之一。 数据库设计过程中把数据库结构设计和对数据的处理设计密切结合起来，  六个阶段：">
@@ -184,7 +184,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">那就开始扯吧</p>
+        <p class="site-subtitle">FROM ZERO TO HERO</p>
       
   </div>
 
@@ -410,11 +410,11 @@
 <p>实体间的联系在不同的E-R图中为不同的类型。</p>
 <h3 id="4-数据库实施包含哪些工作"><a href="#4-数据库实施包含哪些工作" class="headerlink" title="4.数据库实施包含哪些工作"></a>4.数据库实施包含哪些工作</h3><p>数据库实施包含两项重要的工作，一项是<strong>数据的载入</strong>，另一项是<strong>应用程序的编码</strong>。</p>
 <h2 id="第八章"><a href="#第八章" class="headerlink" title="第八章"></a>第八章</h2><h3 id="1-游标定义和使用的SQL命令动词"><a href="#1-游标定义和使用的SQL命令动词" class="headerlink" title="1.游标定义和使用的SQL命令动词"></a>1.游标定义和使用的SQL命令动词</h3><p>定义游标：定义一个游标，使之对应一个select语句。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EXEC_SQL DECLARE &lt;游标名&gt; CURSORFOR &lt;SELECT语句&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EXEC SQL DECLARE &lt;游标名&gt; CURSOR FOR &lt;SELECT语句&gt;</div></pre></td></tr></table></figure>
 <p>打开游标：打开一个游标，执行游标对应的查询，结果集合为该游标的活动集。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EXECSQL OPEN &lt;游标名&gt;   <span class="comment">//定位于查询结果第一行的前一行</span></div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EXEC SQL OPEN &lt;游标名&gt;   <span class="comment">//定位于查询结果第一行的前一行</span></div></pre></td></tr></table></figure>
 <p>游标推进语句：在活动集中将游标移到特定的行，并取出该行数据放到相应的宿主变量中</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EXECSQL FETCH &lt;游标名&gt; INTO &lt;主变量名&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EXEC SQL FETCH &lt;游标名&gt; INTO &lt;主变量名&gt;</div></pre></td></tr></table></figure>
 <p>游标关闭语句：关闭游标，释放活动集及其所占资源，使它不再和查询结果相联系。需要再使用该游标时，执行open语句。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EXEC SQL CLOSE &lt;游标名&gt;</div></pre></td></tr></table></figure>
 <h3 id="2-创建和执行存储过程的SQL语句"><a href="#2-创建和执行存储过程的SQL语句" class="headerlink" title="2.创建和执行存储过程的SQL语句"></a>2.创建和执行存储过程的SQL语句</h3><h4 id="创建存储过程"><a href="#创建存储过程" class="headerlink" title="创建存储过程"></a>创建存储过程</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">格式：</div><div class="line">CREATE Procedure 过程名（［参数1，参数2，...］） AS</div><div class="line">&lt;PL/SQL块&gt;；</div></pre></td></tr></table></figure>
@@ -545,7 +545,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -556,7 +556,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -567,7 +567,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

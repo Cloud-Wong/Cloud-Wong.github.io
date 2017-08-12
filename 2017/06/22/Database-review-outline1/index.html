@@ -104,7 +104,7 @@
 <meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-6-21/78829772.jpg">
 <meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-6-21/22256984.jpg">
 <meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-6-21/54502437.jpg">
-<meta property="og:updated_time" content="2017-06-26T09:54:48.000Z">
+<meta property="og:updated_time" content="2017-06-27T13:06:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库复习大纲（一）">
 <meta name="twitter:description" content="第一章1.什么是数据库？数据库数据有哪三个基本特点？数据库是长期储存在计算机内，有组织，可共享的大量数据集合。数据库中的数据按一定的数据模型组织、描述和储存，具有较小的冗余度、较高的数据独立性和易扩展性，并可为各种用户共享">
@@ -184,7 +184,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">那就开始扯吧</p>
+        <p class="site-subtitle">FROM ZERO TO HERO</p>
       
   </div>
 
@@ -800,7 +800,7 @@
 <p>示例：查询姓“张”的学生及年龄不大于19岁的学生(按年龄排序)</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">Select</span> sno,sname <span class="keyword">as</span> <span class="keyword">Name</span> ,age</div><div class="line">    <span class="keyword">From</span> S</div><div class="line">    <span class="keyword">Where</span> sname    <span class="keyword">like</span>     <span class="string">'张%'</span></div><div class="line"> <span class="keyword">Union</span></div><div class="line">    <span class="keyword">Select</span> sno,sname,age</div><div class="line">    <span class="keyword">From</span> S</div><div class="line">    <span class="keyword">Where</span> age &lt;=<span class="number">19</span></div><div class="line">    <span class="keyword">Order</span> <span class="keyword">By</span> age;</div></pre></td></tr></table></figure>
 <p>示例：求选修了001或002号而没有选003号课程的学生号</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">（<span class="keyword">select</span>     SNO</div><div class="line">         <span class="keyword">from</span>       SC</div><div class="line">             <span class="keyword">where</span>     CNO = ‘C1’  <span class="keyword">or</span>  CNO = ‘C2’ ）</div><div class="line">    <span class="keyword">except</span></div><div class="line">（<span class="keyword">select</span>     SNO</div><div class="line">       <span class="keyword">from</span>       SC</div><div class="line">             <span class="keyword">where</span>     CNO = ‘C3’）</div></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">（<span class="keyword">select</span>     SNO</div><div class="line"> <span class="keyword">from</span>       SC</div><div class="line"> <span class="keyword">where</span>     CNO = ‘C1’  <span class="keyword">or</span>  CNO = ‘C2’ ）</div><div class="line">    <span class="keyword">except</span></div><div class="line">（<span class="keyword">select</span>     SNO</div><div class="line"> <span class="keyword">from</span>       SC</div><div class="line"> <span class="keyword">where</span>     CNO = ‘C3’）</div></pre></td></tr></table></figure>
 <h4 id="5-INSERT"><a href="#5-INSERT" class="headerlink" title="(5)INSERT"></a>(5)INSERT</h4><p>插入单个元组的INSERT语句的格式为：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">INSERT</span></div><div class="line"><span class="keyword">INTO</span> &lt;表名&gt; [(&lt;属性列<span class="number">1</span>&gt;[,&lt;属性列<span class="number">2</span>&gt;...)]</div><div class="line"><span class="keyword">VALUES</span> (&lt;常量<span class="number">1</span>&gt; [,&lt;常量<span class="number">2</span>&gt;]...)</div></pre></td></tr></table></figure>
 <p>示例：插入一条数据</p>
@@ -1024,7 +1024,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1035,7 +1035,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1046,7 +1046,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

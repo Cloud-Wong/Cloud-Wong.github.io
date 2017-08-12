@@ -1,0 +1,839 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="KMP,字符串," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Cloud-Wong" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="传统的字符串匹配模式（暴力循环）子串的定位操作通常称作串的串的匹配模式，也就是在主串S中查找模式串（子串）T第一次出现的位置。如比较以下两个串： 12主串S：ABCDABX子串T：ABX 我们可以通过暴力循环的方式依次的比较S[i]和T[j]，若匹配失败，则子串向前移位1步，重新开始匹配，直至匹配完成。 12主串S：ABCDABX子串T：    ABX（匹配成功）">
+<meta name="keywords" content="KMP,字符串">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KMP算法详解">
+<meta property="og:url" content="http://yoursite.com/2017/08/12/KMPAlgorithm/index.html">
+<meta property="og:site_name" content="Cloud-Wong">
+<meta property="og:description" content="传统的字符串匹配模式（暴力循环）子串的定位操作通常称作串的串的匹配模式，也就是在主串S中查找模式串（子串）T第一次出现的位置。如比较以下两个串： 12主串S：ABCDABX子串T：ABX 我们可以通过暴力循环的方式依次的比较S[i]和T[j]，若匹配失败，则子串向前移位1步，重新开始匹配，直至匹配完成。 12主串S：ABCDABX子串T：    ABX（匹配成功）">
+<meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-8-12/84639514.jpg">
+<meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-8-12/22615603.jpg">
+<meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-8-12/82378342.jpg">
+<meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-8-12/2925391.jpg">
+<meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-8-12/69329853.jpg">
+<meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-8-12/22950730.jpg">
+<meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-8-12/84639514.jpg">
+<meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-8-12/43605050.jpg">
+<meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-8-12/7029800.jpg">
+<meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-8-12/4589023.jpg">
+<meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-8-12/25855700.jpg">
+<meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-8-12/20550157.jpg">
+<meta property="og:updated_time" content="2017-08-12T14:35:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="KMP算法详解">
+<meta name="twitter:description" content="传统的字符串匹配模式（暴力循环）子串的定位操作通常称作串的串的匹配模式，也就是在主串S中查找模式串（子串）T第一次出现的位置。如比较以下两个串： 12主串S：ABCDABX子串T：ABX 我们可以通过暴力循环的方式依次的比较S[i]和T[j]，若匹配失败，则子串向前移位1步，重新开始匹配，直至匹配完成。 12主串S：ABCDABX子串T：    ABX（匹配成功）">
+<meta name="twitter:image" content="http://oq6qnksdu.bkt.clouddn.com/17-8-12/84639514.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/12/KMPAlgorithm/"/>
+
+
+
+
+
+  <title>KMP算法详解 | Cloud-Wong</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cloud-Wong</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">FROM ZERO TO HERO</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/12/KMPAlgorithm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="黄耘">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cloud-Wong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">KMP算法详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-12T22:33:37+08:00">
+                2017-08-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="传统的字符串匹配模式（暴力循环）"><a href="#传统的字符串匹配模式（暴力循环）" class="headerlink" title="传统的字符串匹配模式（暴力循环）"></a>传统的字符串匹配模式（暴力循环）</h1><p>子串的定位操作通常称作串的<strong>串的匹配模式</strong>，也就是在主串S中查找模式串（子串）T第一次出现的位置。如比较以下两个串：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">主串S：ABCDABX</div><div class="line">子串T：ABX</div></pre></td></tr></table></figure>
+<p>我们可以通过暴力循环的方式依次的比较S[i]和T[j]，若匹配失败，则子串向前移位1步，重新开始匹配，直至匹配完成。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">主串S：ABCDABX</div><div class="line">子串T：    ABX（匹配成功）</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>传统的暴力循环代码如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">index</span><span class="params">(String S,String T)</span></span>&#123;</div><div class="line">  <span class="keyword">int</span> i,j;</div><div class="line">  i =  j = <span class="number">0</span>;</div><div class="line">  <span class="keyword">while</span>(i&lt;StrLength(S) &amp;&amp; j&lt;StrLength(T))&#123;</div><div class="line">    <span class="keyword">if</span>(S[i] = T[i])&#123;</div><div class="line">      i++;</div><div class="line">      j++;</div><div class="line">    &#125;           <span class="comment">//继续比较后续字符</span></div><div class="line">    <span class="keyword">else</span>&#123;</div><div class="line">      i = i - j + <span class="number">1</span>;</div><div class="line">      j = <span class="number">0</span>;</div><div class="line">    &#125;           <span class="comment">//指针后退重新开始匹配</span></div><div class="line">  &#125;</div><div class="line">  <span class="keyword">if</span>(j &gt; StrLength(T)) <span class="keyword">return</span> i - StrLength(T) + <span class="number">1</span>; <span class="comment">//返回定位</span></div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;       <span class="comment">//匹配失败</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这种传统的模式匹配方式最坏的情况下需要循环mxn次，时间复杂度为O(mxn)，因为主串中可能存在多个和模式串“部分匹配”的子串，因此指针多次回溯，效率极低。</p>
+<h1 id="KMP算法的匹配过程"><a href="#KMP算法的匹配过程" class="headerlink" title="KMP算法的匹配过程"></a>KMP算法的匹配过程</h1><p>KMP算法是一种改进的<a href="https://baike.baidu.com/item/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D" target="_blank" rel="external">字符串匹配</a>算法，由D.E.Knuth，J.H.Morris和V.R.Pratt同时发现，因此人们称它为<a href="https://baike.baidu.com/item/%E5%85%8B%E5%8A%AA%E7%89%B9" target="_blank" rel="external">克努特</a>——<a href="https://baike.baidu.com/item/%E8%8E%AB%E9%87%8C%E6%96%AF" target="_blank" rel="external">莫里斯</a>——<a href="https://baike.baidu.com/item/%E6%99%AE%E6%8B%89%E7%89%B9" target="_blank" rel="external">普拉特</a>操作（简称KMP算法）。KMP算法的关键是利用匹配失败后的信息，尽量减少模式串与主串的匹配次数以达到快速匹配的目的。用以下例子说明：</p>
+<ul>
+<li>主串：abcababca…（假设主串很长，我们就先看前9位）</li>
+<li>子串：abcabx</li>
+</ul>
+<p>按照传统的匹配模式的过程就应该如下：</p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-8-12/84639514.jpg" alt=""></p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-8-12/22615603.jpg" alt=""></p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-8-12/82378342.jpg" alt=""></p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-8-12/2925391.jpg" alt=""></p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-8-12/69329853.jpg" alt=""></p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-8-12/22950730.jpg" alt=""></p>
+<p>传统的匹配模式，就应该是按照上面的方式一步一步的匹配下来，一旦匹配失败，主串指针i就要回溯，效率非常低！而<strong>KMP算法的匹配过程只需要两步</strong>：</p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-8-12/84639514.jpg" alt=""></p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-8-12/43605050.jpg" alt=""></p>
+<p>为什么一下次就可以跳过中间的比较来到这一步呢，下面就来探究KMP算法的匹配方式。</p>
+<p>先来对比一下传统的匹配模式，可以发现主串的指针i值的变化：</p>
+<p>第一次遍历到了i=6，匹配失败；</p>
+<p>第二次遍历到了i=2，匹配失败；</p>
+<p>第三次遍历到了i=3，匹配失败；</p>
+<p>第四次遍历到了i=4，匹配失败；</p>
+<p>第五次遍历到了i=5，匹配失败；</p>
+<p>直到第五次i值终于又回到了i=6。</p>
+<p>i值的变化情况：6-&gt;1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;6</p>
+<p>在传统的匹配算法中，可以发现i值是不断回溯的。</p>
+<p>反观KMP算法，只需对主串一次遍历，i值不会回溯，即遍历过程中i值是不会变小的。</p>
+<p>那么既然KMP算法的i值遍历只需一次，那么就要考虑j是如何变化的了，为什么第一次匹配失败后j可以从j=3开始匹配，而不像传统遍历算法那样每当匹配失败就要从j=1重新开始匹配。</p>
+<p>再看看一开始对KMP算法的定义：KMP算法的关键是<strong><u>利用匹配失败后的信息</u></strong>，尽量减少模式串与主串的匹配次数以达到快速匹配的目的。</p>
+<p>划重点：<strong><u>利用匹配失败后的信息</u></strong>。什么是匹配失败后得到的信息呢？</p>
+<p>于是回到刚刚的第一次匹配，看看能从这次失败的匹配中得到什么信息。</p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-8-12/7029800.jpg" alt=""></p>
+<p>因为S[1…5] = T[1…5] 所以有 S[1,2] = T[1,2] S[4,5] = T[4,5]</p>
+<p>又因为子串T有 T[1,2] = T[4,5]，所以S[4,5] = T[1,2]</p>
+<p>那下一次滑动到直接让S[4,5] = T[1,2]，然后继续比较下一个元素就行啦。</p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-8-12/4589023.jpg" alt=""></p>
+<p>这是简化模型第一次匹配的情况，根据传统的匹配算法，当匹配失败时模式串T移动一格，和S串比较。但是由于绿色部分在第一次匹配的时候发现了额外的信息：</p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-8-12/25855700.jpg" alt=""></p>
+<p>就像刚刚那个例子，T[1,2] = S[4,5]，都这样了，难道T还需要一格格的移动吗，直接滑过去就行啦。</p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-8-12/20550157.jpg" alt=""></p>
+<p>这就是KMP算法的匹配过程。</p>
+<h1 id="如何确定模式串的滑动区间"><a href="#如何确定模式串的滑动区间" class="headerlink" title="如何确定模式串的滑动区间"></a>如何确定模式串的滑动区间</h1><p> 知道了KMP算法的匹配过程，接下来就要考虑计算机是如何知道匹配失败时，指针j下一次指向的位置。由于KMP算法中指针i是不减的，因此j的指向位置只与模式串本身的结构有关。j的滑动位置的信息存放在next数组中。当匹配失败，就可以通过查询next数组的值得到下一次j滑动的位置。</p>
+<p>next数组存放的是模式串的移位信息，具体就是模式串的部分匹配值，next数组大小与模式串T等长。</p>
+<p>部分匹配值”就是”前缀”和”后缀”的<strong>最长的共有元素</strong>的长度。以”ABCDABD”为例，</p>
+<p>　　－　“A”的前缀和后缀都为空集，共有元素的长度为0；</p>
+<p>　　－　“AB”的前缀为[A]，后缀为[B]，共有元素的长度为0；</p>
+<p>　　－　“ABC”的前缀为[A, AB]，后缀为[BC, C]，共有元素的长度0；</p>
+<p>　　－　“ABCD”的前缀为[A, AB, ABC]，后缀为[BCD, CD, D]，共有元素的长度为0；</p>
+<p>　　－　“ABCDA”的前缀为[A, AB, ABC, ABCD]，后缀为[BCDA, CDA, DA, A]，共有元素为”A”，长度为1；</p>
+<p>　　－　“ABCDAB”的前缀为[A, AB, ABC, ABCD, ABCDA]，后缀为[BCDAB, CDAB, DAB, AB, B]，共有元素为”AB”，长度为2；</p>
+<p>　　－　“ABCDABD”的前缀为[A, AB, ABC, ABCD, ABCDA, ABCDAB]，后缀为[BCDABD, CDABD, DABD, ABD, BD, D]，共有元素的长度为0。</p>
+<p><strong>下面是模式串T：a b c d a b c a | next数组的推导过程</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">     j i</div><div class="line">模式串：a b c d a b c a</div><div class="line">串下标：<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span></div><div class="line">next ：<span class="number">0</span> <span class="number">0</span></div><div class="line">T[j]≠T[j] i++ next[i] = <span class="number">0</span></div><div class="line">         </div><div class="line">       j   i </div><div class="line">模式串：a b c d a b c a</div><div class="line">串下标：<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span></div><div class="line">next ：<span class="number">0</span> <span class="number">0</span> <span class="number">0</span></div><div class="line">T[j]≠T[j] i++ next[i] = <span class="number">0</span></div><div class="line">         </div><div class="line">       j     i </div><div class="line">模式串：a b c d a b c a</div><div class="line">串下标：<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span></div><div class="line">next ：<span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span></div><div class="line">T[j]≠T[j] i++ next[i] = <span class="number">0</span></div><div class="line">         </div><div class="line">       j       i </div><div class="line">模式串：a b c d a b c a</div><div class="line">串下标：<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span></div><div class="line">next ：<span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span></div><div class="line">T[j]=T[j] i++  j++ next[i] = j+<span class="number">1</span></div><div class="line">        </div><div class="line">         j       i </div><div class="line">模式串：a b c d a b c a</div><div class="line">串下标：<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span></div><div class="line">next ：<span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">2</span></div><div class="line">T[j]=T[j] i++  j++ next[i] = j+<span class="number">1</span> </div><div class="line">         </div><div class="line">           j       i </div><div class="line">模式串：a b c d a b c a</div><div class="line">串下标：<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span></div><div class="line">next ：<span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span></div><div class="line">T[j]=T[j] i++  j++ next[i] = j+<span class="number">1</span> </div><div class="line">         </div><div class="line">             j       i </div><div class="line">模式串：a b c d a b c a</div><div class="line">串下标：<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span></div><div class="line">next ：<span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span></div><div class="line">T[j]≠T[j] j = next[j<span class="number">-1</span>] </div><div class="line">         </div><div class="line">       j             i </div><div class="line">模式串：a b c d a b c a</div><div class="line">   j ：<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span></div><div class="line">next ：<span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">1</span></div><div class="line">T[j]=T[j] next[i] = j+<span class="number">1</span></div><div class="line">  </div><div class="line">最后得到 next[] = &#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>&#125;</div></pre></td></tr></table></figure>
+<p>C语言的next数组实现如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">get_next</span><span class="params">(String T,<span class="keyword">int</span> next[])</span></span>&#123;</div><div class="line">  <span class="keyword">int</span> j = <span class="number">0</span>;    </div><div class="line">  <span class="keyword">int</span> i = <span class="number">1</span>;</div><div class="line">  next[<span class="number">0</span>] = <span class="number">0</span>;</div><div class="line">  <span class="keyword">while</span>(i&lt;StrLength(T))&#123;</div><div class="line">    <span class="keyword">if</span>(T[i] == T[j])&#123;</div><div class="line">      next[i] = j + <span class="number">1</span>;</div><div class="line">      ++j;</div><div class="line">      ++i;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span>&#123;</div><div class="line">      <span class="keyword">if</span>(j!=<span class="number">0</span>)&#123;</div><div class="line">        j = next[j<span class="number">-1</span>];</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">else</span>&#123;</div><div class="line">        next[i] = <span class="number">0</span>;</div><div class="line">        ++i;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>有了next数组，我们就可以知道每当KMP匹配过程中，一旦匹配失败，我们就令指针  <strong>j = next[j-1]</strong> ，然后继续与S[i]比较。</p>
+<p>KMP完整算法如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">KMP</span><span class="params">(String S,String T)</span></span>&#123;</div><div class="line">  <span class="keyword">int</span> length_S = StrLength(S);</div><div class="line">  <span class="keyword">int</span> length_T = StrLength(T);</div><div class="line">  <span class="keyword">int</span> next[length_T];</div><div class="line">  get_next(T,next);</div><div class="line">  <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">  <span class="keyword">int</span> j = <span class="number">0</span>;</div><div class="line">  <span class="keyword">while</span>(j&lt;length_T &amp;&amp; i&lt;length_S)&#123;</div><div class="line">    <span class="keyword">if</span>(T[j] == S[i])&#123;</div><div class="line">      ++i;</div><div class="line">      ++j;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span>&#123;</div><div class="line">      <span class="keyword">if</span>(j!=<span class="number">0</span>)</div><div class="line">        j = next[j<span class="number">-1</span>];</div><div class="line">      <span class="keyword">else</span></div><div class="line">        ++i;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">if</span>(j==length_T) <span class="keyword">return</span> i - length_T +<span class="number">1</span>;</div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/KMP/" rel="tag"># KMP</a>
+          
+            <a href="/tags/字符串/" rel="tag"># 字符串</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/24/database-review-outline-4/" rel="next" title="数据库复习大纲（四）">
+                <i class="fa fa-chevron-left"></i> 数据库复习大纲（四）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="黄耘" />
+          <p class="site-author-name" itemprop="name">黄耘</p>
+           
+              <p class="site-description motion-element" itemprop="description">记录学习笔记和遇到的问题</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Cloud-Wong/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2677463703/profile?topnav=1&wvr=6" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#传统的字符串匹配模式（暴力循环）"><span class="nav-number">1.</span> <span class="nav-text">传统的字符串匹配模式（暴力循环）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#KMP算法的匹配过程"><span class="nav-number">2.</span> <span class="nav-text">KMP算法的匹配过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何确定模式串的滑动区间"><span class="nav-number">3.</span> <span class="nav-text">如何确定模式串的滑动区间</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">黄耘</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

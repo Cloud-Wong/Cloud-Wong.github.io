@@ -101,7 +101,7 @@
 <meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-6-23/39400146.jpg">
 <meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-6-23/97773069.jpg">
 <meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-6-23/83584879.jpg">
-<meta property="og:updated_time" content="2017-06-23T08:49:32.000Z">
+<meta property="og:updated_time" content="2017-06-27T13:54:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库复习大纲（二）">
 <meta name="twitter:description" content="第六章1.一个不好关系模式通常存在哪四种问题 数据冗余 更新异常 插入异常 删除异常  2.理解并会判断属性的函数依赖关系，平凡、部分、传递函数依赖关系、候选码、主码、主属性、非主属性、全码">
@@ -181,7 +181,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">那就开始扯吧</p>
+        <p class="site-subtitle">FROM ZERO TO HERO</p>
       
   </div>
 
@@ -355,6 +355,10 @@
 <li>函数依赖是语义范畴的概念，只能根据语义来确定一个函数依赖关系。</li>
 <li>函数依赖X→Y的定义要求关系模式R的任何可能的关系r中的元组都满足函数依赖条件。</li>
 </ul>
+<h5 id="函数依赖与属性间的联系类型的关系"><a href="#函数依赖与属性间的联系类型的关系" class="headerlink" title="函数依赖与属性间的联系类型的关系"></a>函数依赖与属性间的联系类型的关系</h5><p>•若属性X和Y之间有“一对一”的联系,则X→  Y,Y →  X,X &lt;–&gt;  Y.（如不存在同名的学号和姓名）</p>
+<p>•若属性X和Y之间有“多对一”的联系,则X → Y,但Y  -/-&gt; X. </p>
+<p>•若属性X和Y之间有“多对多”的联系,则X与Y之间不存在任何函数依赖.</p>
+<p><em>当确定函数依赖关系时,可从属性间的联系入手</em></p>
 <h5 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h5><ol>
 <li>若X→Y，则X称作决定因素（Determinant）</li>
 <li>若X→Y，Y→X，称作X&lt;–&gt;Y。</li>
@@ -386,19 +390,19 @@
 <p>sc(<u>sno,cn</u>o,grade)</p>
 <p>s(<u>sno</u>,sname)</p>
 </blockquote>
-<h4 id="第三范式（3NF）"><a href="#第三范式（3NF）" class="headerlink" title="第三范式（3NF）"></a>第三范式（3NF）</h4><p>如果关系模式R是第二范式，且每个非主属性都不传递依赖于R的候选码，则称R是第三范式(3NF)的模式。则称R∈3NF（<strong>消除非主属性对码的传递依赖</strong>）。</p>
+<h4 id="第三范式（3NF）"><a href="#第三范式（3NF）" class="headerlink" title="第三范式（3NF）"></a>第三范式（3NF）</h4><p>如果关系模式R是第二范式，且每个非主属性都不传递依赖于R的候选码，则称R是第三范式(3NF)的模式。则称R∈3NF（<strong>消除非主属性对键的传递依赖</strong>）</p>
 <blockquote>
-<p>s(sno,sname,sdept,dept_manager)</p>
+<p>s(<u>sno</u>,sname,sdept,dept_manager)</p>
 <p>sno→sname,sdept    sdept→dept_manager</p>
 <p>存在传递依赖：sno→dept_manager</p>
 <p>可以划分为</p>
-<p>s (sno,sname,sdept)</p>
-<p>d(sdept,dept_manager)</p>
+<p>s (<u>sno</u>,sname,sdept)</p>
+<p>d(<u>sdept</u>,dept_manager)</p>
 </blockquote>
 <h4 id="BCNF"><a href="#BCNF" class="headerlink" title="BCNF"></a>BCNF</h4><p>如果关系模式R是第一范式，且每个属性都不传递依赖于R的候选键，那么称R是BCNF的模式。</p>
 <blockquote>
 <p>sct(s,c,t)    //学生，课程，教师</p>
-<p>（S，t），（S，C）为候选键。</p>
+<p>（s，t），（s，c）为候选键。</p>
 <p>t→c           //每位教师只上一门课</p>
 <p>s,c→t        //某学生选定一门课，就对应一位老师</p>
 <p>s,t→c         //每门课有若干位教师；但某学生选定</p>
@@ -481,7 +485,7 @@
 <p>对于W的每一个值，不论C取什么值，S有一个完整的集与它对应所以W→→ S</p>
 <p>由于C和S完全对称，所以必然W→→ C成立</p>
 <h3 id="5-多值依赖与函数依赖的区别是什么"><a href="#5-多值依赖与函数依赖的区别是什么" class="headerlink" title="5.多值依赖与函数依赖的区别是什么"></a>5.多值依赖与函数依赖的区别是什么</h3><h4 id="1"><a href="#1" class="headerlink" title="(1)"></a>(1)</h4><ul>
-<li>X→Y的有效性仅决定于X、Y属性集上的值，它在任何属性集W（XY ∈W ∈ U）上都成立。若X→Y在R(U)上成立，则对于任何Y′∈Y，均有X→Y ′成立。</li>
+<li>X→Y的有效性仅决定于X、Y属性集上的值，它在任何属性集W（W ∈ U）上都成立。</li>
 <li>X→→Y在属性集W（XY ∈W  ∈ U）上成立，但在U上不一定成立。因为多值依赖的定义中不仅涉及属性组X和Y，而且涉及U中其余属性Z。</li>
 </ul>
 <h4 id="2"><a href="#2" class="headerlink" title="(2)"></a>(2)</h4><ul>
@@ -542,6 +546,23 @@
 <p><strong>右边单属性化</strong>：F中任一函数依赖X→ A，A必是单属性。</p>
 <p><strong>无冗余依赖</strong>：F中不存在这样的函数依赖X → A，使得F与F - {X →A}等价。</p>
 <p><strong>无冗余决定属性</strong>：F中不存在这样的函数依赖X → A，在X中有真子集Z，使得F与（F - {X → A}） È {Z → A}等价。</p>
+<h4 id="无损连接、保持依赖的3NF分解算法"><a href="#无损连接、保持依赖的3NF分解算法" class="headerlink" title="无损连接、保持依赖的3NF分解算法"></a>无损连接、保持依赖的3NF分解算法</h4><p>输入：关系模式R（A、B、C、D    … ）及依赖关系F</p>
+<p>输出：R的一个分解{R1,R2,R3}</p>
+<ol>
+<li>求出最小依赖集Fmin</li>
+<li>对Fmin中左边相同的进行合并（反右边单属性化）</li>
+<li>对Fmin中的每一个依赖关系构成一个关系模式</li>
+<li>到此完成保持依赖的3NF关系模式R`</li>
+<li>找到原关系模式R中的候选码</li>
+<li>若R`中的任一关系都不包含候选码，则候选码单独构造一个关系模式。</li>
+<li>分解结束，输出。</li>
+</ol>
+<h4 id="无损连接的BCNF分解算法"><a href="#无损连接的BCNF分解算法" class="headerlink" title="无损连接的BCNF分解算法"></a>无损连接的BCNF分解算法</h4><p>⒈置r = {R}</p>
+<p>⒉检查r中各关系模式是否为BCNF，若是，则转4算法终止。 </p>
+<p>⒊设r 中一个关系模式R不是BCNF，</p>
+<p>  则S中存在函数依赖X→A，A不属于X ，且X不是S的键，</p>
+<p>  设S1=XA,S2=S-A,用分解{S1，S2}代替S ，返回到⒉</p>
+<p>4.分解结束，输出r。</p>
 
       
     </div>
@@ -662,7 +683,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -673,7 +694,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -684,7 +705,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -746,7 +767,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第六章"><span class="nav-number">1.</span> <span class="nav-text">第六章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-一个不好关系模式通常存在哪四种问题"><span class="nav-number">1.1.</span> <span class="nav-text">1.一个不好关系模式通常存在哪四种问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-理解并会判断属性的函数依赖关系，平凡、部分、传递函数依赖关系、候选码、主码、主属性、非主属性、全码"><span class="nav-number">1.2.</span> <span class="nav-text">2.理解并会判断属性的函数依赖关系，平凡、部分、传递函数依赖关系、候选码、主码、主属性、非主属性、全码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#函数依赖"><span class="nav-number">1.2.1.</span> <span class="nav-text">函数依赖</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#定义"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#术语"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">术语</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#码"><span class="nav-number">1.2.2.</span> <span class="nav-text">码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-理解1NF、2NF、3NF、BCNF、4NF的特点并判断"><span class="nav-number">1.3.</span> <span class="nav-text">3.理解1NF、2NF、3NF、BCNF、4NF的特点并判断</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一范式（1NF）"><span class="nav-number">1.3.1.</span> <span class="nav-text">第一范式（1NF）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二范式（2NF）"><span class="nav-number">1.3.2.</span> <span class="nav-text">第二范式（2NF）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三范式（3NF）"><span class="nav-number">1.3.3.</span> <span class="nav-text">第三范式（3NF）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BCNF"><span class="nav-number">1.3.4.</span> <span class="nav-text">BCNF</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第四范式（4NF）"><span class="nav-number">1.3.5.</span> <span class="nav-text">第四范式（4NF）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-理解多值依赖关系、平凡多值依赖关系的含义"><span class="nav-number">1.4.</span> <span class="nav-text">4.理解多值依赖关系、平凡多值依赖关系的含义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-多值依赖与函数依赖的区别是什么"><span class="nav-number">1.5.</span> <span class="nav-text">5.多值依赖与函数依赖的区别是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1"><span class="nav-number">1.5.1.</span> <span class="nav-text">(1)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2"><span class="nav-number">1.5.2.</span> <span class="nav-text">(2)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-运用关系运算律完成关系模式的规范化"><span class="nav-number">1.6.</span> <span class="nav-text">6.运用关系运算律完成关系模式的规范化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-如何计算闭包"><span class="nav-number">1.7.</span> <span class="nav-text">7.如何计算闭包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-理解无损连接性和保持函数依赖的概念并判断"><span class="nav-number">1.8.</span> <span class="nav-text">8.理解无损连接性和保持函数依赖的概念并判断</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#无损连接的判断"><span class="nav-number">1.8.1.</span> <span class="nav-text">无损连接的判断</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#保持函数依赖的判断"><span class="nav-number">1.8.2.</span> <span class="nav-text">保持函数依赖的判断</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-如何计算关系的最小依赖集。掌握无损连接的BCNF分解算法，掌握无损连接、保持依赖的3NF分解算法。"><span class="nav-number">1.9.</span> <span class="nav-text">9.如何计算关系的最小依赖集。掌握无损连接的BCNF分解算法，掌握无损连接、保持依赖的3NF分解算法。</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最小依赖集"><span class="nav-number">1.9.1.</span> <span class="nav-text">最小依赖集</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第六章"><span class="nav-number">1.</span> <span class="nav-text">第六章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-一个不好关系模式通常存在哪四种问题"><span class="nav-number">1.1.</span> <span class="nav-text">1.一个不好关系模式通常存在哪四种问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-理解并会判断属性的函数依赖关系，平凡、部分、传递函数依赖关系、候选码、主码、主属性、非主属性、全码"><span class="nav-number">1.2.</span> <span class="nav-text">2.理解并会判断属性的函数依赖关系，平凡、部分、传递函数依赖关系、候选码、主码、主属性、非主属性、全码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#函数依赖"><span class="nav-number">1.2.1.</span> <span class="nav-text">函数依赖</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#定义"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#函数依赖与属性间的联系类型的关系"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">函数依赖与属性间的联系类型的关系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#术语"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">术语</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#码"><span class="nav-number">1.2.2.</span> <span class="nav-text">码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-理解1NF、2NF、3NF、BCNF、4NF的特点并判断"><span class="nav-number">1.3.</span> <span class="nav-text">3.理解1NF、2NF、3NF、BCNF、4NF的特点并判断</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一范式（1NF）"><span class="nav-number">1.3.1.</span> <span class="nav-text">第一范式（1NF）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二范式（2NF）"><span class="nav-number">1.3.2.</span> <span class="nav-text">第二范式（2NF）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三范式（3NF）"><span class="nav-number">1.3.3.</span> <span class="nav-text">第三范式（3NF）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BCNF"><span class="nav-number">1.3.4.</span> <span class="nav-text">BCNF</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第四范式（4NF）"><span class="nav-number">1.3.5.</span> <span class="nav-text">第四范式（4NF）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-理解多值依赖关系、平凡多值依赖关系的含义"><span class="nav-number">1.4.</span> <span class="nav-text">4.理解多值依赖关系、平凡多值依赖关系的含义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-多值依赖与函数依赖的区别是什么"><span class="nav-number">1.5.</span> <span class="nav-text">5.多值依赖与函数依赖的区别是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1"><span class="nav-number">1.5.1.</span> <span class="nav-text">(1)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2"><span class="nav-number">1.5.2.</span> <span class="nav-text">(2)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-运用关系运算律完成关系模式的规范化"><span class="nav-number">1.6.</span> <span class="nav-text">6.运用关系运算律完成关系模式的规范化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-如何计算闭包"><span class="nav-number">1.7.</span> <span class="nav-text">7.如何计算闭包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-理解无损连接性和保持函数依赖的概念并判断"><span class="nav-number">1.8.</span> <span class="nav-text">8.理解无损连接性和保持函数依赖的概念并判断</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#无损连接的判断"><span class="nav-number">1.8.1.</span> <span class="nav-text">无损连接的判断</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#保持函数依赖的判断"><span class="nav-number">1.8.2.</span> <span class="nav-text">保持函数依赖的判断</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-如何计算关系的最小依赖集。掌握无损连接的BCNF分解算法，掌握无损连接、保持依赖的3NF分解算法。"><span class="nav-number">1.9.</span> <span class="nav-text">9.如何计算关系的最小依赖集。掌握无损连接的BCNF分解算法，掌握无损连接、保持依赖的3NF分解算法。</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最小依赖集"><span class="nav-number">1.9.1.</span> <span class="nav-text">最小依赖集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#无损连接、保持依赖的3NF分解算法"><span class="nav-number">1.9.2.</span> <span class="nav-text">无损连接、保持依赖的3NF分解算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#无损连接的BCNF分解算法"><span class="nav-number">1.9.3.</span> <span class="nav-text">无损连接的BCNF分解算法</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
