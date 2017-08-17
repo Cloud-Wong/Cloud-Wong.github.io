@@ -424,9 +424,9 @@
 <p>例如：自然数、整数、长度小于25字节的字符串集合、{0,1}、{男、女}等</p>
 <h4 id="2-笛卡尔积"><a href="#2-笛卡尔积" class="headerlink" title="(2)笛卡尔积"></a>(2)笛卡尔积</h4><p>笛卡尔积是域上的一种集合运算，就是把两个表相乘。</p>
 <p>一个域允许的不同取值个数称为这个域的<strong>基数</strong></p>
-<figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">D1</span>×<span class="built_in">D2</span>×···×<span class="meta">Dn</span>=&#123;(<span class="built_in">d1</span>,<span class="built_in">d2</span>,···,<span class="meta">dn</span>) <span class="title">| di∈Di，i=1,2,···，n&#125;</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">D1×D2×···×Dn=&#123;(d1,d2,···,dn) | di∈Di，i=1,2,···，n&#125;</div></pre></td></tr></table></figure>
 <p>例子，设有两个域：姓名集D1={李倩，王刚，张体宁} 和 性别集D2={男，女}。则：</p>
-<figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">设有两个域：姓名集<span class="built_in">D1</span>=&#123;李倩，王刚，张体宁&#125; 和 性别集<span class="built_in">D2</span>=&#123;男，女&#125;。</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">设有两个域：姓名集D1=&#123;李倩，王刚，张体宁&#125; 和 性别集D2=&#123;男，女&#125;。</div></pre></td></tr></table></figure>
 <p>这六个<strong>元组</strong>可构成一张二维表，表中部分元组称作其子集。</p>
 <table>
 <thead>
@@ -506,7 +506,7 @@
 <p><img src="http://oq6qnksdu.bkt.clouddn.com/17-6-21/2282416.jpg" alt=""></p>
 <h3 id="5-理解元组、分量、连接、象集等概念和记号表示及判断"><a href="#5-理解元组、分量、连接、象集等概念和记号表示及判断" class="headerlink" title="5.理解元组、分量、连接、象集等概念和记号表示及判断"></a>5.理解元组、分量、连接、象集等概念和记号表示及判断</h3><p>每一个元素{d1，d2，…，dn}叫做一个<strong>n元组</strong>，或简称<strong>元组</strong>。元素中的每一个值di叫做一个分量。</p>
 <p><strong>连接</strong>也称θ连接。他是从两个关系的笛卡尔积中选取属性间满足一定条件的元组。记作</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">R∞S=&#123;<span class="keyword">tr</span> <span class="keyword">ts</span>|(<span class="keyword">tr</span>∈R) ∧ (<span class="keyword">ts</span> ∈S) ∧ <span class="keyword">tr</span>[A] θ <span class="keyword">ts</span>[B] &#125;</div><div class="line">AθB</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">R∞S=&#123;tr ts|(tr∈R) ∧ (ts ∈S) ∧ tr[A] θ ts[B] &#125;</div><div class="line">AθB</div></pre></td></tr></table></figure>
 <p>连接运算从R和S的笛卡尔积RxS中选取R关系在A属性组上的值与S关系在B属性组上的值满足比较关系θ的元组</p>
 <p><strong>象集</strong>的概念。<br>在关系R中属性A可以取四个值｛a1,a2,a3,a4}其中<br>a1的象集为｛(b1,c2),(b2,c3),(b2,c1)}<br>a2的象集为｛(b3,c7),(b2,c3)}<br>a3的象集为｛(b4,c6)}<br>a4的象集为｛(b6,c6)} </p>
 <p><strong>R:</strong></p>
@@ -871,7 +871,7 @@
 <p>发出<code>GRANT</code>语句的可以是数据库管理员，也可以是数据库对象创建者</p>
 <p>如果指定了<code>with grant option</code>子句，则获得某种权限的用户还可以把这种权限再授予其他用户，反之则不能传播该权限。</p>
 <p>示例：把查询Student表的权限授予给用户U1</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">GRANT</span> <span class="keyword">SELECT</span></div><div class="line"><span class="keyword">ON</span> <span class="keyword">TABLE</span> Student</div><div class="line"><span class="keyword">TO</span> U1</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">GRANT SELECT</div><div class="line">ON TABLE Student</div><div class="line">TO U1</div></pre></td></tr></table></figure>
 <h4 id="2-回收"><a href="#2-回收" class="headerlink" title="(2)回收"></a>(2)回收</h4><p>授予用户的权限可以由管理员或其他授权者用<code>REVOKE</code>语句收回，一般格式为</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">revoke</span> 表级权限 <span class="keyword">on</span> &#123;表名 | 视图名&#125;</div><div class="line"> <span class="keyword">from</span>  &#123;用户 [，用户]… | <span class="keyword">public</span>&#125;</div></pre></td></tr></table></figure>
 <p>示例：把用户U1查询Student表的权限收回</p>
