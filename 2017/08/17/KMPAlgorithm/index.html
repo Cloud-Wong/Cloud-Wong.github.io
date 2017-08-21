@@ -111,7 +111,7 @@
 <meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-8-12/4589023.jpg">
 <meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-8-12/25855700.jpg">
 <meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-8-12/20550157.jpg">
-<meta property="og:updated_time" content="2017-08-17T09:44:37.000Z">
+<meta property="og:updated_time" content="2017-08-21T15:04:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="KMP算法详解">
 <meta name="twitter:description" content="传统的字符串匹配模式（暴力循环）子串的定位操作通常称作串的串的匹配模式，也就是在主串S中查找模式串（子串）T第一次出现的位置。如比较以下两个串： 12主串S：ABCDABX子串T：ABX 我们可以通过暴力循环的方式依次的比较S[i]和T[j]，若匹配失败，则子串向前移位1步，重新开始匹配，直至匹配完成。 12主串S：ABCDABX子串T：    ABX（匹配成功）">
@@ -440,9 +440,16 @@
 <p>有了next数组，我们就可以知道每当KMP匹配过程中，一旦匹配失败，我们就令指针  <strong>j = next[j-1]</strong> ，然后继续与S[i]比较。</p>
 <p>KMP完整算法如下：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">KMP</span><span class="params">(String S,String T)</span></span>&#123;</div><div class="line">  <span class="keyword">int</span> length_S = StrLength(S);</div><div class="line">  <span class="keyword">int</span> length_T = StrLength(T);</div><div class="line">  <span class="keyword">int</span> next[length_T];</div><div class="line">  get_next(T,next);</div><div class="line">  <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">  <span class="keyword">int</span> j = <span class="number">0</span>;</div><div class="line">  <span class="keyword">while</span>(j&lt;length_T &amp;&amp; i&lt;length_S)&#123;</div><div class="line">    <span class="keyword">if</span>(T[j] == S[i])&#123;</div><div class="line">      ++i;</div><div class="line">      ++j;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span>&#123;</div><div class="line">      <span class="keyword">if</span>(j!=<span class="number">0</span>)</div><div class="line">        j = next[j<span class="number">-1</span>];</div><div class="line">      <span class="keyword">else</span></div><div class="line">        ++i;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">if</span>(j==length_T) <span class="keyword">return</span> i - length_T +<span class="number">1</span>;</div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="文章参考"><a href="#文章参考" class="headerlink" title="文章参考"></a>文章参考</h1><p><a href="http://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html" target="_blank" rel="external">字符串匹配的KMP算法</a></p>
-<p><a href="http://www.cnblogs.com/yjiyjige/p/3263858.html" target="_blank" rel="external">详解KMP算法</a></p>
-<p><a href="https://github.com/mission-peace/interview/blob/master/src/com/interview/string/SubstringSearch.java" target="_blank" rel="external">CODE</a></p>
+<h1 id="文章参考"><a href="#文章参考" class="headerlink" title="文章参考"></a>文章参考</h1><ul>
+<li><p><a href="http://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html" target="_blank" rel="external">字符串匹配的KMP算法</a></p>
+</li>
+<li><p><a href="http://www.cnblogs.com/yjiyjige/p/3263858.html" target="_blank" rel="external">详解KMP算法</a></p>
+</li>
+<li><p><a href="https://github.com/mission-peace/interview/blob/master/src/com/interview/string/SubstringSearch.java" target="_blank" rel="external">CODE</a></p>
+</li>
+<li>《大话数据结构》</li>
+<li>《数据结构》—严蔚敏</li>
+</ul>
 
       
     </div>
@@ -496,6 +503,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/21/threaded-binary-tree/" rel="prev" title="理解线索二叉树">
+                理解线索二叉树 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -567,7 +578,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -589,7 +600,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
