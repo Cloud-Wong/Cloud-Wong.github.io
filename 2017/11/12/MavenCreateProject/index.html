@@ -1,0 +1,839 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Maven," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Cloud-Wong" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="​    每当创建一个项目，多多少少都会需要用到各自框架或者别人造好的轮子，数据库连接需要用到驱动数据库的jar包、使用连接池也要导入jar包、SSH框架里面又是需要用到几十个jar包，并且这些jar包又有复杂的依赖关系，缺少了或者版本不适用了都会导致浪费大量的调试时间，因此，Maven就是解决这个痛点的一个工具（当然它的强大功能远远不止这点），下面就来介绍如何用Eclipse配置Maven创建w">
+<meta name="keywords" content="Maven">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Eclipse配置Maven创建web项目">
+<meta property="og:url" content="http://yoursite.com/2017/11/12/MavenCreateProject/index.html">
+<meta property="og:site_name" content="Cloud-Wong">
+<meta property="og:description" content="​    每当创建一个项目，多多少少都会需要用到各自框架或者别人造好的轮子，数据库连接需要用到驱动数据库的jar包、使用连接池也要导入jar包、SSH框架里面又是需要用到几十个jar包，并且这些jar包又有复杂的依赖关系，缺少了或者版本不适用了都会导致浪费大量的调试时间，因此，Maven就是解决这个痛点的一个工具（当然它的强大功能远远不止这点），下面就来介绍如何用Eclipse配置Maven创建w">
+<meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-11-12/31612529.jpg">
+<meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-11-12/47077101.jpg">
+<meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-11-12/14525904.jpg">
+<meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-11-12/59598699.jpg">
+<meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-11-12/6469370.jpg">
+<meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-11-12/2672027.jpg">
+<meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-11-12/2663457.jpg">
+<meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-11-12/95664252.jpg">
+<meta property="og:image" content="http://oq6qnksdu.bkt.clouddn.com/17-11-12/24525059.jpg">
+<meta property="og:updated_time" content="2017-11-12T09:42:53.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Eclipse配置Maven创建web项目">
+<meta name="twitter:description" content="​    每当创建一个项目，多多少少都会需要用到各自框架或者别人造好的轮子，数据库连接需要用到驱动数据库的jar包、使用连接池也要导入jar包、SSH框架里面又是需要用到几十个jar包，并且这些jar包又有复杂的依赖关系，缺少了或者版本不适用了都会导致浪费大量的调试时间，因此，Maven就是解决这个痛点的一个工具（当然它的强大功能远远不止这点），下面就来介绍如何用Eclipse配置Maven创建w">
+<meta name="twitter:image" content="http://oq6qnksdu.bkt.clouddn.com/17-11-12/31612529.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/12/MavenCreateProject/"/>
+
+
+
+
+
+  <title>Eclipse配置Maven创建web项目 | Cloud-Wong</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cloud-Wong</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">FROM ZERO TO HERO</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/12/MavenCreateProject/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="黄耘">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cloud-Wong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Eclipse配置Maven创建web项目</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-12T15:04:20+08:00">
+                2017-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/11/12/MavenCreateProject/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/11/12/MavenCreateProject/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>​    每当创建一个项目，多多少少都会需要用到各自框架或者别人造好的轮子，数据库连接需要用到驱动数据库的jar包、使用连接池也要导入jar包、SSH框架里面又是需要用到几十个jar包，并且这些jar包又有复杂的依赖关系，缺少了或者版本不适用了都会导致浪费大量的调试时间，因此，Maven就是解决这个痛点的一个工具（当然它的强大功能远远不止这点），下面就来介绍如何用Eclipse配置Maven创建web项目。</p>
+<a id="more"></a>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p><img src="http://oq6qnksdu.bkt.clouddn.com/17-11-12/31612529.jpg" alt=""></p>
+<p>以往当我们项目需要用到其他jar包时，需要到各大官网一个一个的下载下来放到我们的项目里，费时费力还容易出错。但使用Maven时，我们只需要告诉Maven我们要什么jar包，它就会自动从Maven远程仓库中将我们所需的jar包连同jar包依赖的jar包一起下载到我们本地仓库上。</p>
+<p>由于Maven仓库服务器在墙外，所以下载速度非常慢，阿里提供了一个镜像仓库，在配置本地仓库时我们可以将阿里提供的镜像仓库作为我们下载jar包的远程仓库，下载速度能快非常多，感谢阿里！</p>
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><ul>
+<li><a href="http://maven.apache.org/download.cgi" target="_blank" rel="external">Maven下载</a></li>
+<li>Eclipse-neon</li>
+</ul>
+<h1 id="Eclipse配置Maven的工作环境"><a href="#Eclipse配置Maven的工作环境" class="headerlink" title="Eclipse配置Maven的工作环境"></a>Eclipse配置Maven的工作环境</h1><p>解压下好的<code>apache-maven</code>压缩包，找到<code>apache-maven</code>—&gt;<code>conf</code>—&gt;<code>settings.xml</code>复制出来。</p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-11-12/47077101.jpg" alt="settings.xml"></p>
+<p>放到Eclipse的工作空间下（也可以在其他位置，但不建议）。</p>
+<p>在工作空间中创建<strong>本地仓库</strong>（用来存放jar包），新建文件夹命名为<code>Repository</code>。</p>
+<p>用文本工具打开刚刚复制在工作空间的<code>settings.xml</code>配置文件，<code>control</code>+<code>f</code>查找<code>&lt;localRepository&gt;</code>标签，打开标签注释，把<code>&lt;localRepository&gt;</code>中的地址改成刚刚新建好的本地仓库的地址</p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-11-12/14525904.jpg" alt="修改本地仓库代码"></p>
+<p><code>control</code>+<code>f</code>查找<code>&lt;mirrors&gt;</code>标签，打开标签注释，改成下列代码</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>nexus-aliyun<span class="tag">&lt;/<span class="name">id</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>central<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>Nexus aliyun<span class="tag">&lt;/<span class="name">name</span>&gt;</span>  			 <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public<span class="tag">&lt;/<span class="name">url</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-11-12/59598699.jpg" alt=""></p>
+<p>打开Eclipse，进入Preference偏好设置，Maven—&gt;User Settings</p>
+<p>修改Global Settings 和 User Settings的地址，找到刚刚复制到工作空间的<code>settings.xml</code>配置文件，点击Apply再查看Local Repository的地址是否是我们自己创建的本地仓库的地址。</p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-11-12/6469370.jpg" alt=""></p>
+<p>到此Eclipse的Maven环境就配置完成了。</p>
+<h1 id="创建Maven项目"><a href="#创建Maven项目" class="headerlink" title="创建Maven项目"></a>创建Maven项目</h1><p>在eclipse中，File—&gt;New—&gt;Maven Project打开新建Maven对话框</p>
+<p>然后next—&gt;选择maven-archetype-webapp</p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-11-12/2672027.jpg" alt="select webapp"></p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-11-12/2663457.jpg" alt=""></p>
+<p>这里解释一下这些参数的含义</p>
+<blockquote>
+<p>Group Id：项目组织的名称</p>
+<p>Artifact Id：该项目的名称</p>
+<p>Version：项目版本号</p>
+</blockquote>
+<p>完成创建一个新的Maven项目</p>
+<p>会出现index.jsp报错，先不用管它（因为缺少jar包报错）</p>
+<p>菜单栏Window—&gt;Show View—&gt;Navigator打开导航</p>
+<p>找到导航目录下的settings—&gt;<code>org.eclipse.wst.common.project.facet.core.xml</code>打开</p>
+<p>修改版本号保存关闭</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span><span class="meta">?&gt;</span></span></div><div class="line"><span class="tag">&lt;<span class="name">faceted-project</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">fixed</span> <span class="attr">facet</span>=<span class="string">"wst.jsdt.web"</span>/&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">installed</span> <span class="attr">facet</span>=<span class="string">"jst.web"</span> <span class="attr">version</span>=<span class="string">"3.0"</span>/&gt;</span><span class="comment">&lt;!-- 修改版本号为3.0--&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">installed</span> <span class="attr">facet</span>=<span class="string">"wst.jsdt.web"</span> <span class="attr">version</span>=<span class="string">"1.0"</span>/&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">installed</span> <span class="attr">facet</span>=<span class="string">"jst.jsf"</span> <span class="attr">version</span>=<span class="string">"2.2"</span>/&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">installed</span> <span class="attr">facet</span>=<span class="string">"java"</span> <span class="attr">version</span>=<span class="string">"1.8"</span>/&gt;</span><span class="comment">&lt;!-- 修改版本为1.8--&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">faceted-project</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>右键项目—&gt;Properties—&gt;Project Facets勾选Dynamic Web Services并查看版本 号是否为3.0 </p>
+<p>再打开Java Build Path—&gt;Add Library—&gt;Server Runtime选择服务器（如tomcat）</p>
+<p>这是可以看到新建项目的目录已经变成了标准的Maven格式的目录</p>
+<p><img src="http://oq6qnksdu.bkt.clouddn.com/17-11-12/95664252.jpg" alt=""></p>
+<p>运行<code>index.jsp</code> 测试项目，浏览器打印Hello World！创建成功。</p>
+<h1 id="编写依赖"><a href="#编写依赖" class="headerlink" title="编写依赖"></a>编写依赖</h1><p>若此项目需要连接mysql数据裤，那必然需要用到mysql数据库的驱动，我们以此为例看看如何通过Maven下载数据库驱动jar包。</p>
+<p>打开项目目录下的<code>pom.xml</code>，初始状态是这样的</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span>  </span></div><div class="line">  <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span>  </div><div class="line">  <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0  </span></div><div class="line">                      http://maven.apache.org/maven-v4_0_0.xsd"&gt;  </div><div class="line">  <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>MavenTest<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>war<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="name">build</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">finalName</span>&gt;</span>MavenTest<span class="tag">&lt;/<span class="name">finalName</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">build</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></div></pre></td></tr></table></figure>
+<ol>
+<li>groupId : 组织标识，例如：cloud，在Repository目录下，将是: ／cloud。</li>
+<li>artifactId : 项目名称，例如：MavenTest,在Repository目录下，将是：cloud/MavenTest目录。</li>
+<li>version : 版本号，例如：1.0，在Repository目录下，将是：cloud/MavenTest/1.0目录。</li>
+<li>packaging : 打包的格式，可以为：pom , jar , maven-plugin , ejb , war , ear , rar , par</li>
+<li>finalName：项目最终打包的名称</li>
+</ol>
+<p>添加mysql-connection的依赖（从<a href="http://mvnrepository.com/" target="_blank" rel="external">Maven中央仓库</a>中查找所需要的jar包）</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>8.0.8-dmr<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>保存可以看到Eclipse下方出现了一个下载进度条，下载完毕后查看我们的Maven依赖（第一次下载后jar包就会保存在我们的本地仓库，下次调用无需下载）<img src="http://oq6qnksdu.bkt.clouddn.com/17-11-12/24525059.jpg" alt=""></p>
+<p>多了一个mysql驱动的jar包，证明我们Maven的依赖编写没问题。</p>
+<p>也就是说，以后我们项目需要什么jar包，只需要在pom.xml中编写依赖就可以了。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Maven/" rel="tag"># Maven</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/21/threaded-binary-tree/" rel="next" title="理解线索二叉树">
+                <i class="fa fa-chevron-left"></i> 理解线索二叉树
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="黄耘" />
+          <p class="site-author-name" itemprop="name">黄耘</p>
+           
+              <p class="site-description motion-element" itemprop="description">记录学习笔记和遇到的问题</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Cloud-Wong/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2677463703/profile?topnav=1&wvr=6" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#原理"><span class="nav-number">1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#准备工作"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Eclipse配置Maven的工作环境"><span class="nav-number">3.</span> <span class="nav-text">Eclipse配置Maven的工作环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建Maven项目"><span class="nav-number">4.</span> <span class="nav-text">创建Maven项目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编写依赖"><span class="nav-number">5.</span> <span class="nav-text">编写依赖</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">黄耘</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://littlebeans.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2017/11/12/MavenCreateProject/';
+          this.page.identifier = '2017/11/12/MavenCreateProject/';
+          this.page.title = 'Eclipse配置Maven创建web项目';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://littlebeans.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
