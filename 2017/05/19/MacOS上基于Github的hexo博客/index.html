@@ -185,7 +185,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">FROM ZERO TO HERO</p>
+        <p class="site-subtitle">HySy Art Mask Studio</p>
       
   </div>
 
@@ -401,13 +401,13 @@
 </li>
 <li><p>安装 Homebrew </p>
 <p>在命令行输入：</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="regexp">/usr/</span>bin<span class="regexp">/ruby -e "$(curl -fsSL https:/</span><span class="regexp">/raw.githubusercontent.com/</span>Homebrew<span class="regexp">/install/m</span>aster<span class="regexp">/install)"</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</div></pre></td></tr></table></figure>
 </li>
 </ul>
 <h2 id="1-3-版本控制工具：git"><a href="#1-3-版本控制工具：git" class="headerlink" title="1.3 版本控制工具：git"></a>1.3 版本控制工具：git</h2><p>两种安装Git的方法:</p>
 <ol>
 <li><p>在安装homebrew的基础上，用命令行</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">brew </span><span class="keyword">install </span>git</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install git</div></pre></td></tr></table></figure>
 </li>
 <li><p>从AppStore安装Xcode，Xcode集成了Git，不过默认没有安装，你需要运行Xcode，选择菜单“Xcode”-&gt;“Preferences”，在弹出窗口中找到“Downloads”，选择“Command Line Tools”，点“Install”就可以完成安装了。</p>
 </li>
@@ -416,7 +416,7 @@
 <h2 id="1-4-安装Node-js"><a href="#1-4-安装Node-js" class="headerlink" title="1.4 安装Node.js"></a>1.4 安装Node.js</h2><p>Node.js可以生成静态页面，也有两种安装方式：</p>
 <ol>
 <li><p>在安装好包管理工具的基础上，用brew来安装，在命令行输入</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install <span class="keyword">node</span><span class="title"></span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install node</div></pre></td></tr></table></figure>
 <p>某些地区某些时间可能会被墙，如果网络状况不好那可能是被墙污染了，采用第二种方式即可</p>
 </li>
 <li><p>在<a href="https://nodejs.org/en/" target="_blank" rel="external">node.js官网</a>下载安装包安装</p>
@@ -424,24 +424,24 @@
 </li>
 </ol>
 <h2 id="1-5-安装hexo"><a href="#1-5-安装hexo" class="headerlink" title="1.5 安装hexo"></a>1.5 安装hexo</h2><p>当Node.js和Git都安装好后就可以正式安装Hexo了，终端执行如下命令：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo npm <span class="keyword">install</span> -g hexo</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo npm install -g hexo</div></pre></td></tr></table></figure>
 <p>接着会提示输入管理员密码，输入完毕后等待安装完成</p>
 <h1 id="2-初始化本地博客"><a href="#2-初始化本地博客" class="headerlink" title="2. 初始化本地博客"></a>2. 初始化本地博客</h1><p>​    以上工作完成以后，可以说是万事俱备了。该有的都有了，那么博客就可以正式的开始搭建了。</p>
 <p>​    第一步：找一个存放你整个博客站点文件的目录。以我的为例，我在/Users/yunhuang 下创建了一个名为myblog的文件，用于存放我的博客站点。</p>
 <p>​    第二步：创建成功后</p>
-<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">cd</span> <span class="string">/Users/yunhuang/myblog</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd /Users/yunhuang/myblog</div></pre></td></tr></table></figure>
 <p>​    cd来到你创建的目录下，执行<code>hexo init</code>命令</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">hexo init blog</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo init blog</div></pre></td></tr></table></figure>
 <p>等待安装完成后的提示：</p>
 <p><img src="http://oq6qnksdu.bkt.clouddn.com/17-5-20/93680168-file_1495217189423_51b6.png" alt="Markdown"></p>
 <p>再一次cd到初始化创建产生的blog文件</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd <span class="regexp">/Users/yu</span>nhuang<span class="regexp">/myblog/</span>blog</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd /Users/yunhuang/myblog/blog</div></pre></td></tr></table></figure>
 <p>然后执行如下命令，安装npm</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm <span class="keyword">install</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install</div></pre></td></tr></table></figure>
 <p>进入blog文件内，看一看hexo初始化后的文件目录是不是包含以下：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">_config<span class="selector-class">.yml</span>    </div><div class="line">db<span class="selector-class">.json</span> </div><div class="line">node_modules </div><div class="line">package<span class="selector-class">.json</span></div><div class="line">scaffolds</div><div class="line">source</div><div class="line">themes</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">_config.yml    </div><div class="line">db.json </div><div class="line">node_modules </div><div class="line">package.json</div><div class="line">scaffolds</div><div class="line">source</div><div class="line">themes</div></pre></td></tr></table></figure>
 <p>到此，博客初始化就算完成了，已经迫不及待的想打开看看自己搭建博客的样子，测试一下吧，在命令行打开服务测试一下效果</p>
-<figure class="highlight axapta"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo <span class="keyword">server</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo server</div></pre></td></tr></table></figure>
 <p>打开浏览器，输入站点的默认端口<a href="http://0.0.0.0:4000/" target="_blank" rel="external">http://localhost:4000</a></p>
 <p><img src="http://oq6qnksdu.bkt.clouddn.com/17-5-20/73145612-file_1495217577451_572.png" alt="Markdown"></p>
 <p>到此，一个本地的博客初始化就算完成啦！</p>
@@ -450,22 +450,22 @@
 <p><img src="http://oq6qnksdu.bkt.clouddn.com/17-5-20/72260524-file_1495251557262_4586.png" alt="Markdown"></p>
 <p>建好以后主页大致就是这么一个样子。<strong>注意</strong>，左上角的<strong>命名规范</strong>！要严格按照<code>用户名.github.io</code>这么搞才行。</p>
 <h2 id="3-2-推送站点到GitHub上"><a href="#3-2-推送站点到GitHub上" class="headerlink" title="3.2 推送站点到GitHub上"></a>3.2 推送站点到GitHub上</h2><p>仓库建好了，回到我们的命令行来。cd到我们初始化好的blog文件上。执行</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">vim</span> _<span class="selector-tag">config</span><span class="selector-class">.yml</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim _config.yml</div></pre></td></tr></table></figure>
 <p>滑到最后可以看到</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">deploy</span>:</div><div class="line">    <span class="attribute">type</span>: git</div><div class="line">    <span class="attribute">repository</span>: <span class="attribute">https</span>:<span class="comment">//</span></div><div class="line">    <span class="attribute">branch</span>: master</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">    type: git</div><div class="line">    repository: https://</div><div class="line">    branch: master</div></pre></td></tr></table></figure>
 <p>type如果不是git就改成git，repository这个参数代表了需要推送到的地址。回到刚刚新建好的GitHub仓库，复制</p>
 <p><img src="http://oq6qnksdu.bkt.clouddn.com/17-5-20/32992010-file_1495252138238_476.png" alt="Markdown"></p>
 <p>然后粘贴到repository后面</p>
 <p>修改后：</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">deploy</span>:</div><div class="line">    <span class="attribute">type</span>: git</div><div class="line">    <span class="attribute">repository</span>: <span class="attribute">https</span>:<span class="comment">//github.com/Cloud-Wong/Cloud-Wong.github.io.git</span></div><div class="line">    <span class="attribute">branch</span>: master</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">    type: git</div><div class="line">    repository: https://github.com/Cloud-Wong/Cloud-Wong.github.io.git</div><div class="line">    branch: master</div></pre></td></tr></table></figure>
 <hr>
 <p>当然你如果不想在控制台用vim编译器修改，直接打开blog文件夹，找到<code>_config.yml</code>配置文件，拉到最后修改保存也可以。</p>
 <p>⚠️注意：配置信息内到所有参数的<strong>冒号后面都要有一个空格！！！</strong>否则hexo命令会报错。</p>
 <p>在blog文件夹下执行命令生成静态文件：</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">hexo g</span></div></pre></td></tr></table></figure>
-<figure class="highlight subunit"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">此时若出现如下报错：</div><div class="line"><span class="keyword">ERROR </span>Local hexo not found in ~/blog</div><div class="line"><span class="keyword">ERROR </span>Try runing: 'npm install hexo --save'</div><div class="line">则执行命令：</div><div class="line">npm install hexo --save</div><div class="line">若无报错，自行忽略此步骤。</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo g</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">此时若出现如下报错：</div><div class="line">ERROR Local hexo not found in ~/blog</div><div class="line">ERROR Try runing: &apos;npm install hexo --save&apos;</div><div class="line">则执行命令：</div><div class="line">npm install hexo --save</div><div class="line">若无报错，自行忽略此步骤。</div></pre></td></tr></table></figure>
 <p>静态页面生成以后，就可以把整个站点推送到GitHub上了，执行</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">hexo d</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo d</div></pre></td></tr></table></figure>
 <p>如果说无法连接到git，执行<code>npm install hexo-deployer-git --save</code>，然后再次执行<code>hexo generate</code>和<code>hexo deploy</code>命令。</p>
 <p>成功连接后，就可以打开浏览器输入<code>cloud-wong.github.io</code>验证。你将会看到和之前在本地初始化一样的界面。</p>
 <h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p>参考博客：<a href="http://gonghonglou.com/2016/02/03/firstblog/" target="_blank" rel="external">与佳期的个人博客</a></p>
@@ -600,7 +600,7 @@
                alt="黄耘" />
           <p class="site-author-name" itemprop="name">黄耘</p>
            
-              <p class="site-description motion-element" itemprop="description">记录学习笔记和遇到的问题</p>
+              <p class="site-description motion-element" itemprop="description">学习笔记和记录遇到的问题</p>
           
         </div>
         <nav class="site-state motion-element">
