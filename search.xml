@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[test]]></title>
-    <url>%2F2019%2F01%2F24%2Ftest%2F</url>
-    <content type="text"><![CDATA[$$\frac{a_1}{23}$$ $$\sum_{i=1}^{m}m!$$]]></content>
-  </entry>
-  <entry>
-    <title><![CDATA[待写]]></title>
-    <url>%2F2017%2F06%2F23%2Finformal-essay%2F</url>
-    <content type="text"><![CDATA[代写]]></content>
+    <title><![CDATA[python向量化思维编程的总结]]></title>
+    <url>%2F2019%2F01%2F25%2FVectorization%2F</url>
+    <content type="text"><![CDATA[我的python为什么比较慢刚刚开始接触python时，以为学习了基本的语法和数据结构以及常用包的API就算是掌握了这门语言，但是写起算法时，除了感受到语法上的精简外也看不到这门语言的高效之处。 有一个很大的原因就是沿用了以前java／c的编程思维，但是python处理数据所面对的问题常常需要大量的迭代、累加和样本的重复计算，用c语言的编程习惯很容易上来就是for循环，例如写矩阵的乘法用暴力三次方的复杂度来解决. 123456789101112131415//矩阵乘法，3个for循环搞定 void MulMatrix(int** matrixA, int** matrixB, int** matrixC) &#123; for(int i = 0; i &lt; 2; ++i) &#123; for(int j = 0; j &lt; 2; ++j) &#123; matrixC[i][j] = 0; for(int k = 0; k &lt; 2; ++k) &#123; matrixC[i][j] += matrixA[i][k] * matrixB[k][j]; &#125; &#125; &#125; &#125; 如果在python上还沿用这种思维，那仅仅是换个语法重新实现这个算法罢了，完全没有发挥出python的优势，甚至用C写的效率还会更高。 python之所以在数据分析上有它的一席之地，是因为他快。如何发挥出它的效率，那就需要向量化的编程思维。 利用python专门处理向量／矩阵运算的包——numpy，支持大量的维度数组与矩阵运算，此外也针对数组运算提供大量的数学函数库。 #向量化编程的例子 ##例1: $$h_\theta(x) = \theta_0+\theta_1x_1+\theta_2x_2+\theta_3x_3$$ 令：$\theta=[\theta_0,\theta_1,\theta_2,\theta_3]^T$；$x=[1,x_1,x_2,x_3.x_4]^T$ 可以写成：$$h_\theta(x)=\theta^Tx$$ 1234#pythont = np.array([t1,t2,t3,t4])x = np.array([1,x1,x2,x3,x4])h = t.T @ x # '@'相当于向量相乘 例2:$$J(\theta) = \frac{1}{m}\sum{i=1}^{m}[-y^{(i)}log(h{\theta}(x^{(i)}))-(1-y^{(i)})log(1-h_{\theta}(x^{(i)}))]$$ 1234567891011#各变量维度#x:(m,n)#y:(m,1)#theta:(n,1)def computer_cost(theta,x,y): m = len(x) h = sigmoid(x@theta) # (m,n)*(n,1)=(m,1) first = np.log(h).T @ y #(m,1).T*(m,1) = (1,m)*(m,1)=(1,1) second = np.log(1-h).T @ (1-y) cost = -(first+second)/m return cost]]></content>
       <tags>
-        <tag>随笔</tag>
+        <tag>python</tag>
       </tags>
   </entry>
 </search>
