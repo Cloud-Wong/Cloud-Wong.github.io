@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-01-25T11:56:57.000Z</updated>
+  <updated>2019-01-25T12:19:02.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2019/01/25/Vectorization/"/>
     <id>http://yoursite.com/2019/01/25/Vectorization/</id>
     <published>2019-01-25T08:51:15.000Z</published>
-    <updated>2019-01-25T11:56:57.000Z</updated>
+    <updated>2019-01-25T12:19:02.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="我的python为什么比较慢"><a href="#我的python为什么比较慢" class="headerlink" title="我的python为什么比较慢"></a>我的python为什么比较慢</h1><p>刚刚开始接触python时，以为学习了基本的语法和数据结构以及常用包的API就算是掌握了这门语言，但是写起算法时，除了感受到语法上的精简外也看不到这门语言的高效之处。</p>
 <p>有一个很大的原因就是沿用了以前java／c的编程思维，但是python处理数据所面对的问题常常需要大量的迭代、累加和样本的重复计算，用c语言的编程习惯很容易上来就是for循环，例如写矩阵的乘法用暴力三次方的复杂度来解决.</p>
@@ -29,14 +29,13 @@
 <p>如果在python上还沿用这种思维，那仅仅是换个语法重新实现这个算法罢了，完全没有发挥出python的优势，甚至用C写的效率还会更高。</p>
 <p>python之所以在数据分析上有它的一席之地，是因为他快。如何发挥出它的效率，那就需要<strong>向量化的编程思维</strong>。</p>
 <p>利用python专门处理向量／矩阵运算的包——numpy，支持大量的维度数组与矩阵运算，此外也针对数组运算提供大量的数学函数库。</p>
-<p>#向量化编程的例子</p>
-<p>##例1:</p>
-<p>$$<br>h_\theta(x) = \theta_0+\theta_1x_1+\theta_2x_2+\theta_3x_3<br>$$</p>
-<p>令：$\theta=[\theta_0,\theta_1,\theta_2,\theta_3]^T$；$x=[1,x_1,x_2,x_3.x_4]^T$</p>
-<p>可以写成：<br>$$<br>h_\theta(x)=\theta^Tx<br>$$</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#python</span></div><div class="line">t = np.array([t1,t2,t3,t4])</div><div class="line">x = np.array([<span class="number">1</span>,x1,x2,x3,x4])</div><div class="line">h = t.T @ x 	<span class="comment"># '@'相当于向量相乘</span></div></pre></td></tr></table></figure>
-<h2 id="例2"><a href="#例2" class="headerlink" title="例2:"></a>例2:</h2><p>$$<br>J(\theta) = \frac{1}{m}\sum<em>{i=1}^{m}[-y^{(i)}log(h</em>{\theta}(x^{(i)}))-(1-y^{(i)})log(1-h_{\theta}(x^{(i)}))]<br>$$</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#各变量维度</span></div><div class="line"><span class="comment">#x:(m,n)</span></div><div class="line"><span class="comment">#y:(m,1)</span></div><div class="line"><span class="comment">#theta:(n,1)</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">computer_cost</span><span class="params">(theta,x,y)</span>:</span>   </div><div class="line">    m = len(x)</div><div class="line">    h = sigmoid(x@theta) <span class="comment"># (m,n)*(n,1)=(m,1) </span></div><div class="line">    first = np.log(h).T @ y <span class="comment">#(m,1).T*(m,1) = (1,m)*(m,1)=(1,1)</span></div><div class="line">    second = np.log(<span class="number">1</span>-h).T @ (<span class="number">1</span>-y)</div><div class="line">    cost = -(first+second)/m</div><div class="line">    <span class="keyword">return</span> cost</div></pre></td></tr></table></figure>
+<h1 id="向量化编程的例子"><a href="#向量化编程的例子" class="headerlink" title="向量化编程的例子"></a>向量化编程的例子</h1><h2 id="例1"><a href="#例1" class="headerlink" title="例1:"></a>例1:</h2><script type="math/tex; mode=display">
+h_\theta(x) = \theta_0+\theta_1x_1+\theta_2x_2+\theta_3x_3</script><p>令：$\theta=[\theta_0,\theta_1,\theta_2,\theta_3]^T$；$x=[1,x_1,x_2,x_3.x_4]^T$</p>
+<p>可以写成：</p>
+<script type="math/tex; mode=display">
+h_\theta(x)=\theta^Tx</script><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#python</span></div><div class="line">t = np.array([t1,t2,t3,t4])</div><div class="line">x = np.array([<span class="number">1</span>,x1,x2,x3,x4])</div><div class="line">h = t.T @ x 	<span class="comment"># '@'相当于向量相乘</span></div></pre></td></tr></table></figure>
+<h2 id="例2"><a href="#例2" class="headerlink" title="例2:"></a>例2:</h2><script type="math/tex; mode=display">
+J(\theta) = \frac{1}{m}\sum_{i=1}^{m}[-y^{(i)}log(h_{\theta}(x^{(i)}))-(1-y^{(i)})log(1-h_{\theta}(x^{(i)}))]</script><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#各变量维度</span></div><div class="line"><span class="comment">#x:(m,n)</span></div><div class="line"><span class="comment">#y:(m,1)</span></div><div class="line"><span class="comment">#theta:(n,1)</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">computer_cost</span><span class="params">(theta,x,y)</span>:</span>   </div><div class="line">    m = len(x)</div><div class="line">    h = sigmoid(x@theta) <span class="comment"># (m,n)*(n,1)=(m,1) </span></div><div class="line">    first = np.log(h).T @ y <span class="comment">#(m,1).T*(m,1) = (1,m)*(m,1)=(1,1)</span></div><div class="line">    second = np.log(<span class="number">1</span>-h).T @ (<span class="number">1</span>-y)</div><div class="line">    cost = -(first+second)/m</div><div class="line">    <span class="keyword">return</span> cost</div></pre></td></tr></table></figure>
 ]]></content>
     
     <summary type="html">
