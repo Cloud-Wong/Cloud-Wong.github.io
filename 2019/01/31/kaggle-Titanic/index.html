@@ -92,20 +92,20 @@
 
 
 
-<meta name="description" content="1.引言检验学习成果最快的方式就是去实战，kaggle上提供了各式各样练手和比赛的数据集，”Titanic: Machine Learning from Disaster”就是最经典的入门比赛，既适合经验丰富的Data scientist去深入分析争取top3%的成绩，也适合新手应用数据集对所学习的分类算法来练手。  应用机器学习，千万不要一上来就试图做到完美，先撸一个baseline的model">
+<meta name="description" content="1. 引言检验学习成果最快的方式就是去实战，kaggle上提供了各式各样练手和比赛的数据集，”Titanic: Machine Learning from Disaster”就是最经典的入门比赛，既适合经验丰富的Data scientist去深入分析争取top3%的成绩，也适合新手应用数据集对所学习的分类算法来练手。  应用机器学习，千万不要一上来就试图做到完美，先撸一个baseline的mode">
 <meta name="keywords" content="kaggle,机器学习，决策树">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【Kaggle泰坦尼克号】用决策树快速的撸一个Baseline">
 <meta property="og:url" content="http://yoursite.com/2019/01/31/kaggle-Titanic/index.html">
 <meta property="og:site_name" content="Cloud-Wong">
-<meta property="og:description" content="1.引言检验学习成果最快的方式就是去实战，kaggle上提供了各式各样练手和比赛的数据集，”Titanic: Machine Learning from Disaster”就是最经典的入门比赛，既适合经验丰富的Data scientist去深入分析争取top3%的成绩，也适合新手应用数据集对所学习的分类算法来练手。  应用机器学习，千万不要一上来就试图做到完美，先撸一个baseline的model">
+<meta property="og:description" content="1. 引言检验学习成果最快的方式就是去实战，kaggle上提供了各式各样练手和比赛的数据集，”Titanic: Machine Learning from Disaster”就是最经典的入门比赛，既适合经验丰富的Data scientist去深入分析争取top3%的成绩，也适合新手应用数据集对所学习的分类算法来练手。  应用机器学习，千万不要一上来就试图做到完美，先撸一个baseline的mode">
 <meta property="og:image" content="https://image.littlebeans.cn/images/2019/01/31/e8e2a12a050c40c1b6ff2e39bf227ae6_th.jpg">
 <meta property="og:image" content="https://image.littlebeans.cn/images/2019/01/31/154aee42739a0324b49d44a1505f5a20.png">
 <meta property="og:image" content="https://image.littlebeans.cn/images/2019/01/31/5C150B26-F6E5-4F43-B315-C96E3231C164.jpg">
-<meta property="og:updated_time" content="2019-01-31T10:04:56.000Z">
+<meta property="og:updated_time" content="2019-01-31T10:08:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Kaggle泰坦尼克号】用决策树快速的撸一个Baseline">
-<meta name="twitter:description" content="1.引言检验学习成果最快的方式就是去实战，kaggle上提供了各式各样练手和比赛的数据集，”Titanic: Machine Learning from Disaster”就是最经典的入门比赛，既适合经验丰富的Data scientist去深入分析争取top3%的成绩，也适合新手应用数据集对所学习的分类算法来练手。  应用机器学习，千万不要一上来就试图做到完美，先撸一个baseline的model">
+<meta name="twitter:description" content="1. 引言检验学习成果最快的方式就是去实战，kaggle上提供了各式各样练手和比赛的数据集，”Titanic: Machine Learning from Disaster”就是最经典的入门比赛，既适合经验丰富的Data scientist去深入分析争取top3%的成绩，也适合新手应用数据集对所学习的分类算法来练手。  应用机器学习，千万不要一上来就试图做到完美，先撸一个baseline的mode">
 <meta name="twitter:image" content="https://image.littlebeans.cn/images/2019/01/31/e8e2a12a050c40c1b6ff2e39bf227ae6_th.jpg">
 
 
@@ -388,19 +388,19 @@
       
 
       
-        <h1 id="1-引言"><a href="#1-引言" class="headerlink" title="1.引言"></a>1.引言</h1><p>检验学习成果最快的方式就是去实战，kaggle上提供了各式各样练手和比赛的数据集，”Titanic: Machine Learning from Disaster”就是最经典的入门比赛，既适合经验丰富的Data scientist去深入分析争取top3%的成绩，也适合新手应用数据集对所学习的分类算法来练手。</p>
+        <h1 id="1-引言"><a href="#1-引言" class="headerlink" title="1. 引言"></a>1. 引言</h1><p>检验学习成果最快的方式就是去实战，kaggle上提供了各式各样练手和比赛的数据集，”Titanic: Machine Learning from Disaster”就是最经典的入门比赛，既适合经验丰富的Data scientist去深入分析争取top3%的成绩，也适合新手应用数据集对所学习的分类算法来练手。</p>
 <blockquote>
 <p>应用机器学习，千万不要一上来就试图做到完美，先撸一个baseline的model出来，再进行后续的分析步骤，一步步提高。—— Andrew Ng</p>
 </blockquote>
 <a id="more"></a>
 <p>本篇就是基于决策树模型快速的撸一个baseline model。</p>
 <p>选择决策树的原因：模型对数据的要求不高，一般原始数据简单的预处理就能让模型跑起来（如果要得到更高的分数，数据预处理特征工程还是不能少）</p>
-<h1 id="2-泰坦尼克号背景介绍"><a href="#2-泰坦尼克号背景介绍" class="headerlink" title="2.泰坦尼克号背景介绍"></a>2.泰坦尼克号背景介绍</h1><p><img src="https://image.littlebeans.cn/images/2019/01/31/e8e2a12a050c40c1b6ff2e39bf227ae6_th.jpg" alt="e8e2a12a050c40c1b6ff2e39bf227ae6_th.jpg"></p>
+<h1 id="2-泰坦尼克号背景介绍"><a href="#2-泰坦尼克号背景介绍" class="headerlink" title="2. 泰坦尼克号背景介绍"></a>2. 泰坦尼克号背景介绍</h1><p><img src="https://image.littlebeans.cn/images/2019/01/31/e8e2a12a050c40c1b6ff2e39bf227ae6_th.jpg" alt="e8e2a12a050c40c1b6ff2e39bf227ae6_th.jpg"></p>
 <blockquote>
 <p>泰坦尼克号的沉没是历史上最臭名昭著的沉船之一，泰坦尼克号在首航中撞上冰山沉没，2224名乘客和船员中1502人遇难。这一耸人听闻的悲剧震惊了国际社会，并导致了对船舶更严格的安全规定。</p>
 </blockquote>
 <p>我们的任务是运用机器学习的工具，分析船上人员的信息来预测什么样的人能够从船难中活下来。</p>
-<h1 id="3-数据集分析"><a href="#3-数据集分析" class="headerlink" title="3.数据集分析"></a>3.数据集分析</h1><h2 id="3-1特征介绍"><a href="#3-1特征介绍" class="headerlink" title="3.1特征介绍"></a>3.1特征介绍</h2><div class="table-container">
+<h1 id="3-数据集分析"><a href="#3-数据集分析" class="headerlink" title="3. 数据集分析"></a>3. 数据集分析</h1><h2 id="3-1-特征介绍"><a href="#3-1-特征介绍" class="headerlink" title="3.1 特征介绍"></a>3.1 特征介绍</h2><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -463,7 +463,7 @@
 </tbody>
 </table>
 </div>
-<h2 id="3-2查看缺失值和特征类型"><a href="#3-2查看缺失值和特征类型" class="headerlink" title="3.2查看缺失值和特征类型"></a>3.2查看缺失值和特征类型</h2><p>In [1]:</p>
+<h2 id="3-2-查看缺失值和特征类型"><a href="#3-2-查看缺失值和特征类型" class="headerlink" title="3.2 查看缺失值和特征类型"></a>3.2 查看缺失值和特征类型</h2><p>In [1]:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#导入数据</span></div><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line">data = pd.read_csv(<span class="string">'Taitanic data/data.csv'</span>)</div><div class="line">data.info()</div></pre></td></tr></table></figure>
 <p>out [1]:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">RangeIndex: <span class="number">891</span> entries, <span class="number">0</span> to <span class="number">890</span></div><div class="line">Data columns (total <span class="number">12</span> columns):</div><div class="line">PassengerId    <span class="number">891</span> non-null int64</div><div class="line">Survived       <span class="number">891</span> non-null int64</div><div class="line">Pclass         <span class="number">891</span> non-null int64</div><div class="line">Name           <span class="number">891</span> non-null object		 &lt;----非数值</div><div class="line">Sex            <span class="number">891</span> non-null object		 &lt;----非数值</div><div class="line">Age            <span class="number">714</span> non-null float64      &lt;----有缺失值</div><div class="line">SibSp          <span class="number">891</span> non-null int64</div><div class="line">Parch          <span class="number">891</span> non-null int64</div><div class="line">Ticket         <span class="number">891</span> non-null object		 &lt;----非数值</div><div class="line">Fare           <span class="number">891</span> non-null float64</div><div class="line">Cabin          <span class="number">204</span> non-null object		 &lt;----有缺失值，非数值</div><div class="line">Embarked       <span class="number">889</span> non-null object		 &lt;----有缺失值，非数值</div><div class="line">dtypes: float64(<span class="number">2</span>), int64(<span class="number">5</span>), object(<span class="number">5</span>)</div><div class="line">memory usage: <span class="number">83.6</span>+ KB</div></pre></td></tr></table></figure></p>
 <p>通过<code>data.info()</code>和<code>data.head()</code>，我们可以观察出有多少乘客、特征的数据类型和缺失值。</p>
@@ -568,7 +568,7 @@
 </table>
 
 <p>决策树模型的输入要求就是特征必须为数值型的数据，且sklearn无法自动的处理缺失值，因此为了尽快的撸出baseline，我们就不过多的进行分析，先把数据调整成符合模型要求的样子。</p>
-<h1 id="4-数据预处理"><a href="#4-数据预处理" class="headerlink" title="4.数据预处理"></a>4.数据预处理</h1><h2 id="4-1-特征选择"><a href="#4-1-特征选择" class="headerlink" title="4.1 特征选择"></a>4.1 特征选择</h2><blockquote>
+<h1 id="4-数据预处理"><a href="#4-数据预处理" class="headerlink" title="4. 数据预处理"></a>4. 数据预处理</h1><h2 id="4-1-特征选择"><a href="#4-1-特征选择" class="headerlink" title="4.1 特征选择"></a>4.1 特征选择</h2><blockquote>
 <p>一个正确的数学模型应当在形式上是简单的 —— 吴军，《数学之美》</p>
 </blockquote>
 <p>特征选择的目的是为了去掉不含信息量或是信息量较少的特征，特征选择和方法很多，如果特征上百个可以选择降维、相关系数分析、卡方检验等方法，既然是暴力的撸出一个baseline，就直接肉眼观察剔除不重要的特征。</p>
@@ -763,7 +763,7 @@
 <p>如果上面的解释没看懂，那就记住如果自己调试的参数和网格搜索结果相差不大，那说明你已经逼近了调参结果的上限，任选一个就好了。</p>
 </blockquote>
 <h1 id="7-上传到kaggle查看得分"><a href="#7-上传到kaggle查看得分" class="headerlink" title="7. 上传到kaggle查看得分"></a>7. 上传到kaggle查看得分</h1><p>把官方的测试数据集进行预测并上传到官网</p>
-<h1 id="7-1-测试集数据处理"><a href="#7-1-测试集数据处理" class="headerlink" title="7.1 测试集数据处理"></a>7.1 测试集数据处理</h1><p>刚刚的模型是训练集经过处理才能使用的，因此测试集也要做同样处理。</p>
+<p>刚刚的模型是训练集经过处理才能使用的，因此测试集也要做同样处理。</p>
 <p>In [18]:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">test = pd.read_csv(<span class="string">'Taitanic data/test.csv'</span>)</div><div class="line">test.info()</div></pre></td></tr></table></figure>
 <p>Out [18]:</p>
@@ -993,7 +993,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-引言"><span class="nav-number">1.</span> <span class="nav-text">1.引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-泰坦尼克号背景介绍"><span class="nav-number">2.</span> <span class="nav-text">2.泰坦尼克号背景介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-数据集分析"><span class="nav-number">3.</span> <span class="nav-text">3.数据集分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1特征介绍"><span class="nav-number">3.1.</span> <span class="nav-text">3.1特征介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2查看缺失值和特征类型"><span class="nav-number">3.2.</span> <span class="nav-text">3.2查看缺失值和特征类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-数据预处理"><span class="nav-number">4.</span> <span class="nav-text">4.数据预处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-特征选择"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 特征选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-缺失值处理"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 缺失值处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-数据转换"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 数据转换</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-决策树分类"><span class="nav-number">5.</span> <span class="nav-text">5. 决策树分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-模型参数调整"><span class="nav-number">6.</span> <span class="nav-text">6. 模型参数调整</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-DecisionTreeClassifier参数介绍"><span class="nav-number">6.1.</span> <span class="nav-text">6.1 DecisionTreeClassifier参数介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2-初步尝试"><span class="nav-number">6.2.</span> <span class="nav-text">6.2 初步尝试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-3-网格搜索调整参数"><span class="nav-number">6.3.</span> <span class="nav-text">6.3 网格搜索调整参数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-上传到kaggle查看得分"><span class="nav-number">7.</span> <span class="nav-text">7. 上传到kaggle查看得分</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-1-测试集数据处理"><span class="nav-number">8.</span> <span class="nav-text">7.1 测试集数据处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-总结"><span class="nav-number">9.</span> <span class="nav-text">8 总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-引言"><span class="nav-number">1.</span> <span class="nav-text">1. 引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-泰坦尼克号背景介绍"><span class="nav-number">2.</span> <span class="nav-text">2. 泰坦尼克号背景介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-数据集分析"><span class="nav-number">3.</span> <span class="nav-text">3. 数据集分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-特征介绍"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 特征介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-查看缺失值和特征类型"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 查看缺失值和特征类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-数据预处理"><span class="nav-number">4.</span> <span class="nav-text">4. 数据预处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-特征选择"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 特征选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-缺失值处理"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 缺失值处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-数据转换"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 数据转换</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-决策树分类"><span class="nav-number">5.</span> <span class="nav-text">5. 决策树分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-模型参数调整"><span class="nav-number">6.</span> <span class="nav-text">6. 模型参数调整</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-DecisionTreeClassifier参数介绍"><span class="nav-number">6.1.</span> <span class="nav-text">6.1 DecisionTreeClassifier参数介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2-初步尝试"><span class="nav-number">6.2.</span> <span class="nav-text">6.2 初步尝试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-3-网格搜索调整参数"><span class="nav-number">6.3.</span> <span class="nav-text">6.3 网格搜索调整参数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-上传到kaggle查看得分"><span class="nav-number">7.</span> <span class="nav-text">7. 上传到kaggle查看得分</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-总结"><span class="nav-number">8.</span> <span class="nav-text">8 总结</span></a></li></ol></div>
             
 
           </div>
