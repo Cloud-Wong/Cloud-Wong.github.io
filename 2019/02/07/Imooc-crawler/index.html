@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="python," />
+  <meta name="keywords" content="爬虫," />
 
 
 
@@ -92,17 +92,25 @@
 
 
 
-<meta name="description" content="我的python为什么比较慢刚刚开始接触python时，以为学习了基本的语法和数据结构以及常用包的API就算是掌握了这门语言，但是写起算法时，除了感受到语法上的精简外也看不到这门语言的高效之处。 有一个很大的原因就是沿用了以前java／c的编程思维，但是python处理数据所面对的问题常常需要大量的迭代、累加和样本的重复计算，用c语言的编程习惯很容易上来就是for循环，例如写矩阵的乘法用暴力三次方">
-<meta name="keywords" content="python">
+<meta name="description" content="1. 引言由于毕业论文研究的是在线学习的相关问题，需要有用户在线学习的数据进行分析。逛了一圈，发现比较好的数据集就是KDD CUP2015的比赛数据集，不过时间有点久就弃用了，就决定还是自己一点点爬吧。 国内外有很多慕课网平台，例如国外的coursera、edx以及国内慕课网(IMOOC)、网易云课堂等。逛了一圈下来发现用户信息最丰富的就是慕课网(IMOOC)了，除了用户本身的信息如性别、位置、职">
+<meta name="keywords" content="爬虫">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python向量化思维编程的总结">
-<meta property="og:url" content="http://yoursite.com/2019/01/25/Vectorization/index.html">
+<meta property="og:title" content="【python爬虫】爬取慕课网用户学习记录">
+<meta property="og:url" content="http://yoursite.com/2019/02/07/Imooc-crawler/index.html">
 <meta property="og:site_name" content="Cloud-Wong">
-<meta property="og:description" content="我的python为什么比较慢刚刚开始接触python时，以为学习了基本的语法和数据结构以及常用包的API就算是掌握了这门语言，但是写起算法时，除了感受到语法上的精简外也看不到这门语言的高效之处。 有一个很大的原因就是沿用了以前java／c的编程思维，但是python处理数据所面对的问题常常需要大量的迭代、累加和样本的重复计算，用c语言的编程习惯很容易上来就是for循环，例如写矩阵的乘法用暴力三次方">
-<meta property="og:updated_time" content="2019-01-25T12:19:02.000Z">
+<meta property="og:description" content="1. 引言由于毕业论文研究的是在线学习的相关问题，需要有用户在线学习的数据进行分析。逛了一圈，发现比较好的数据集就是KDD CUP2015的比赛数据集，不过时间有点久就弃用了，就决定还是自己一点点爬吧。 国内外有很多慕课网平台，例如国外的coursera、edx以及国内慕课网(IMOOC)、网易云课堂等。逛了一圈下来发现用户信息最丰富的就是慕课网(IMOOC)了，除了用户本身的信息如性别、位置、职">
+<meta property="og:image" content="https://image.littlebeans.cn/images/2019/02/07/ba8b88ae09df1f93981fcd0124f4cd78.jpg">
+<meta property="og:image" content="https://image.littlebeans.cn/images/2019/02/07/image.png">
+<meta property="og:image" content="https://image.littlebeans.cn/images/2019/02/07/image6d95a8360b2ebcd9.png">
+<meta property="og:image" content="https://image.littlebeans.cn/images/2019/02/07/imagef90adcf65970c241.png">
+<meta property="og:image" content="https://image.littlebeans.cn/images/2019/02/07/image37c455863c16c3b4.png">
+<meta property="og:image" content="https://image.littlebeans.cn/images/2019/02/07/imagec4569a5ad6e47895.png">
+<meta property="og:image" content="https://image.littlebeans.cn/images/2019/02/07/image95923e93a445f23b.png">
+<meta property="og:updated_time" content="2019-02-07T15:31:11.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="python向量化思维编程的总结">
-<meta name="twitter:description" content="我的python为什么比较慢刚刚开始接触python时，以为学习了基本的语法和数据结构以及常用包的API就算是掌握了这门语言，但是写起算法时，除了感受到语法上的精简外也看不到这门语言的高效之处。 有一个很大的原因就是沿用了以前java／c的编程思维，但是python处理数据所面对的问题常常需要大量的迭代、累加和样本的重复计算，用c语言的编程习惯很容易上来就是for循环，例如写矩阵的乘法用暴力三次方">
+<meta name="twitter:title" content="【python爬虫】爬取慕课网用户学习记录">
+<meta name="twitter:description" content="1. 引言由于毕业论文研究的是在线学习的相关问题，需要有用户在线学习的数据进行分析。逛了一圈，发现比较好的数据集就是KDD CUP2015的比赛数据集，不过时间有点久就弃用了，就决定还是自己一点点爬吧。 国内外有很多慕课网平台，例如国外的coursera、edx以及国内慕课网(IMOOC)、网易云课堂等。逛了一圈下来发现用户信息最丰富的就是慕课网(IMOOC)了，除了用户本身的信息如性别、位置、职">
+<meta name="twitter:image" content="https://image.littlebeans.cn/images/2019/02/07/ba8b88ae09df1f93981fcd0124f4cd78.jpg">
 
 
 
@@ -130,13 +138,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/25/Vectorization/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/02/07/Imooc-crawler/"/>
 
 
 
 
 
-  <title>python向量化思维编程的总结 | Cloud-Wong</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>【python爬虫】爬取慕课网用户学习记录 | Cloud-Wong</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -320,7 +328,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/25/Vectorization/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/07/Imooc-crawler/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="黄耘">
@@ -337,7 +345,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">python向量化思维编程的总结</h1>
+          <h1 class="post-title" itemprop="name headline">【python爬虫】爬取慕课网用户学习记录</h1>
         
 
         <div class="post-meta">
@@ -349,8 +357,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-25T16:51:15+08:00">
-                2019-01-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-07T21:50:00+08:00">
+                2019-02-07
               </time>
             
 
@@ -384,20 +392,107 @@
       
 
       
-        <h1 id="我的python为什么比较慢"><a href="#我的python为什么比较慢" class="headerlink" title="我的python为什么比较慢"></a>我的python为什么比较慢</h1><p>刚刚开始接触python时，以为学习了基本的语法和数据结构以及常用包的API就算是掌握了这门语言，但是写起算法时，除了感受到语法上的精简外也看不到这门语言的高效之处。</p>
-<p>有一个很大的原因就是沿用了以前java／c的编程思维，但是python处理数据所面对的问题常常需要大量的迭代、累加和样本的重复计算，用c语言的编程习惯很容易上来就是for循环，例如写矩阵的乘法用暴力三次方的复杂度来解决.</p>
+        <h1 id="1-引言"><a href="#1-引言" class="headerlink" title="1. 引言"></a>1. 引言</h1><p>由于毕业论文研究的是在线学习的相关问题，需要有用户在线学习的数据进行分析。逛了一圈，发现比较好的数据集就是KDD CUP2015的比赛数据集，不过时间有点久就弃用了，就决定还是自己一点点爬吧。</p>
+<p>国内外有很多慕课网平台，例如国外的coursera、edx以及国内慕课网(IMOOC)、网易云课堂等。逛了一圈下来发现用户信息最丰富的就是慕课网(IMOOC)了，除了用户本身的信息如性别、位置、职业、简介、学习时长等，还有用户所学课程的学习记录，如学习进度、笔记、问答、代码分享等，最适合作为分析对象，因此本篇所述爬虫的目标就是要爬取慕课网(IMOOC)的所有用户学习记录。</p>
 <a id="more"></a>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//矩阵乘法，3个for循环搞定    </span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">MulMatrix</span><span class="params">(<span class="keyword">int</span>** matrixA, <span class="keyword">int</span>** matrixB, <span class="keyword">int</span>** matrixC)</span>    </span></div><div class="line">&#123;    </div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; ++i)     </div><div class="line">    &#123;    </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">2</span>; ++j)     </div><div class="line">        &#123;    </div><div class="line">            matrixC[i][j] = <span class="number">0</span>;    </div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; <span class="number">2</span>; ++k)     </div><div class="line">            &#123;    </div><div class="line">                matrixC[i][j] += matrixA[i][k] * matrixB[k][j];    </div><div class="line">            &#125;    </div><div class="line">        &#125;    </div><div class="line">    &#125;    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>如果在python上还沿用这种思维，那仅仅是换个语法重新实现这个算法罢了，完全没有发挥出python的优势，甚至用C写的效率还会更高。</p>
-<p>python之所以在数据分析上有它的一席之地，是因为他快。如何发挥出它的效率，那就需要<strong>向量化的编程思维</strong>。</p>
-<p>利用python专门处理向量／矩阵运算的包——numpy，支持大量的维度数组与矩阵运算，此外也针对数组运算提供大量的数学函数库。</p>
-<h1 id="向量化编程的例子"><a href="#向量化编程的例子" class="headerlink" title="向量化编程的例子"></a>向量化编程的例子</h1><h2 id="例1"><a href="#例1" class="headerlink" title="例1:"></a>例1:</h2><script type="math/tex; mode=display">
-h_\theta(x) = \theta_0+\theta_1x_1+\theta_2x_2+\theta_3x_3</script><p>令：$\theta=[\theta_0,\theta_1,\theta_2,\theta_3]^T$；$x=[1,x_1,x_2,x_3.x_4]^T$</p>
-<p>可以写成：</p>
-<script type="math/tex; mode=display">
-h_\theta(x)=\theta^Tx</script><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#python</span></div><div class="line">t = np.array([t1,t2,t3,t4])</div><div class="line">x = np.array([<span class="number">1</span>,x1,x2,x3,x4])</div><div class="line">h = t.T @ x 	<span class="comment"># '@'相当于向量相乘</span></div></pre></td></tr></table></figure>
-<h2 id="例2"><a href="#例2" class="headerlink" title="例2:"></a>例2:</h2><script type="math/tex; mode=display">
-J(\theta) = \frac{1}{m}\sum_{i=1}^{m}[-y^{(i)}log(h_{\theta}(x^{(i)}))-(1-y^{(i)})log(1-h_{\theta}(x^{(i)}))]</script><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#各变量维度</span></div><div class="line"><span class="comment">#x:(m,n)</span></div><div class="line"><span class="comment">#y:(m,1)</span></div><div class="line"><span class="comment">#theta:(n,1)</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">computer_cost</span><span class="params">(theta,x,y)</span>:</span>   </div><div class="line">    m = len(x)</div><div class="line">    h = sigmoid(x@theta) <span class="comment"># (m,n)*(n,1)=(m,1) </span></div><div class="line">    first = np.log(h).T @ y <span class="comment">#(m,1).T*(m,1) = (1,m)*(m,1)=(1,1)</span></div><div class="line">    second = np.log(<span class="number">1</span>-h).T @ (<span class="number">1</span>-y)</div><div class="line">    cost = -(first+second)/m</div><div class="line">    <span class="keyword">return</span> cost</div></pre></td></tr></table></figure>
+<h1 id="2-页面分析"><a href="#2-页面分析" class="headerlink" title="2. 页面分析"></a>2. 页面分析</h1><p><img src="https://image.littlebeans.cn/images/2019/02/07/ba8b88ae09df1f93981fcd0124f4cd78.jpg" alt="慕课网用户信息.jpg"></p>
+<p>以上就是我们爬取的页面，从上到下，我们可以爬取的信息有：</p>
+<p><strong>用户信息</strong>：</p>
+<blockquote>
+<p>姓名：慕女神</p>
+<p>性别：女</p>
+<p>地点：北京</p>
+<p>职业：全栈工程师</p>
+<p>学习时长：39h</p>
+<p>经验：806</p>
+<p>积分：135</p>
+<p>关注：99</p>
+<p>粉丝：9999999</p>
+</blockquote>
+<p><strong>学习记录：</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>最近学习时间</th>
+<th>课程名称</th>
+<th>学习进度</th>
+<th>笔记</th>
+<th>代码</th>
+<th>问答</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2018/06/15</td>
+<td>Flutter开发第一步-Dart编程语言入门</td>
+<td>4%</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2018/01/18</td>
+<td>新一代构建工具gradle</td>
+<td>10%</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>… …</td>
+<td>… …</td>
+<td>… …</td>
+<td>… …</td>
+<td>… …</td>
+<td>… …</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>用chrome的开发者工具查看数据，发现在开发者工具的Elements可以显式看到数据元素，说明数据可以直接通过下载html页面来获取。（有的数据是AJAX动态加载，这种情况就用其他方法来获取，这里不说）</p>
+<p><img src="https://image.littlebeans.cn/images/2019/02/07/image.png" alt="image.png"></p>
+<p>再看页面的URL形式：</p>
+<p><img src="https://image.littlebeans.cn/images/2019/02/07/image6d95a8360b2ebcd9.png" alt="image6d95a8360b2ebcd9.png"></p>
+<p>头尾固定，中间ID只需要通过ID自增长的方式遍历下去就可以获得所有用户的课程学习信息。</p>
+<h1 id="3-爬虫设计"><a href="#3-爬虫设计" class="headerlink" title="3. 爬虫设计"></a>3. 爬虫设计</h1><h2 id="3-1-工具介绍"><a href="#3-1-工具介绍" class="headerlink" title="3.1 工具介绍"></a>3.1 工具介绍</h2><ul>
+<li>python 3.7</li>
+<li>requests 2.21.0 下载页面</li>
+<li>lxml 解析页面</li>
+<li>mysql-connector-python 8.0.13 （另外下载，pip或anaconda）数据持久化</li>
+</ul>
+<h2 id="3-2-爬取用户信息"><a href="#3-2-爬取用户信息" class="headerlink" title="3.2 爬取用户信息"></a>3.2 爬取用户信息</h2><p>In [1]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#所需要用到的包</span></div><div class="line"><span class="keyword">import</span> requests</div><div class="line"><span class="keyword">import</span> time</div><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</div><div class="line"><span class="keyword">import</span> mysql.connector</div><div class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Pool <span class="keyword">as</span> ThreadPool</div><div class="line"><span class="keyword">import</span> socket </div><div class="line">socket.setdefaulttimeout(<span class="number">10</span>)</div></pre></td></tr></table></figure>
+<p>In [2]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#生成待爬取的URL</span></div><div class="line">urls = []</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">100000</span>, <span class="number">7194872</span>):</div><div class="line">    url = <span class="string">'http://www.imooc.com/u/'</span> + str(i) +<span class="string">'/courses'</span></div><div class="line">    urls.append(url)</div></pre></td></tr></table></figure>
+<p>In [3]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#模拟浏览器访问请求</span></div><div class="line">head = &#123;</div><div class="line">    <span class="string">'User-Agent'</span>: <span class="string">'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36'</span></div><div class="line">&#125;</div><div class="line">html = requests.get(url,headers=head,timeout=(<span class="number">3</span>,<span class="number">7</span>))</div></pre></td></tr></table></figure>
+<p>In [4]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#通过XPath解析请求</span></div><div class="line">selector = etree.HTML(html.text)</div><div class="line">content = selector.xpath(<span class="string">"//html"</span>)[<span class="number">0</span>]</div><div class="line">user_id = int(url.replace(<span class="string">'http://www.imooc.com/u/'</span>, <span class="string">''</span>).replace(<span class="string">'/courses'</span>,<span class="string">''</span>))</div><div class="line">user_name = content.xpath(<span class="string">'//h3[@class="user-name clearfix"]/span/text()'</span>)</div><div class="line"><span class="comment">#若用户名为空，则说明页面不存在，因此后面的操作都需要判断用户是否存在</span></div><div class="line"><span class="keyword">if</span> user_name:</div><div class="line">        user_name = user_name[<span class="number">0</span>]</div><div class="line">        user_sex = content.xpath(<span class="string">'//p[@class="about-info"]/span/text()'</span>)</div><div class="line">        <span class="keyword">if</span> user_sex:</div><div class="line">            user_sex = user_sex[<span class="number">0</span>]</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            user_sex = <span class="string">r'/'</span></div><div class="line">        user_time = content.xpath(<span class="string">'//div[@class="item follows"]//em/text()'</span>)[<span class="number">0</span>].replace(<span class="string">' '</span>, <span class="string">''</span>) <span class="comment">#学习时长</span></div><div class="line">        user_exp = int(content.xpath(<span class="string">'//div[@class="item follows"]//em/text()'</span>)[<span class="number">1</span>])   <span class="comment">#经验</span></div><div class="line">        user_score = int(content.xpath(<span class="string">'//div[@class="item follows"]//em/text()'</span>)[<span class="number">2</span>]) <span class="comment">#积分</span></div><div class="line">        user_follows = int(content.xpath(<span class="string">'//div[@class="item follows"]//em/text()'</span>)[<span class="number">3</span>]) <span class="comment">#关注</span></div><div class="line">        user_fans = int(content.xpath(<span class="string">'//div[@class="item follows"]//em/text()'</span>)[<span class="number">4</span>]) <span class="comment">#粉丝</span></div></pre></td></tr></table></figure>
+<p>到此我们就抓取了用户的基本信息，接着我们看课程信息。</p>
+<h2 id="3-3-爬取课程学习记录"><a href="#3-3-爬取课程学习记录" class="headerlink" title="3.3 爬取课程学习记录"></a>3.3 爬取课程学习记录</h2><p>用户的课程信息分为三种情况：</p>
+<ol>
+<li><strong>用户课程信息需要翻页</strong></li>
+</ol>
+<p><img src="https://image.littlebeans.cn/images/2019/02/07/imagef90adcf65970c241.png" alt="imagef90adcf65970c241.png"></p>
+<ol>
+<li><strong>无需翻页</strong></li>
+</ol>
+<p><img src="https://image.littlebeans.cn/images/2019/02/07/image37c455863c16c3b4.png" alt="image37c455863c16c3b4.png"></p>
+<ol>
+<li><strong>无学习记录</strong></li>
+</ol>
+<p><a href="https://image.littlebeans.cn/image/NrW" target="_blank" rel="external"><img src="https://image.littlebeans.cn/images/2019/02/07/imagec4569a5ad6e47895.png" alt="imagec4569a5ad6e47895.png"></a></p>
+<p>对于这三种情况我们爬取的时候需要进行一个判断</p>
+<p>In [5]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">last_page = content.xpath(<span class="string">'//div[@class="page"]/a[last()]/text()'</span>)  <span class="comment">#是否包含尾页button</span></div><div class="line">       user_course_list = []      </div><div class="line">       <span class="keyword">if</span> last_page:   </div><div class="line">           <span class="keyword">if</span> last_page[<span class="number">0</span>] == <span class="string">u'尾页'</span>:<span class="comment">#需要翻页</span></div><div class="line">        		<span class="comment">#代码较长，完整代码见github ... ...</span></div><div class="line">	<span class="keyword">else</span>:</div><div class="line">           course_num = len(content.xpath(<span class="string">'//li[@class="course-one"]'</span>))  <span class="comment">#该页课程数量       </span></div><div class="line">           <span class="keyword">if</span> course_num == <span class="number">0</span>:<span class="comment">#无学习记录</span></div><div class="line">               <span class="keyword">pass</span> </div><div class="line">           <span class="keyword">else</span>:<span class="comment">#有记录，不需要翻页        </span></div><div class="line">           <span class="comment">#代码较长，完整代码见github ... ...</span></div></pre></td></tr></table></figure>
+<h2 id="3-4-数据持久化"><a href="#3-4-数据持久化" class="headerlink" title="3.4 数据持久化"></a>3.4 数据持久化</h2><p>由于爬取的数据较大，我们需要把数据存储起来，因此我们把爬下来的记录存储在mysql中</p>
+<p>In [5]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">creat_MysqlDB</span><span class="params">()</span>:</span> </div><div class="line">    mydb = mysql.connector.connect(</div><div class="line">      host=<span class="string">"localhost"</span>,</div><div class="line">      user=<span class="string">"root"</span>,</div><div class="line">      passwd=<span class="string">"123456"</span>,</div><div class="line">      database=<span class="string">"MOOC"</span></div><div class="line">    )</div><div class="line">    <span class="keyword">return</span> mydb</div><div class="line"></div><div class="line">mydb = creat_MysqlDB()</div><div class="line">sql = <span class="string">"INSERT INTO user_learn_info (user_id,user_name,user_sex,user_time,user_exp,\</span></div><div class="line">       user_score,user_follows,user_fans,course_id,course_name,last_time,\</div><div class="line">       process,note,code,qna) VALUES \</div><div class="line">	   (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s)"</div><div class="line">val = (user_id,user_name,user_sex,user_time,user_exp,user_score,user_follows,user_fans</div><div class="line">       ,course_id,course_name,last_time,process,note,code,qna)</div><div class="line">mycursor = mydb.cursor() </div><div class="line">mycursor.execute(sql, val)</div><div class="line">mydb.commit()</div></pre></td></tr></table></figure>
+<h2 id="3-5-使用多进程提高爬取效率"><a href="#3-5-使用多进程提高爬取效率" class="headerlink" title="3.5 使用多进程提高爬取效率"></a>3.5 使用多进程提高爬取效率</h2><p>In [5]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Pool <span class="keyword">as</span> ThreadPool</div><div class="line">pool = ThreadPool(<span class="number">8</span>) <span class="comment">#进程数</span></div><div class="line">pool.map(getsource, urls) <span class="comment">#对每个URL进行爬取</span></div><div class="line">pool.close() <span class="comment">#关闭进程池</span></div><div class="line">pool.join()  <span class="comment">#主线程，等待子线程运行完毕</span></div></pre></td></tr></table></figure>
+<h1 id="4-结果"><a href="#4-结果" class="headerlink" title="4. 结果"></a>4. 结果</h1><p><img src="https://image.littlebeans.cn/images/2019/02/07/image95923e93a445f23b.png" alt="image95923e93a445f23b.png"></p>
+<p>这是爬取过程中数据库表记录，可以看到已经爬取了两百多万条记录，爬虫稳定运行，等着也是等着，写篇博客记录一下，完整代码在github上，见——&gt;&gt;<a href="https://github.com/Cloud-Wong/IMOOC-crawler" target="_blank" rel="external">完整代码</a></p>
 
       
     </div>
@@ -427,7 +522,7 @@ J(\theta) = \frac{1}{m}\sum_{i=1}^{m}[-y^{(i)}log(h_{\theta}(x^{(i)}))-(1-y^{(i)
       
         <div class="post-tags">
           
-            <a href="/tags/python/" rel="tag"># python</a>
+            <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
           
         </div>
       
@@ -440,15 +535,15 @@ J(\theta) = \frac{1}{m}\sum_{i=1}^{m}[-y^{(i)}log(h_{\theta}(x^{(i)}))-(1-y^{(i)
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/01/31/kaggle-Titanic/" rel="next" title="【Kaggle泰坦尼克号】用决策树快速的撸一个Baseline">
+                <i class="fa fa-chevron-left"></i> 【Kaggle泰坦尼克号】用决策树快速的撸一个Baseline
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/31/kaggle-Titanic/" rel="prev" title="【Kaggle泰坦尼克号】用决策树快速的撸一个Baseline">
-                【Kaggle泰坦尼克号】用决策树快速的撸一个Baseline <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -604,7 +699,7 @@ J(\theta) = \frac{1}{m}\sum_{i=1}^{m}[-y^{(i)}log(h_{\theta}(x^{(i)}))-(1-y^{(i)
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#我的python为什么比较慢"><span class="nav-number">1.</span> <span class="nav-text">我的python为什么比较慢</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#向量化编程的例子"><span class="nav-number">2.</span> <span class="nav-text">向量化编程的例子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#例1"><span class="nav-number">2.1.</span> <span class="nav-text">例1:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例2"><span class="nav-number">2.2.</span> <span class="nav-text">例2:</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-引言"><span class="nav-number">1.</span> <span class="nav-text">1. 引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-页面分析"><span class="nav-number">2.</span> <span class="nav-text">2. 页面分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-爬虫设计"><span class="nav-number">3.</span> <span class="nav-text">3. 爬虫设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-工具介绍"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 工具介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-爬取用户信息"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 爬取用户信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-爬取课程学习记录"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 爬取课程学习记录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-数据持久化"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 数据持久化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-使用多进程提高爬取效率"><span class="nav-number">3.5.</span> <span class="nav-text">3.5 使用多进程提高爬取效率</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-结果"><span class="nav-number">4.</span> <span class="nav-text">4. 结果</span></a></li></ol></div>
             
 
           </div>
